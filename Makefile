@@ -1,8 +1,8 @@
 # #=== Colors ===
 NO_COLOR    =   \033[0m
-GRAY = \033[0;1;90m
-RED = \033[0;1;91m
-GREEN = \033[0;1;92m
+GRAY = \033[0;90m
+RED = \033[0;91m
+GREEN = \033[0;92m
 # #==============
 
 # #=== Standard ===
@@ -23,18 +23,17 @@ OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 # #===========================#
 
 all : $(NAME)
-	@printf "$(GREEN)ALL DONE NOTHING TO BE MADE$(NO_COLOR)"
 
 # # == Rule that compile source files into object files ==
 $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "$(GRAY)\rcompiling...$(NO_COLOR)"
+	@printf "$(GRAY)\r- Creating little shell ...⌛$(NO_COLOR)"
 # #=======================================================
 
 # #=== rule that compile the final program ===
 $(NAME) : $(LIBFT) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
-	@printf "$(GREEN)\r   ---> MINISHELL IS MADE <---      \n$(NO_COLOR)"
+	@printf "$(GREEN)\n- Little shell is ready✅🥳\n$(NO_COLOR)"
 # #===========================================
 
 # #== creat bonus part ===
@@ -53,7 +52,7 @@ $(OBJF):
 clean :
 	@rm -rf $(OBJ_DIR)
 	@make clean -C include/libft
-	@printf "$(RED)-->   CLEANED   <--$(NO_COLOR)"
+	@printf "$(RED)- Deleted obj files 🚮\n$(NO_COLOR)"
 # # =====================================================
 
 # # == Rule calling clean and deleting the final file ==
