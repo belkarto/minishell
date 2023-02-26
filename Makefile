@@ -1,11 +1,11 @@
 # #=== Colors ===
 NO_COLOR    =   \033[0m
-GRAY = \033[0;90m
-RED = \033[0;91m
-GREEN = \033[0;92m
-GREEN_L = \033[0;36m
-YELLOW = \033[0;33m
-BLUE	= \033[0;34m
+GRAY = \033[0;1;3;90m
+RED = \033[0;1;3;91m
+GREEN = \033[0;1;3;92m
+GREEN_L = \033[0;1;3;36m
+YELLOW = \033[0;1;3;33m
+BLUE	= \033[0;1;3;34m
 # #==============
 
 # #=== Standard ===
@@ -26,18 +26,21 @@ SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 # #===========================#
 
-all : $(NAME)
+all : header $(NAME)
 
 # # == Rule that compile source files into object files ==
 $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf "$(GRAY)\r- Creating little shell ...⌛$(NO_COLOR)"
+	@sleep 0.03
+	@printf "$(GRAY)\r- Creating little shell ...⏳$(NO_COLOR)"
+	@sleep 0.03
 # #=======================================================
 
 # #=== rule that compile the final program ===
 $(NAME) : $(LIBFT) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
-	@printf "$(GREEN)\n- Little shell is ready✅🥳\n$(NO_COLOR)"
+	@printf "$(GREEN)\n- Little shell is ready ✅🥳\n$(NO_COLOR)"
 # #===========================================
 
 # #== creat bonus part ===
@@ -56,14 +59,14 @@ $(OBJF):
 clean : header
 	@rm -rf $(OBJ_DIR)
 	@make clean -C include/libft
-	@printf "%-53b%b" "$(BLUE)clean:" "$(GREEN)[✓]$(NO_COLOR)\n"
+	@printf "$(BLUE)clean\t:\t\t\t$(GREEN)[✓]$(NO_COLOR)\n"
 # # =====================================================
 
 # # == Rule calling clean and deleting the final file ==
 fclean	: header clean
 	@make fclean -C include/libft
 	@rm -f $(NAME)
-	@printf "%-53b%b" "$(BLUE)fclean:" "$(GREEN)[✓]$(NO_COLOR)\n"
+	@printf "$(BLUE)fclean\t:\t\t\t$(GREEN)[✓]$(NO_COLOR)\n"
 # # ====================================================
 
 
@@ -79,9 +82,9 @@ header:
 	@echo " ||      || |||||| ||    || ||||||   ||||||  ||   || ||||| ||||| |||||"
 	@echo "----------------------------------------------------------------------"
 	@echo
-	@printf  "$(GREEN_L)Author:	$(BLUE)$(AUTHOR)\n"
-	@printf  "$(GREEN_L)CC    : $(YELLOW)$(CC)\n\033[m"
-	@printf  "$(GREEN_L)Flags : $(YELLOW)$(CFLAGS)\n\033[m"
+	@printf  "$(GREEN_L)Author\t: $(BLUE)$(AUTHOR)\n"
+	@printf  "$(GREEN_L)CC    \t: $(YELLOW)$(CC)\n\033[m"
+	@printf  "$(GREEN_L)Flags \t: $(YELLOW)$(CFLAGS)\n\033[m"
 	@echo
 # # ========================================================================
 

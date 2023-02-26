@@ -1,52 +1,6 @@
-# progress bar
-SHELL := /bin/bash
-
-# Define the progress bar function as a variable
-define show_progress
-current="$1"
-total="$2"
-
-# calculate the progress in percentage 
-percent=$(bc <<< "scale=0; 100 * $current / $total" )
-# The number of done and todo characters
-done=$(bc <<< "scale=0; $(tput cols) * $percent / 100" )
-todo=$(bc <<< "scale=0; $(tput cols) - $done" )
-
-# build the done and todo sub-bars
-done_sub_bar=$(printf "%${done}s" | tr " " "${bar_char_done}")
-todo_sub_bar=$(printf "%${todo}s" | tr " " "${bar_char_todo}")
-
-# output the bar
-echo -ne "\r$task : [${GREEN}${done_sub_bar}$reset${todo_sub_bar}] ${percent}%"
-
-if [ $total -eq $current ]; then
-    echo -e "$GREEN\nDONE $task$reset ✅🥳"
-fi
-endef
-
-# Set the size and characters used in the progress bar
-bar_size=40
-bar_char_done="#"
-bar_char_todo="-"
-
-# Define the task and number of tasks to be completed
-task = "Libft"
-tasks_in_total = 58
-
-#my-target:
-#    @echo "Starting task..."
-#    @for current_task in $$(seq $$tasks_in_total); do \
-#        sleep 0.05; \
-#        $(call show_progress,$$current_task,$$tasks_in_total); \
-#    done
-# =============================================================
-
-I	=	0
-FILES	:=	58
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
 OBJEC		= 	$(SRC:.c=.o)
-
 #----------------------------------------------#
 #			  archive file name
 #----------------------------------------------#
@@ -89,19 +43,20 @@ SRC			=	ft_atoi.c		ft_bzero.c		\
 # 					Colors
 #----------------------------------------------#
 NO_COLOR    = \033[0m
-GRAY 		= \033[0;90m
-RED 		= \033[0;91m
-GREEN 		= \033[0;92m
+GRAY 		= \033[0;1;3;90m
+RED 		= \033[0;1;3;91m
+GREEN 		= \033[0;1;3;92m
 
 all			: $(NAME)
 #----------------------------------------------#
 #		  compiling src files to object 
 #----------------------------------------------#
-# $(call show_progress,$$I,$$FILES)
-# $(eval I += 1)
 %.o : %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf "\r$(GRAY)- Creating libft ...⌛$(NO_COLOR)"
+	@sleep 0.03
+	@printf "\r$(GRAY)- Creating libft ...⏳$(NO_COLOR)"
+	@sleep 0.03
 #----------------------------------------------#
 
 
@@ -111,20 +66,17 @@ all			: $(NAME)
 #----------------------------------------------#
 $(NAME)		: $(OBJEC)
 	@ar rc $(NAME) $(OBJEC)
-	@printf "\n$(GREEN)- Libft finished$(NO_COLOR)✅🥳\n\n"
-
+	@printf "\n$(GREEN)- Libft finished$(NO_COLOR) ✅🥳\n\n"
 #----------------------------------------------#
 #				delete object file
 #----------------------------------------------#
 clean		:
 	@rm -f $(OBJEC)
-	@printf "$(RED)- Obj files deleted🚮\n$(NO_COLOR)"
 #----------------------------------------------#
 #		 delete object file and archive
 #----------------------------------------------#
 fclean		: clean
 	@rm -f $(NAME)
-	@printf "$(RED)- libft deleted🚮\n$(NO_COLOR)"
 
 
 #----------------------------------------------#
