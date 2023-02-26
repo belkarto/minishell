@@ -39,7 +39,7 @@ $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
 
 # #=== rule that compile the final program ===
 $(NAME) : $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -lreadline $(LIBFT) -o $(NAME)
 	@printf "$(GREEN)\n- Little shell is ready ✅🥳\n$(NO_COLOR)"
 # #===========================================
 
