@@ -14,7 +14,8 @@ AUTHOR		= BELKARTO && OHALIM
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 LIBFT		= include/libft/libft.a
-SRC_FILES	= main 
+SRC_FILES	= main signals parsing
+READLINE	= -L ./include/readline/lib
 CFLAGS = -Wall -Wextra -Werror
 #-g -fsanitize=address
 CC = cc 
@@ -39,7 +40,7 @@ $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
 
 # #=== rule that compile the final program ===
 $(NAME) : $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -lreadline $(READLINE) $(LIBFT) -o $(NAME)
 	@printf "$(GREEN)\n- Little shell is ready ✅🥳\n$(NO_COLOR)"
 # #===========================================
 
@@ -47,8 +48,7 @@ $(NAME) : $(LIBFT) $(OBJ)
 $(LIBFT)	:	include/libft
 	@make -C include/libft
 # #=======================
-
-
+#
 # #== rule that called if object folder doesn't exist ==
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)

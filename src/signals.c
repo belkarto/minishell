@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/02/28 22:11:33 by belkarto         ###   ########.fr       */
+/*   Created: 2023/02/28 16:28:31 by belkarto          #+#    #+#             */
+/*   Updated: 2023/02/28 22:49:47 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../include/minishell.h"
+#include <signal.h>
+#include <sys/signal.h>
 
-# include "./libft/libft.h"
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
+void	handle_sigquit(int sig)
+{
+	(void)sig;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
-void	rl_replace_line (const char *, int);
-void	signals(void);
-void	end_of_file(void);
-void	parsing_input(char *input);
-#endif
+void	end_of_file(void)
+{
+	ft_printf("\r\033[0;1;3;32m MINISHELL $>\033[0;37m exit\n");
+	exit(0);
+}
+
+void	signals(void)
+{
+	signal(SIGINT, handle_sigquit);
+	signal(SIGQUIT, SIG_IGN);
+}
