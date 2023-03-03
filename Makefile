@@ -9,18 +9,33 @@ BLUE	= \033[0;1;3;34m
 # #==============
 
 # #=== Standard ===
+# USER		= echo $USER
 NAME		= minishell
 AUTHOR		= BELKARTO && OHALIM
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 LIBFT		= include/libft/libft.a
 SRC_FILES	= main signals parsing
-READLINE	= -L ./include/readline/lib
 CFLAGS = -Wall -Wextra -Werror
 #-g -fsanitize=address
 CC = cc 
 OBJF		=	.cache_exists
 # #================
+
+# #=== check the user to detect readline path ===
+ifeq ($(USER), belkarto)
+	READLINE = -L ~/Desktop/homebrew/Cellar/readline/8.2.1/lib
+endif
+ifeq ($(USER), iiouma_ii)
+	READLINE = -L ~/homebrew/Cellar/readline/8.2.1/lib
+endif
+ifeq ($(USER), ohalim)
+	READLINE = -L ~/Desktop/homebrew/Cellar/readline/8.2.1/lib
+endif
+ifeq ($(USER), brahim)
+	READLINE = -L ~/Desktop/homebrew/Cellar/readline/8.2.1/lib
+endif
+# #==============================================
 
 # # ===Better not to touch ===#
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -68,7 +83,6 @@ fclean	: header clean
 	@rm -f $(NAME)
 	@printf "$(BLUE)fclean\t:\t\t\t$(GREEN)[✓]$(NO_COLOR)\n"
 # # ====================================================
-
 
 # # == HEADER DISPLAYS AUTHOR'S NAME AND COMILER AND FLAGS BEEN USED AND ===
 header:
