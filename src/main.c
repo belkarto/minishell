@@ -6,27 +6,29 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/02/28 22:36:21 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:53:40 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../include/minishell.h"
 
-void	init_program(int argc, char *argv[], char **env)
+void	init_program()
 {
-	if (argc != 1)
-		exit (1);
-	(void) argv;
-	(void) env;
+    /* printf("******************"
+        "************************");
+    printf("\n\t      ****MY SHELL****");
+    printf("\n\t  -USE AT YOUR OWN RISK-");
+    printf("\n*******************"
+        "***********************\n"); */
 }
 
 
 
-int main(int argc, char *argv[], char **env)
+int main()
 {
 	char *readed;
 
-	init_program(argc, argv, env);
+	init_program();
 	signals();
 	while (1)
 	{
