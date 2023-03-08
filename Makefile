@@ -15,8 +15,10 @@ AUTHOR		= BELKARTO && OHALIM
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 LIBFT		= include/libft/libft.a
-SRC_FILES	= main signals parsing lexer
-CFLAGS = -Wall -Wextra -Werror
+LEXER_DIR	= lexer/lexer
+UTILS_DIR		= utils/elem_utils
+SRC_FILES	= main signals parsing $(LEXER_DIR) $(UTILS_DIR)
+CFLAGS = -Wall -Wextra -Werror -g
 #-g -fsanitize=address
 CC = cc 
 OBJF		=	.cache_exists
@@ -67,6 +69,8 @@ $(LIBFT)	:	include/libft
 # #== rule that called if object folder doesn't exist ==
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)/utils
+	@mkdir -p $(OBJ_DIR)/lexer
 # #=====================================================
 
 

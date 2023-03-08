@@ -6,25 +6,13 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:05:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/07 02:23:47 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/08 23:34:50 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-t_elem	*new_elem(char *con, int len, int token, int state)
-{
-	t_elem	*elem;
-
-	elem = malloc(sizeof(t_elem));
-	elem->state = state;
-	elem->type	= token;
-	elem->len = len;
-	elem->content = con;
-	return (elem);
-}
-
-int	word(t_list **list, int status, char *line)
+int	word(t_elem *list, int status, char *line)
 {
 	int	i;
 
@@ -37,11 +25,11 @@ int	word(t_list **list, int status, char *line)
 			break ;
 		i++;
 	}
-	ft_lstadd_back(list, ft_lstnew(new_elem(ft_substr(line, 0, i), i, WORD, status)));
+	elem_add_tail(&list, new_elem(ft_substr(line, 0, i), i, WORD, status));
 	return (i);
 }
 
-int	in_quote(t_list **list, int *status, int picker)
+int	in_quote(t_elem *list, int *status, int picker)
 {
 	if (picker == 0)
 	{
@@ -50,7 +38,7 @@ int	in_quote(t_list **list, int *status, int picker)
 		else
 			*status = GENERAL;
 		(void)list;
-		ft_lstadd_back(list, ft_lstnew(new_elem(ft_strdup("\'") , 1, QUOTE, *status)));
+		elem_add_tail(&list, new_elem(ft_strdup("\'"), 1, QUOTE, *status));
 	}
 	else
 	{
@@ -58,24 +46,24 @@ int	in_quote(t_list **list, int *status, int picker)
 			*status = IN_DQUOTE;
 		else
 			*status = GENERAL;
-		ft_lstadd_back(list, ft_lstnew(new_elem(ft_strdup("\"") , 1, DQUOTE, *status)));
+		elem_add_tail(&list, new_elem(ft_strdup("\"") , 1, DQUOTE, *status));
 	}
 	return (1);
 }
 
-int	tokens(t_list **list, int *status, int token)
+int	tokens(t_elem *list, int *status, int token)
 {
 	if (token == PIPE)
-		ft_lstadd_back(list, ft_lstnew(new_elem(ft_strdup("|") , 1, PIPE, *status)));
+		elem_add_tail(&list, new_elem(ft_strdup("|") , 1, PIPE, *status));
 	else if (token == LESS)
-		ft_lstadd_back(list, ft_lstnew(new_elem(ft_strdup("<") , 1, LESS, *status)));
+		elem_add_tail(&list, new_elem(ft_strdup("<") , 1, LESS, *status));
 	else if (token == GREAT)
-		ft_lstadd_back(list, ft_lstnew(new_elem(ft_strdup(">") , 1, GREAT, *status)));
+		elem_add_tail(&list, new_elem(ft_strdup(">") , 1, GREAT, *status));
 	return (1);
 
 }
 
-int	env(t_list **list, int *status, char *line)
+int	env(t_elem *list, int *status, char *line)
 {
 	int	i;
 
@@ -87,11 +75,11 @@ int	env(t_list **list, int *status, char *line)
 		else
 			break;
 	}
-	ft_lstadd_back(list, ft_lstnew(new_elem(ft_substr(line, 0, i), i, ENV, *status)));
+	elem_add_tail(&list, new_elem(ft_substr(line, 0, i), i, ENV, *status));
 	return (i);
 }
 
-int	token(t_list **list, int *status, char *line)
+int	token(t_elem *list, int *status, char *line)
 {
 	if (ft_isalnum(*line) || *line == '_')
 		return (word(list, *status, line));
@@ -110,31 +98,30 @@ int	token(t_list **list, int *status, char *line)
 	return (1);
 }
 
-void	printf_list(t_list *head)
+void	printf_list(t_elem *head)
 {
-	t_elem *test;
 	ft_printf("|content\t\tlen\t\ttype\t\tstate\n");
 	ft_printf("---------------------------------------------------------\n");
 	while (head)
 	{
-		test = head->content;
-		ft_printf("|%s\t\t%d\t\t%d\t\t%d\n", test->content, test->len, test->type, test->state);
+		ft_printf("|%s\t\t%d\t\t%d\t\t%d\n", head->content, head->len, head->type, head->state);
 		head = head->next;
 	}
 }
 
 t_elem	*lexer(char *line)
 {
-	t_list	*head;
 	int		i;
 	int		statu;
+	t_elem	*head;
 
+	head = NULL;
 	statu = GENERAL;
 	i = 0;
 	while (line[i])
 	{
-		i += token(&head, &statu, line + i);
+		i += token(head, &statu, line + i);
 	}
-	// printf_list(head);
+	printf_list(head);
 	return (NULL);
 }
