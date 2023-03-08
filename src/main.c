@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/05 15:23:53 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/06 03:01:28 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int main()
 	char *readed;
 	
 
-	init_program();
-	signals();
+	/* init_program();
+	signals(); */
 	while (1)
 	{
 		readed = readline("\033[0;1;3;32m MINISHELL $> \033[0;37m");
