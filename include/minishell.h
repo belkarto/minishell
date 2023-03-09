@@ -22,7 +22,7 @@
 typedef enum e_token
 {
 	WORD = -1,
-	SPACE = ' ',
+	SPAC = ' ',
 	NEW_LINE = '\n',
 	QUOTE = '\'',
 	DQUOTE = '\"',

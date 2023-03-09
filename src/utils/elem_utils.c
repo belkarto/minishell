@@ -24,26 +24,23 @@ t_elem	*new_elem(char *con, int len, int token, int state)
 	elem->len = len;
 	elem->content = con;
 	elem->next = NULL;
-	// printf("%s\n", elem->content);
 	return (elem);
 }
 
 void	elem_add_tail(t_elem **elem, t_elem *new_elem)
 {
-	t_elem	*tmp;
 
-	tmp = (*elem);
-	if (tmp == NULL)
+	if ((*elem) == NULL)
 	{
-		tmp = new_elem;
-		tmp->tail = new_elem;
-		tmp->head = new_elem;
-		tmp->next = NULL;
+		(*elem) = new_elem;
+		(*elem)->tail = new_elem;
+		(*elem)->head = new_elem;
+		(*elem)->next = NULL;
 	}
 	else
 	{
-		tmp->tail->next = new_elem;
+		(*elem)->tail->next = new_elem;
 		new_elem->next = NULL;
-		tmp->tail = new_elem;
+		(*elem)->tail = new_elem;
 	}
 }
