@@ -25,6 +25,7 @@ int	word(t_elem *list, int status, char *line)
 			break ;
 		i++;
 	}
+	printf("teeeest ==>> %p\n", (char *)list);
 	elem_add_tail(&list, new_elem(ft_substr(line, 0, i), i, WORD, status));
 	return (i);
 }
@@ -104,6 +105,7 @@ void	printf_list(t_elem *head)
 	ft_printf("---------------------------------------------------------\n");
 	while (head)
 	{
+		printf("ok\n");
 		ft_printf("|%s\t\t%d\t\t%d\t\t%d\n", head->content, head->len, head->type, head->state);
 		head = head->next;
 	}

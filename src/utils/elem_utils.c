@@ -30,18 +30,20 @@ t_elem	*new_elem(char *con, int len, int token, int state)
 
 void	elem_add_tail(t_elem **elem, t_elem *new_elem)
 {
-	t_elem *tmp;
+	t_elem	*tmp;
 
-	if (elem == NULL)
+	tmp = (*elem);
+	if (tmp == NULL)
 	{
 		tmp = new_elem;
-		tmp->tail = tmp;
-		tmp->head = tmp;
-		*elem = new_elem;
+		tmp->tail = new_elem;
+		tmp->head = new_elem;
+		tmp->next = NULL;
 	}
 	else
 	{
-		tmp = (*elem)->tail;
-		tmp->next = new_elem;
+		tmp->tail->next = new_elem;
+		new_elem->next = NULL;
+		tmp->tail = new_elem;
 	}
 }
