@@ -35,8 +35,12 @@ int	in_quote(t_elem **list, int *status, int picker)
 	{
 		if (*status == GENERAL)
 		{
+			elem_add_tail(list, new_elem(ft_strdup("\'"), 1, QUOTE, *status));
 			*status = IN_QUOTE;
+			return (1);
 		}
+		else if (*status == IN_DQUOTE)
+			*status = IN_DQUOTE;
 		else
 			*status = GENERAL;
 		(void)list;
@@ -45,7 +49,13 @@ int	in_quote(t_elem **list, int *status, int picker)
 	else
 	{
 		if (*status == GENERAL)
+		{
+			elem_add_tail(list, new_elem(ft_strdup("\"") , 1, DQUOTE, *status));
 			*status = IN_DQUOTE;
+			return (1);
+		}
+		else if (*status == IN_QUOTE)
+			*status = IN_QUOTE;
 		else
 			*status = GENERAL;
 		elem_add_tail(list, new_elem(ft_strdup("\"") , 1, DQUOTE, *status));
@@ -62,7 +72,6 @@ int	tokens(t_elem **list, int *status, int token)
 	else if (token == GREAT)
 		elem_add_tail(list, new_elem(ft_strdup(">") , 1, GREAT, *status));
 	return (1);
-
 }
 
 int	env(t_elem **list, int *status, char *line)
