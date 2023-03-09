@@ -32,7 +32,7 @@ ifeq ($(USER), iiouma_ii)
 	READLINE = -L ~/homebrew/Cellar/readline/8.2.1/lib
 endif
 ifeq ($(USER), ohalim)
-	READLINE = -L ~/Desktop/homebrew/Cellar/readline/8.2.1/lib
+	READLINE = -L ~/Desktop/brew/Cellar/readline/8.2.1/lib
 endif
 ifeq ($(USER), brahim)
 	READLINE = -L ~/Desktop/homebrew/Cellar/readline/8.2.1/lib
