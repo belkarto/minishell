@@ -41,10 +41,9 @@ static void	ft_add_history(char *str)
 int main()
 {
 	char *readed;
-	
 
-	/* init_program();
-	signals(); */
+	init_program();
+	signals();
 	while (1)
 	{
 		readed = readline("\033[0;1;3;32m MINISHELL $> \033[0;37m");
