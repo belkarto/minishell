@@ -81,4 +81,5 @@ t_elem	*new_elem(char *con, int len, int token, int state);
 t_elem	*lexer(char *line);
 int		token(t_elem **list, int *status, char *line);
 int		in_quote(t_elem **list, int *status, int picker);
+void	elem_clear(t_elem *list);
 #endif

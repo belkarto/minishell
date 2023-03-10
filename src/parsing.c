@@ -21,4 +21,5 @@ void	parsing_input(char *input)
 		end_of_file();
 	head = lexer(input);
 	print_lexer(head);
+	elem_clear(head);
 }

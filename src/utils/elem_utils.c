@@ -28,6 +28,22 @@ t_elem	*new_elem(char *con, int len, int token, int state)
 	return (elem);
 }
 
+void	elem_clear(t_elem *list)
+{
+	t_elem	*tmp_a;
+	t_elem	*tmp_b;
+
+	tmp_a = list;
+	while (tmp_a)
+	{
+		tmp_b = tmp_a->next;
+		free(tmp_a->content);
+		free(tmp_a);
+		tmp_a = tmp_b;
+	}
+	list = NULL;
+}
+
 void	elem_add_tail(t_elem **elem, t_elem *new_elem)
 {
 	if ((*elem) == NULL)

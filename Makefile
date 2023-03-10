@@ -18,7 +18,8 @@ LIBFT		= include/libft/libft.a
 LEXER_DIR	= lexer/lexer lexer/quote lexer/tokens
 UTILS_DIR	= utils/elem_utils utils/print_utils
 SRC_FILES	= main signals parsing $(LEXER_DIR) $(UTILS_DIR)
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror 
+#-g -fsanitize=address
 CC = cc 
 OBJF		=	.cache_exists
 # #================
