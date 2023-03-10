@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 00:08:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/10 04:22:10 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:20:26 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	ft_print_type(int type)
 		ft_printf("PIPE\t\t");
 	else if (type == LESS)
 		ft_printf("LESS\t\t");
+	else if (type == HEREDOC)
+		ft_printf("HERDOC\t\t");
+	else if (type == REDIR_OUT)
+		ft_printf("REDIR_OUT\t\t");
 	else if (type == GREAT)
 		ft_printf("GREAT\t\t");
 	else if (type == ENV)

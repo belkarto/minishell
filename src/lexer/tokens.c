@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 05:00:17 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/10 05:02:13 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:18:49 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ int	tokens(t_elem **list, int *status, int token)
 		elem_add_tail(list, new_elem(ft_strdup(">"), 1, GREAT, *status));
 	else if (token == SPAC)
 		elem_add_tail(list, new_elem(ft_strdup(" "), 1, SPAC, *status));
+	else if (token == HEREDOC)
+	{
+		elem_add_tail(list, new_elem(ft_strdup("<<"), 2, HEREDOC, *status));
+		return (2);
+	}
+	else if (token == REDIR_OUT)
+	{
+		elem_add_tail(list, new_elem(ft_strdup(">>"), 2, REDIR_OUT, *status));
+		return (2);
+	}
 	return (1);
 }
 
@@ -64,8 +74,12 @@ int	token(t_elem **list, int *status, char *line)
 		return (word(list, *status, line));
 	else if (*line == PIPE)
 		return (tokens(list, status, PIPE));
+	else if (*line == LESS && line[1] == LESS)
+		return (tokens(list, status, HEREDOC));
 	else if (*line == LESS)
 		return (tokens(list, status, LESS));
+	else if (*line == GREAT && line[1] == GREAT)
+		return (tokens(list, status, REDIR_OUT));
 	else if (*line == GREAT)
 		return (tokens(list, status, GREAT));
 	else if (*line == SPAC)

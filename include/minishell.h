@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/10 05:02:33 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:17:09 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+
+/*
+ * enum used to know type of token neather word or special charachter
+ * space or pipe....
+ */
 
 typedef enum e_token
 {
@@ -31,9 +36,14 @@ typedef enum e_token
 	PIPE = '|',
 	LESS = '<',
 	GREAT = '>',
-	HERE_DOC,
-	DREDIR_OUT,
+	HEREDOC,
+	REDIR_OUT,
 }t_token;
+
+/*
+ * this enum used to know the state of the token is it in GENERAL or inside a
+ * double or single quote 
+ */
 
 typedef enum e_state
 {

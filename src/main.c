@@ -6,16 +6,15 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/10 05:08:37 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:23:22 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/minishell.h"
-#include <readline/history.h>
+#include "../include/minishell.h"
 
-void	init_program()
+void	init_program(void)
 {
-    printf("\n\t  -USE AT YOUR OWN RISK-\n");
+	printf("\n\t  -USE AT YOUR OWN RISK-\n");
 }
 
 static int	ft_str_space(char *str)
@@ -38,9 +37,9 @@ static void	ft_add_history(char *str)
 		add_history(str);
 }
 
-int main()
+int	main(void)
 {
-	char *readed;
+	char	*readed;
 
 	init_program();
 	signals();
