@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/08 23:29:29 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/10 05:02:33 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ void	signals(void);
 void	end_of_file(void);
 void	parsing_input(char *input);
 void	elem_add_tail(t_elem **elem, t_elem *new_elem);
+void	print_lexer(t_elem *head);
 t_elem	*new_elem(char *con, int len, int token, int state);
 t_elem	*lexer(char *line);
+int		token(t_elem **list, int *status, char *line);
+int		in_quote(t_elem **list, int *status, int picker);
 #endif
