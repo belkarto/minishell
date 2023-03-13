@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/10 09:17:09 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/13 05:16:04 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ typedef struct s_elem
 	struct s_elem	*tail;
 }	t_elem;
 
+typedef struct s_cmd_tab
+{
+	char	**cmd;
+	char	*env;
+	int		in_file;
+	int		out_file;
+}	t_cmd_tab;
+
 typedef struct s_node
 {
 	t_elem	*head;
@@ -82,4 +90,5 @@ t_elem	*lexer(char *line);
 int		token(t_elem **list, int *status, char *line);
 int		in_quote(t_elem **list, int *status, int picker);
 void	elem_clear(t_elem *list);
+void	builtins(t_cmd_tab cmd, char **env);
 #endif
