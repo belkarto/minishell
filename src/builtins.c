@@ -6,13 +6,13 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 04:37:58 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/13 05:35:54 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/14 02:02:15 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include <stdio.h>
-#include <sys/_types/_pid_t.h>
+// #include <sys/_types/_pid_t.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -34,6 +34,7 @@ void	execut_pwd(t_cmd_tab cmd)
 	{
 		getcwd(cwd, 128);
 		printf("%s\n", cwd);
+		exit (0);
 	}
 	waitpid(pid, NULL, 0);
 }
@@ -47,6 +48,7 @@ void	execut_she(t_cmd_tab cmd, char **env)
 	{
 		if (execve(cmd.env, cmd.cmd, env) == -1)
 			perror("execve");
+		exit(127);
 	}
 	waitpid(pid, NULL, 0);
 }
