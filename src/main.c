@@ -6,14 +6,18 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/13 05:20:43 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/15 08:49:38 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <stdio.h>
 
-void	init_program(void)
+void	init_program(int ac, char **av, char **env)
 {
+	(void)ac;
+	(void)av;
+	g_meta.env = init_env(env);
 	printf("\n\t  -USE AT YOUR OWN RISK-\n");
 }
 
@@ -49,9 +53,7 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*readed;
 
-	(void)argc;
-	(void)argv;
-	init_program();
+	init_program(argc, argv, env);
 	signals();
 	t_cmd_tab cmd;
 	while (1)
