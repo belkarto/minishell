@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 03:33:02 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/15 08:51:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/16 04:41:24 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 
 t_env	*new_env(char *env)
 {
-	char	**tmp;
 	t_env	*new;
+	int		len;
+	int		start;
 
-	tmp = ft_split(env, '=');
 	new = ft_calloc(1, sizeof(t_env));
-	new->name = tmp[0];
-	new->content = tmp[1];
+	start = ft_strchr(env, '=') - env + 1;
+	len = ft_strlen(env) - (ft_strchr(env, '=') - env);
+	new->name = ft_substr(env, 0, ft_strchr(env, '=') - env);
+	new->content = ft_substr(env, start, len);
 	new->next = NULL;
-	free(tmp);
 	return (new);;
 }
 
@@ -61,6 +62,7 @@ t_env	*init_env(char **env)
 	int		len;
 	int		i;
 
+	list = NULL;
 	len = d_strlen(env);
 	i = -1;
 	while (++i < len)

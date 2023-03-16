@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/15 09:13:03 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:35:41 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_data
 	t_env	*env;
 }	t_data;
 
-t_data	g_meta;
+extern t_data	g_meta;
 
 void	rl_replace_line(const char *str, int state);
 void	signals(void);

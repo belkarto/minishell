@@ -19,7 +19,8 @@ LEXER_DIR	= lexer/lexer lexer/quote lexer/tokens
 UTILS_DIR	= utils/elem_utils utils/print_utils utils/env_utils
 BUILIN_DIR	= built/builtins built/ft_cd built/ft_pwd built/ft_exit built/ft_export
 SRC_FILES	= main signals parsing $(LEXER_DIR) $(UTILS_DIR) $(BUILIN_DIR)
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror 
+#-g -fsanitize=address
 CC			= cc 
 OBJF		=	.cache_exists
 # #================
