@@ -16,9 +16,10 @@ SRC_DIR		= src/
 OBJ_DIR		= obj/
 LIBFT		= include/libft/libft.a
 LEXER_DIR	= lexer/lexer lexer/quote lexer/tokens
+PARSING_DIR	= parsing/parsing
 UTILS_DIR	= utils/elem_utils utils/print_utils
 BUILIN_DIR	= builtinns/builtins_cd
-SRC_FILES	= main signals parsing $(LEXER_DIR) $(UTILS_DIR) builtins
+SRC_FILES	= main $(PARSING_DIR) signals $(LEXER_DIR) $(UTILS_DIR) builtins
 CFLAGS = -Wall -Wextra -Werror 
 #-g -fsanitize=address
 CC = cc 
@@ -72,6 +73,7 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/utils
 	@mkdir -p $(OBJ_DIR)/lexer
+	@mkdir -p $(OBJ_DIR)/parsing
 # #=====================================================
 
 

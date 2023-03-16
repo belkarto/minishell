@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 #include <stdlib.h>
 
 void	parsing_input(char *input)
@@ -20,6 +20,6 @@ void	parsing_input(char *input)
 	if (input == NULL)
 		end_of_file();
 	head = lexer(input);
-	// print_lexer(head);
+	print_lexer(head);
 	elem_clear(head);
 }
