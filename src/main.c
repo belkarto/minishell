@@ -6,14 +6,21 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/13 05:20:43 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:09:23 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <stdio.h>
 
-void	init_program(void)
+t_data	g_meta;
+
+void	init_program(int ac, char **av, char **env)
 {
+	(void)ac;
+	(void)av;
+	g_meta.env = init_env(env);
+	g_meta.ex_statu = 0;
 	printf("\n\t  -USE AT YOUR OWN RISK-\n");
 }
 
@@ -49,9 +56,7 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*readed;
 
-	(void)argc;
-	(void)argv;
-	init_program();
+	init_program(argc, argv, env);
 	signals();
 	t_cmd_tab cmd;
 	while (1)
@@ -61,6 +66,10 @@ int	main(int argc, char **argv, char **env)
 		parsing_input(readed);
 		set_struct(readed, &cmd);
 		builtins(cmd, env);
+		free(cmd.env);
+		free(cmd.cmd[0]);
+		free(cmd.cmd[1]);
+		free(cmd.cmd);
 		free(readed);
 	}
 	return (0);

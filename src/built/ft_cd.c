@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_cd.c                                      :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 04:26:39 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/13 04:39:08 by belkarto         ###   ########.fr       */
+/*   Created: 2023/03/15 09:57:27 by belkarto          #+#    #+#             */
+/*   Updated: 2023/03/15 11:25:14 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
-void	builtins_cd(char *line)
+void	ft_cd(t_cmd_tab cmd)
 {
-
+	(void)cmd;
+	printf("nothing yet\n");
+	return ;
 }
