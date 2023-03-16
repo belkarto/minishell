@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 03:33:02 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/16 04:41:24 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/16 06:43:12 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,21 @@ t_env	*new_env(char *env)
 	return (new);;
 }
 
-void	env_add_back(t_env **list, t_env *new)
+void	env_add_back(t_env **list, t_env *new_env)
 {
 	t_env	*tmp;
 
 	tmp = *list;
 	if (tmp == NULL)
 	{
-		(*list) = new;
+		(*list) = new_env;
 		return ;
 	}
 	else
 	{
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = new;
+		tmp->next = new_env;
 	}
 }
 

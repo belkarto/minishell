@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/15 13:35:41 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/16 06:42:50 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@
 # include <signal.h>
 # include "lexer.h"
 # include "builtings.h"
-
-typedef struct s_env
-{
-	char			*name;
-	char			*content;
-	struct s_env	*next;
-}	t_env;
 
 typedef struct s_data
 {
