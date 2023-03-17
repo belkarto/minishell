@@ -29,6 +29,7 @@ typedef struct s_data
 
 extern t_data	g_meta;
 
+void	parsing_input(char *input);
 void	rl_replace_line(const char *str, int state);
 void	signals(void);
 void	end_of_file(void);

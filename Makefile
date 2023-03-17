@@ -16,18 +16,11 @@ SRC_DIR		= src/
 OBJ_DIR		= obj/
 LIBFT		= include/libft/libft.a
 LEXER_DIR	= lexer/lexer lexer/quote lexer/tokens
-<<<<<<< HEAD
-PARSING_DIR	= parsing/parsing
-UTILS_DIR	= utils/elem_utils utils/print_utils
-BUILIN_DIR	= builtinns/builtins_cd
-SRC_FILES	= main $(PARSING_DIR) signals $(LEXER_DIR) $(UTILS_DIR) builtins
-CFLAGS = -Wall -Wextra -Werror 
-=======
-UTILS_DIR	= utils/elem_utils utils/print_utils utils/env_utils
-BUILIN_DIR	= built/builtins built/ft_cd built/ft_pwd built/ft_exit built/ft_export
-SRC_FILES	= main signals parsing $(LEXER_DIR) $(UTILS_DIR) $(BUILIN_DIR)
+PARSER_DIR	= parser/parsing
+UTILS_DIR	= utils/elem_utils utils/print_utils utils/env_utils utils/env_utils2
+BUILIN_DIR	= built/builtins built/ft_cd built/ft_pwd built/ft_exit built/ft_export built/ft_env built/ft_unset
+SRC_FILES	= main signals $(LEXER_DIR) $(PARSER_DIR) $(UTILS_DIR) $(BUILIN_DIR)
 CFLAGS		= -Wall -Wextra -Werror 
->>>>>>> belkarto
 #-g -fsanitize=address
 CC			= cc 
 OBJF		=	.cache_exists
@@ -80,11 +73,8 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/utils
 	@mkdir -p $(OBJ_DIR)/lexer
-<<<<<<< HEAD
-	@mkdir -p $(OBJ_DIR)/parsing
-=======
+	@mkdir -p $(OBJ_DIR)/parser
 	@mkdir -p $(OBJ_DIR)/built
->>>>>>> belkarto
 # #=====================================================
 
 
@@ -122,4 +112,3 @@ header:
 
 
 re		:	fclean all
-

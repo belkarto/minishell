@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/13 05:21:02 by belkarto         ###   ########.fr       */
+/*   Created: 2023/03/17 05:55:35 by belkarto          #+#    #+#             */
+/*   Updated: 2023/03/17 08:01:19 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <stdlib.h>
 
-void	parsing_input(char *input)
+void	del_var(t_env *var)
 {
-	t_elem	*head;
+	free(var->name);
+	free(var->content);
+	free(var);
+}
 
-	if (input == NULL)
-		end_of_file();
-	head = lexer(input);
-	print_lexer(head);
-	elem_clear(head);
+char	*get_name(char *env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i] && env[i] != '=')
+		i++;
+	return (ft_substr(env, 0, i));
 }
