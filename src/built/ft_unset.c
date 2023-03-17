@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 06:07:10 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/17 08:09:05 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/17 08:15:13 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	check_name(char *name)
 	return (0);
 }
 
-static void env_control(char *var)
+static void	env_control(char *var)
 {
 	t_env	*current;
 	int		len;
