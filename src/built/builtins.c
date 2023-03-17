@@ -6,16 +6,14 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 04:37:58 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/15 10:21:11 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/17 07:42:40 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <stdio.h>
-// #include <sys/_types/_pid_t.h>
 #include <sys/wait.h>
 #include <unistd.h>
-
 
 void	execut_she(t_cmd_tab cmd, char **env)
 {
@@ -41,6 +39,10 @@ void	builtins(t_cmd_tab cmd, char **env)
 		ft_exit(cmd);
 	else if (ft_strncmp(cmd.cmd[0], "export", ft_strlen(cmd.cmd[0])) == 0)
 		ft_export(cmd);
+	else if (ft_strncmp(cmd.cmd[0], "env", ft_strlen(cmd.cmd[0])) == 0)
+		ft_env(cmd);
+	else if (ft_strncmp(cmd.cmd[0], "unset", ft_strlen(cmd.cmd[0])) == 0)
+		ft_unset(cmd);
 	else
 		execut_she(cmd, env);
 }
