@@ -6,26 +6,32 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 03:33:02 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/17 05:08:37 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/17 06:37:35 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/minishell.h"
-#include <stdio.h>
+#include "../../include/minishell.h"
 
 t_env	*new_env(char *env)
 {
 	t_env	*new;
 	int		len;
 	int		start;
+	char	*tmp;
 
 	new = ft_calloc(1, sizeof(t_env));
-	start = ft_strchr(env, '=') - env + 1;
-	len = ft_strlen(env) - (ft_strchr(env, '=') - env);
-	new->name = ft_substr(env, 0, ft_strchr(env, '=') - env);
-	new->content = ft_substr(env, start, len);
+	tmp = ft_strchr(env, '=');
+	if (tmp == NULL)
+		new->content = NULL;
+	else
+	{
+		start = tmp - env + 1;
+		len = ft_strlen(env) - (ft_strchr(env, '=') - env);
+		new->content = ft_substr(env, start, len);
+	}
+	new->name = ft_substr(env, 0, tmp - env);
 	new->next = NULL;
-	return (new);;
+	return (new);
 }
 
 void	env_add_back(t_env **list, t_env *new_env)
@@ -70,7 +76,7 @@ int	join_env(char *name, char *env)
 	len = ft_strlen(new_name);
 	while (tmp)
 	{
-		if (ft_strncmp(name, tmp->name,len) == 0)
+		if (ft_strncmp(name, tmp->name, len) == 0)
 		{
 			join = ft_substr(env, ft_strlen(name) + 2, ft_strlen(env));
 			tmp->content = ft_strjoin_gnl(tmp->content, join);
