@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/17 05:10:02 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/17 08:06:46 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,15 @@ static void	ft_print_env(void)
 	tmp = g_meta.env;
 	while (tmp)
 	{
-		printf("declare -x %s=\"%s\"\n", tmp->name, tmp->content);
+		if (tmp->content == NULL)
+			printf("declare -x %s\n", tmp->name);
+		else
+			printf("declare -x %s=\"%s\"\n", tmp->name, tmp->content);
 		tmp = tmp->next;
 	}
 }
 
-char	*get_name(char *env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i] && env[i] != '=')
-		i++;
-	return (ft_substr(env, 0, i));
-}
-
-int	check_name(char *name)
+static int	check_name(char *name)
 {
 	int	i;
 
@@ -45,7 +38,7 @@ int	check_name(char *name)
 		ft_putstr_fd("not a valid identifier\n", 2);
 		return (1);
 	}
-		while (name[i])
+	while (name[i])
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 		{
@@ -70,9 +63,7 @@ int	check_exist(char *name, char *env)
 	name_len = ft_strlen(name);
 	start = ft_strlen(name) + 1;
 	if (name[start - 2] == '+')
-	{
 		return (join_env(name, env));
-	}
 	holder = g_meta.env;
 	while (holder)
 	{
@@ -88,7 +79,7 @@ int	check_exist(char *name, char *env)
 	return (0);
 }
 
-void	env_control(char *env)
+static void	env_control(char *env)
 {
 	char	*name;
 
@@ -122,9 +113,7 @@ void	ft_export(t_cmd_tab cmd)
 	else if (len > 1)
 	{
 		while (++i < len)
-		{
 			env_control(cmd.cmd[i]);
-		}
 	}
 	return ;
 }
