@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 03:33:02 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/16 06:43:12 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/17 05:08:37 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,33 @@ int	d_strlen(char	**list)
 	while (list[i])
 		i++;
 	return (i);
+}
+
+int	join_env(char *name, char *env)
+{
+	t_env	*tmp;
+	char	*new_name;
+	int		len;
+	char	*join;
+
+	tmp = g_meta.env;
+	new_name = ft_strtrim(name, "+");
+	free(name);
+	name = new_name;
+	len = ft_strlen(new_name);
+	while (tmp)
+	{
+		if (ft_strncmp(name, tmp->name,len) == 0)
+		{
+			join = ft_substr(env, ft_strlen(name) + 2, ft_strlen(env));
+			tmp->content = ft_strjoin_gnl(tmp->content, join);
+			free(join);
+			free(name);
+			return (1);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
 }
 
 t_env	*init_env(char **env)

@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/16 19:21:12 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/17 05:10:02 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,18 @@ int	check_name(char *name)
 	int	i;
 
 	i = 0;
-	while (name[i] && name[i] != '=')
+	if (ft_strlen(name) == 0 || ft_isdigit(name[0]))
+	{
+		g_meta.ex_statu = 1;
+		ft_putstr_fd("not a valid identifier\n", 2);
+		return (1);
+	}
+		while (name[i])
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 		{
+			if (name[i] == '+' && name[i + 1] == 0)
+				return (0);
 			ft_putstr_fd("not a valid identifier\n", 2);
 			g_meta.ex_statu = 1;
 			free(name);
@@ -57,24 +65,25 @@ int	check_exist(char *name, char *env)
 {
 	t_env	*holder;
 	int		start;
+	int		name_len;
 
-	if (ft_strlen(name) == 0)
-	{
-		ft_putstr_fd("bad assigment\n", 2);
-		free(name);
-		return (1);
-	}
+	name_len = ft_strlen(name);
 	start = ft_strlen(name) + 1;
+	if (name[start - 2] == '+')
+	{
+		return (join_env(name, env));
+	}
 	holder = g_meta.env;
 	while (holder)
 	{
-		if (ft_strncmp(name, holder->name, ft_strlen(name)) == 0)
+		if (ft_strncmp(name, holder->name, name_len) == 0)
 		{
 			free(holder->content);
 			holder->content = ft_substr(env, start, ft_strlen(env) - start);
 			free(name);
-			return (1);;
+			return (1);
 		}
+		holder = holder->next;
 	}
 	return (0);
 }
@@ -84,11 +93,11 @@ void	env_control(char *env)
 	char	*name;
 
 	name = get_name(env);
-	if (check_exist(name, env) == 1)
+	if (check_name(name) == 1)
 		return ;
 	else
 	{
-		if (check_name(name) == 1)
+		if (check_exist(name, env) == 1)
 			return ;
 		else
 			env_add_back(&g_meta.env, new_env(env));
@@ -99,7 +108,10 @@ void	env_control(char *env)
 void	ft_export(t_cmd_tab cmd)
 {
 	int		len;
+	int		i;
 
+	i = 0;
+	g_meta.ex_statu = 0;
 	len = d_strlen(cmd.cmd);
 	if (len == 1)
 	{
@@ -107,9 +119,12 @@ void	ft_export(t_cmd_tab cmd)
 		g_meta.ex_statu = 0;
 		return ;
 	}
-	else if (len == 2)
+	else if (len > 1)
 	{
-		env_control(cmd.cmd[1]);
+		while (++i < len)
+		{
+			env_control(cmd.cmd[i]);
+		}
 	}
 	return ;
 }
