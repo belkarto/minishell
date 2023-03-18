@@ -13,6 +13,8 @@
 #ifndef BUILTINGS_H
 # define BUILTINGS_H
 
+# include "parser.h"
+
 typedef struct s_env
 {
 	char			*name;
@@ -20,13 +22,6 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_cmd_tab
-{
-	char	**cmd;
-	char	*env;
-	int		in_file;
-	int		out_file;
-}	t_cmd_tab;
 
 void	env_add_back(t_env **list, t_env *new_env);
 int		join_env(char *name, char *env);
