@@ -36,7 +36,7 @@ static char	**split_add_slash(char *paths)
 	split = ft_split(paths, ':');
 	while (split[i])
 		i++;
-	path = (char **)ft_calloc(i + 1, sizeof(char **));
+	path = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (!path)
 		return (NULL);
 	i = -1;
