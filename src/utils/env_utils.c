@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 03:33:02 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/17 06:37:35 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/18 03:34:42 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,9 @@ t_env	*init_env(char **env)
 	i = -1;
 	while (++i < len)
 		env_add_back(&list, new_env(env[i]));
+	if (list == NULL)
+		return(builtin_env());
+	else
+		shell_lvl(list);
 	return (list);
 }

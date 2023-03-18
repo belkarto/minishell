@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/17 08:06:46 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/18 07:50:17 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,13 @@ int	check_exist(char *name, char *env)
 	start = ft_strlen(name) + 1;
 	if (name[start - 2] == '+')
 		return (join_env(name, env));
-	holder = g_meta.env;
-	while (holder)
+	holder = get_var(name, g_meta.env);
+	if (holder != NULL)
 	{
-		if (ft_strncmp(name, holder->name, name_len) == 0)
-		{
-			free(holder->content);
-			holder->content = ft_substr(env, start, ft_strlen(env) - start);
-			free(name);
-			return (1);
-		}
-		holder = holder->next;
+		free(holder->content);
+		holder->content = ft_substr(env, start, ft_strlen(env) - start);
+		free(name);
+		return (1);
 	}
 	return (0);
 }

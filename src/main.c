@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/17 05:09:57 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/18 08:40:31 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_program(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	g_meta.env = init_env(env);
+	ft_printf("%s\n", g_meta.env);
 	g_meta.ex_statu = 0;
 	printf("\n\t  -USE AT YOUR OWN RISK-\n");
 }
