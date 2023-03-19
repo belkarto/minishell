@@ -57,7 +57,7 @@ typedef struct s_elem
 	struct s_elem	*tail;
 }	t_elem;
 
-void	parsing_input(char *input);
+t_elem	*generate_tokens(char *command_line);
 void	elem_add_tail(t_elem **elem, t_elem *new_elem);
 void	print_lexer(t_elem *head);
 t_elem	*new_elem(char *con, int len, int token, int state);

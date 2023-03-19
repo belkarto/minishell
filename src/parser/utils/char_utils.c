@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   char_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/13 05:21:02 by belkarto         ###   ########.fr       */
+/*   Created: 2023/03/18 05:51:41 by ohalim            #+#    #+#             */
+/*   Updated: 2023/03/18 05:51:43 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-#include <stdlib.h>
+#include "../../../include/minishell.h"
 
-void	parsing_input(char *input)
+char	*free_2d(char **tab)
 {
-	t_elem	*head;
+	int	i;
 
-	if (input == NULL)
-		end_of_file();
-	head = lexer(input);
-	//print_lexer(head);
-	elem_clear(head);
+	i = -1;
+	while (tab[++i])
+		free(tab[i]);
+	free(tab);
+	return (NULL);
 }

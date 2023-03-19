@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/19 15:44:28 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/19 15:55:33 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,22 @@ void	set_struct(char *readed, t_cmd_tab *cmd)
 {
 	cmd->cmd = ft_split(readed, ' ');
 	cmd->env = ft_strjoin("/bin/", cmd->cmd[0]);
-	cmd->in_file = 0;
-	cmd->out_file = 1;
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	char	*readed;
+	t_cmd_tab	**ok;
 
 	init_program(argc, argv, env);
 	signals();
 	t_cmd_tab cmd;
 	while (1)
 	{
+		printf("%d\n", g_meta.ex_statu);
 		readed = readline("\033[0;1;3;32m MINISHELL $> \033[0;37m");
 		ft_add_history(readed);
-		parsing_input(readed);
+		ok = command_table(readed);
 		set_struct(readed, &cmd);
 		builtins(cmd, env);
 		free(readed);

@@ -52,7 +52,7 @@ void	print_lexer(t_elem *head)
 	ft_printf("-------------------------------------------------------------\n");
 	while (head)
 	{
-		ft_printf("\'%s\'\t\t\t%d\t\t", head->content, head->len);
+		ft_printf("%s\t\t\t%d\t\t", head->content, head->len);
 		ft_print_type(head->type);
 		ft_print_state(head->state);
 		head = head->next;
