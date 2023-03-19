@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/18 08:40:31 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/19 15:44:28 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,6 @@ int	main(int argc, char **argv, char **env)
 		parsing_input(readed);
 		set_struct(readed, &cmd);
 		builtins(cmd, env);
-		free(cmd.env);
-		free(cmd.cmd[0]);
-		free(cmd.cmd[1]);
-		free(cmd.cmd);
 		free(readed);
 	}
 	return (0);
