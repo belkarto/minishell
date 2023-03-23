@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 06:07:10 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/17 08:15:13 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/23 00:57:22 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,9 @@ static int	check_name(char *name)
 static void	env_control(char *var)
 {
 	t_env	*current;
-	int		len;
 	t_env	*prev;
 
 	prev = NULL;
-	len = ft_strlen(var);
 	current = g_meta.env;
 	if (check_name(var) == 1)
 		return ;
@@ -52,7 +50,7 @@ static void	env_control(char *var)
 	{
 		while (current)
 		{
-			if (ft_strncmp(var, current->name, len) == 0)
+			if (ft_strcmp(var, current->name) == 0)
 			{
 				if (prev == NULL)
 					g_meta.env = current->next;

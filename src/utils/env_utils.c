@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 03:33:02 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/18 03:34:42 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/23 00:58:49 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,15 @@ int	join_env(char *name, char *env)
 {
 	t_env	*tmp;
 	char	*new_name;
-	int		len;
 	char	*join;
 
 	tmp = g_meta.env;
 	new_name = ft_strtrim(name, "+");
 	free(name);
 	name = new_name;
-	len = ft_strlen(new_name);
 	while (tmp)
 	{
-		if (ft_strncmp(name, tmp->name, len) == 0)
+		if (ft_strcmp(name, tmp->name) == 0)
 		{
 			join = ft_substr(env, ft_strlen(name) + 2, ft_strlen(env));
 			tmp->content = ft_strjoin_gnl(tmp->content, join);

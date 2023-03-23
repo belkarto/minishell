@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/18 07:50:17 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/23 00:57:05 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ int	check_exist(char *name, char *env)
 {
 	t_env	*holder;
 	int		start;
-	int		name_len;
 
-	name_len = ft_strlen(name);
 	start = ft_strlen(name) + 1;
 	if (name[start - 2] == '+')
 		return (join_env(name, env));
