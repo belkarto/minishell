@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 15:24:46 by belkarto          #+#    #+#             */
-/*   Updated: 2022/12/17 14:46:10 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/22 02:18:37 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int			ft_intlen(unsigned long nb);
 int			ft_atoi(const char *str);
 long		ft_atol(const char *str);
 size_t		ft_strlen(const char *s);
+int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strrchr(const char *s, int c);
