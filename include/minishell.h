@@ -25,7 +25,7 @@
 
 typedef struct s_data
 {
-	int		ex_statu;
+	int		exit_status;
 	t_env	*env;
 }	t_data;
 

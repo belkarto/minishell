@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/17 08:06:46 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:31:51 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	check_name(char *name)
 	i = 0;
 	if (ft_strlen(name) == 0 || ft_isdigit(name[0]))
 	{
-		g_meta.ex_statu = 1;
+		g_meta.exit_status = 1;
 		ft_putstr_fd("not a valid identifier\n", 2);
 		return (1);
 	}
@@ -45,7 +45,7 @@ static int	check_name(char *name)
 			if (name[i] == '+' && name[i + 1] == 0)
 				return (0);
 			ft_putstr_fd("not a valid identifier\n", 2);
-			g_meta.ex_statu = 1;
+			g_meta.exit_status = 1;
 			free(name);
 			return (1);
 		}
@@ -102,12 +102,12 @@ void	ft_export(t_cmd_tab cmd)
 	int		i;
 
 	i = 0;
-	g_meta.ex_statu = 0;
+	g_meta.exit_status = 0;
 	len = d_strlen(cmd.cmd);
 	if (len == 1)
 	{
 		ft_print_env();
-		g_meta.ex_statu = 0;
+		g_meta.exit_status = 0;
 		return ;
 	}
 	else if (len > 1)

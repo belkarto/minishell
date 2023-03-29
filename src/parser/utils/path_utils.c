@@ -14,14 +14,14 @@
 
 static char	*generate_paths(void)
 {
-	t_env	*export;
+	t_env	*env;
 
-	export = g_meta.env;
-	while (export)
+	env = g_meta.env;
+	while (env)
 	{
-		if (ft_strncmp("PATH", export->name, 4) == 0)
-			return (export->content);
-		export = export->next;
+		if (ft_strncmp("PATH", env->name, 4) == 0)
+			return (env->content);
+		env = env->next;
 	}
 	return (NULL);
 }
@@ -36,7 +36,7 @@ static char	**split_add_slash(char *paths)
 	split = ft_split(paths, ':');
 	while (split[i])
 		i++;
-	path = (char **)ft_calloc(i + 1, sizeof(char *));
+	path = (char **)ft_calloc(i + 1, sizeof(char **));
 	if (!path)
 		return (NULL);
 	i = -1;

@@ -25,6 +25,7 @@ t_elem	*new_elem(char *con, int len, int token, int state)
 	elem->state = state;
 	elem->next = NULL;
 	elem->tail = NULL;
+	elem->prev = NULL;
 	return (elem);
 }
 
@@ -51,10 +52,12 @@ void	elem_add_tail(t_elem **elem, t_elem *new_elem)
 		(*elem) = new_elem;
 		(*elem)->tail = new_elem;
 		(*elem)->head = new_elem;
+		(*elem)->prev = NULL;
 		(*elem)->next = NULL;
 	}
 	else
 	{
+		new_elem->prev = (*elem)->tail;
 		(*elem)->tail->next = new_elem;
 		new_elem->next = NULL;
 		new_elem->head = (*elem);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:54:34 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/15 11:25:31 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:30:46 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ void	ft_pwd(t_cmd_tab cmd)
 		printf("%s\n", cwd);
 		exit (0);
 	}
-	waitpid(pid, &g_meta.ex_statu, 0);
+	waitpid(pid, &g_meta.exit_status, 0);
 }

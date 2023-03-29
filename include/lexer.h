@@ -53,6 +53,7 @@ typedef struct s_elem
 	enum e_token	type;
 	enum e_state	state;
 	struct s_elem	*next;
+	struct s_elem	*prev;
 	struct s_elem	*head;
 	struct s_elem	*tail;
 }	t_elem;

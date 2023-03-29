@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 06:07:10 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/17 08:15:13 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:32:13 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	check_name(char *name)
 	i = 0;
 	if (ft_strlen(name) == 0 || ft_isdigit(name[0]))
 	{
-		g_meta.ex_statu = 1;
+		g_meta.exit_status = 1;
 		ft_putstr_fd("not a valid identifier\n", 2);
 		return (1);
 	}
@@ -29,7 +29,7 @@ static int	check_name(char *name)
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 		{
 			ft_putstr_fd("not a valid identifier\n", 2);
-			g_meta.ex_statu = 1;
+			g_meta.exit_status = 1;
 			return (1);
 		}
 		i++;
@@ -72,7 +72,7 @@ void	ft_unset(t_cmd_tab cmd)
 	int	i;
 
 	len = d_strlen(cmd.cmd);
-	g_meta.ex_statu = 0;
+	g_meta.exit_status = 0;
 	i = 0;
 	if (len == 1)
 		return ;
