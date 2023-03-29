@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:07:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/15 09:12:39 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:30:19 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ t_elem	*lexer(char *line);
 int		token(t_elem **list, int *status, char *line);
 int		in_quote(t_elem **list, int *status, int picker);
 void	elem_clear(t_elem *list);
+void	delet_elem(t_elem	**elem);
 
 #endif

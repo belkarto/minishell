@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 22:30:48 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/10 04:55:27 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:29:12 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,33 @@ void	elem_clear(t_elem *list)
 		tmp_a = tmp_b;
 	}
 	list = NULL;
+}
+
+void	delet_elem(t_elem	**elem)
+{
+	t_elem	*tmp;
+
+	tmp = *elem;
+	if ((*elem)->prev == NULL)
+	{
+		(*elem)->head = (*elem)->next;
+		if ((*elem)->next != NULL)
+			(*elem)->next->prev = NULL;
+	}
+	else if ((*elem)->next == NULL)
+	{
+		(*elem)->tail = (*elem)->prev;
+		if ((*elem)->prev != NULL)
+			(*elem)->prev->next = NULL;
+	}
+	else
+	{
+
+		(*elem)->prev->next = (*elem)->next;
+		(*elem)->next->prev = (*elem)->prev;
+	}
+	free(tmp->content);
+	free(tmp);
 }
 
 void	elem_add_tail(t_elem **elem, t_elem *new_elem)
