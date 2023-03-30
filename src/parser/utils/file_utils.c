@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohalim <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:23:06 by ohalim            #+#    #+#             */
-/*   Updated: 2023/03/29 22:23:08 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/03/30 20:44:34 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	file_add_back(t_redir **lst, t_redir *new)
 		*lst = new;
 		return ;
 	}
-	else if (new == NULL)
-		return ;
 	else
 	{
 		while (tmp->next)

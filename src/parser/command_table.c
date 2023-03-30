@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/22 16:19:03 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/03/30 20:50:06 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ t_cmd_tab	**command_table(char *command_line)
 	cmd_tab = (t_cmd_tab **)malloc(cmd_tab_len(tokens) * sizeof(t_cmd_tab *));
 	if (!cmd_tab)
 		return (NULL);
+	while (i < cmd_tab_len(tokens))
+	{
+		cmd_tab[i] = ft_calloc(sizeof(t_cmd_tab), 1);
+		i++;
+	}
 	iterate_tokens(tokens, cmd_tab);
 	print_lexer(tokens);
 	elem_clear(tokens);
