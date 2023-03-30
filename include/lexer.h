@@ -50,8 +50,8 @@ typedef struct s_elem
 {
 	char			*content;
 	int				len;
-	enum e_token	type;
-	enum e_state	state;
+	t_token			type;
+	t_state			state;
 	struct s_elem	*next;
 	struct s_elem	*prev;
 	struct s_elem	*head;
@@ -60,6 +60,7 @@ typedef struct s_elem
 
 t_elem	*generate_tokens(char *command_line);
 void	elem_add_tail(t_elem **elem, t_elem *new_elem);
+void	delete_elem(t_elem	**elem);
 void	print_lexer(t_elem *head);
 t_elem	*new_elem(char *con, int len, int token, int state);
 t_elem	*lexer(char *line);

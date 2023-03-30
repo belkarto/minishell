@@ -45,22 +45,29 @@ void	elem_clear(t_elem *list)
 	list = NULL;
 }
 
-void	elem_add_tail(t_elem **elem, t_elem *new_elem)
+void	delete_elem(t_elem	**elem)
 {
-	if ((*elem) == NULL)
+	t_elem	*tmp;
+
+	tmp = *elem;
+	if ((*elem)->prev == NULL)
 	{
-		(*elem) = new_elem;
-		(*elem)->tail = new_elem;
-		(*elem)->head = new_elem;
-		(*elem)->prev = NULL;
-		(*elem)->next = NULL;
+		(*elem)->head = (*elem)->next;
+		if ((*elem)->next != NULL)
+			(*elem)->next->prev = NULL;
+	}
+	else if ((*elem)->next == NULL)
+	{
+		(*elem)->tail = (*elem)->prev;
+		if ((*elem)->prev != NULL)
+			(*elem)->prev->next = NULL;
 	}
 	else
 	{
-		new_elem->prev = (*elem)->tail;
-		(*elem)->tail->next = new_elem;
-		new_elem->next = NULL;
-		new_elem->head = (*elem);
-		(*elem)->tail = new_elem;
+
+		(*elem)->prev->next = (*elem)->next;
+		(*elem)->next->prev = (*elem)->prev;
 	}
+	free(tmp->content);
+	free(tmp);
 }

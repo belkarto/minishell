@@ -24,23 +24,32 @@ t_elem	*generate_tokens(char *command_line)
 	return (tokens);
 }
 
-int	cmd_tab_len(char **commands)
+int	cmd_tab_len(t_elem *tokens)
 {
-	int	len;
+	int	cmd;
 
-	len = 0;
-	while (commands[len])
-		len++;
-	return (len + 1);
+	cmd = 1;
+	while (tokens->next)
+	{
+		if (tokens->type == PIPE)
+			cmd++;
+		tokens = tokens->next;
+	}
+	return (cmd + 1);
 }
 
 t_cmd_tab	**command_table(char *command_line)
 {
+	int			i;
 	t_elem		*tokens;
-	//t_cmd_tab	**cmd_tab;
+	t_cmd_tab	**cmd_tab;
 
+	i = 0;
 	tokens = generate_tokens(command_line);
-	iterate_tokens(tokens);
+	cmd_tab = (t_cmd_tab **)malloc(cmd_tab_len(tokens) * sizeof(t_cmd_tab *));
+	if (!cmd_tab)
+		return (NULL);
+	iterate_tokens(tokens, cmd_tab);
 	print_lexer(tokens);
 	elem_clear(tokens);
 	return (NULL);
