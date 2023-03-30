@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 22:30:48 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/29 20:29:12 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/30 08:06:20 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,10 @@ void	elem_add_tail(t_elem **elem, t_elem *new_elem)
 		(*elem) = new_elem;
 		(*elem)->tail = new_elem;
 		(*elem)->head = new_elem;
-		(*elem)->prev = NULL;
 		(*elem)->next = NULL;
 	}
 	else
 	{
-		new_elem->prev = (*elem)->tail;
 		(*elem)->tail->next = new_elem;
 		new_elem->next = NULL;
 		new_elem->head = (*elem);
