@@ -6,26 +6,11 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/23 00:57:05 by brahim           ###   ########.fr       */
+/*   Updated: 2023/03/23 02:57:59 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static void	ft_print_env(void)
-{
-	t_env	*tmp;
-
-	tmp = g_meta.env;
-	while (tmp)
-	{
-		if (tmp->content == NULL)
-			printf("declare -x %s\n", tmp->name);
-		else
-			printf("declare -x %s=\"%s\"\n", tmp->name, tmp->content);
-		tmp = tmp->next;
-	}
-}
 
 static int	check_name(char *name)
 {
@@ -100,7 +85,7 @@ void	ft_export(t_cmd_tab cmd)
 	len = d_strlen(cmd.cmd);
 	if (len == 1)
 	{
-		ft_print_env();
+		sort_env(g_meta.env);
 		g_meta.ex_statu = 0;
 		return ;
 	}

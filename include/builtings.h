@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:02:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/19 16:04:05 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/30 07:23:01 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	update_env(void);
 void	shell_lvl(t_env *list);
 t_env	*get_var(char *name, t_env *list);
 void	del_var(t_env *var);
+void	sort_env(t_env *head);
 void	ft_cd(t_cmd_tab cmd);
 void	ft_pwd(t_cmd_tab cmd);
 void	ft_exit(t_cmd_tab cmd);

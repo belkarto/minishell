@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 05:55:35 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/18 08:40:22 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/23 03:41:46 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_name(char *env)
 	return (ft_substr(env, 0, i));
 }
 
-t_env	*builtin_env()
+t_env	*builtin_env(void)
 {
 	t_env	*tmp;
 	t_env	*head;

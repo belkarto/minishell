@@ -9,7 +9,6 @@ BLUE		= \033[0;1;3;34m
 # #==============
 
 # #=== Standard ===
-# USER		= echo $USER
 NAME		= minishell
 AUTHOR		= BELKARTO && OHALIM
 SRC_DIR		= src/
@@ -18,7 +17,8 @@ LIBFT		= include/libft/libft.a
 LEXER_DIR	= lexer/lexer lexer/quote lexer/tokens
 PARSER_DIR	= parser/command_table
 PARSER_UTILS_DIR	= parser/utils/char_utils parser/utils/path_utils
-UTILS_DIR	= utils/elem_utils utils/print_utils utils/env_utils utils/env_utils2 utils/var_utils
+UTILS_DIR	= utils/elem_utils utils/print_utils utils/env_utils utils/env_utils2 utils/var_utils \
+			  utils/export_sort
 BUILIN_DIR	= built/builtins built/ft_cd built/ft_pwd built/ft_exit built/ft_export built/ft_env built/ft_unset
 SRC_FILES	= main signals $(LEXER_DIR) $(PARSER_UTILS_DIR) $(PARSER_DIR) $(UTILS_DIR) $(BUILIN_DIR)
 CFLAGS		= -Wall -Wextra -Werror 
