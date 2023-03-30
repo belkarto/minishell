@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   command_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/13 05:21:02 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/22 16:19:03 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,53 +21,36 @@ t_elem	*generate_tokens(char *command_line)
 	if (command_line == NULL)
 		end_of_file();
 	tokens = lexer(command_line);
-	print_lexer(tokens);
 	return (tokens);
 }
 
-int	cmd_len(t_elem *tokens)
+int	cmd_tab_len(t_elem *tokens)
 {
-	int	len;
+	int	cmd;
 
-	len = 0;
-	while (tokens)
+	cmd = 1;
+	while (tokens->next)
 	{
-		if (ft_strncmp(tokens->content, "|", 1) == 0)
-			len++;
+		if (tokens->type == PIPE)
+			cmd++;
 		tokens = tokens->next;
 	}
-	return (len + 2);
+	return (cmd + 1);
 }
 
 t_cmd_tab	**command_table(char *command_line)
 {
+	int			i;
 	t_elem		*tokens;
 	t_cmd_tab	**cmd_tab;
-	char		*env;
 
+	i = 0;
 	tokens = generate_tokens(command_line);
-	//cmd_tab = ft_calloc(cmd_len(tokens), sizeof(t_cmd_tab *));
-	// if (!cmd_tab)
-	// 	return (NULL);
-	while (tokens)
-	{
-		while (tokens && ft_strncmp(tokens->content, "|", 1) != 0)
-		{
-			env = generate_cmd_env(tokens->content);
-			if (!env)
-			{
-				ft_putstr_fd("command not found\n", 2);
-				g_meta.ex_statu = 127;
-			}
-			else
-				printf("env = %s\n", env);
-			tokens = tokens->next;
-		}
-		if (tokens)
-			tokens = tokens->next;
-	}
-	(void)cmd_tab;
-	free(env);
+	cmd_tab = (t_cmd_tab **)malloc(cmd_tab_len(tokens) * sizeof(t_cmd_tab *));
+	if (!cmd_tab)
+		return (NULL);
+	iterate_tokens(tokens, cmd_tab);
+	print_lexer(tokens);
 	elem_clear(tokens);
 	return (NULL);
 }

@@ -18,7 +18,9 @@
 typedef struct s_redir
 {
 	char			*file_name;
-	enum e_token	redir_type;
+	t_token			redir_type;
+	bool			in_quote;
+	struct s_redir	*next;
 }	t_redir;
 
 typedef struct s_cmd_tab
@@ -35,6 +37,9 @@ char	*free_2d(char **tab);
 
 //------------------Path_utils----------------------//
 char	*generate_cmd_env(char *cmd);
+
+//------------------Expantion_utils-----------------//
+void	iterate_tokens(t_elem *tokens, t_cmd_tab **cmd_tab);
 
 //--------------------Cmd_Tab-----------------------//
 t_cmd_tab	**command_table(char *command_line);
