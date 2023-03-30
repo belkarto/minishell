@@ -6,26 +6,12 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:01:18 by belkarto          #+#    #+#             */
+/*   Updated: 2023/03/30 07:55:39 by belkarto         ###   ########.fr       */
 /*   Updated: 2023/03/22 15:31:51 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static void	ft_print_env(void)
-{
-	t_env	*tmp;
-
-	tmp = g_meta.env;
-	while (tmp)
-	{
-		if (tmp->content == NULL)
-			printf("declare -x %s\n", tmp->name);
-		else
-			printf("declare -x %s=\"%s\"\n", tmp->name, tmp->content);
-		tmp = tmp->next;
-	}
-}
 
 static int	check_name(char *name)
 {
@@ -58,23 +44,17 @@ int	check_exist(char *name, char *env)
 {
 	t_env	*holder;
 	int		start;
-	int		name_len;
 
-	name_len = ft_strlen(name);
 	start = ft_strlen(name) + 1;
 	if (name[start - 2] == '+')
 		return (join_env(name, env));
-	holder = g_meta.env;
-	while (holder)
+	holder = get_var(name, g_meta.env);
+	if (holder != NULL)
 	{
-		if (ft_strncmp(name, holder->name, name_len) == 0)
-		{
-			free(holder->content);
-			holder->content = ft_substr(env, start, ft_strlen(env) - start);
-			free(name);
-			return (1);
-		}
-		holder = holder->next;
+		free(holder->content);
+		holder->content = ft_substr(env, start, ft_strlen(env) - start);
+		free(name);
+		return (1);
 	}
 	return (0);
 }
@@ -106,7 +86,7 @@ void	ft_export(t_cmd_tab cmd)
 	len = d_strlen(cmd.cmd);
 	if (len == 1)
 	{
-		ft_print_env();
+		sort_env(g_meta.env);
 		g_meta.exit_status = 0;
 		return ;
 	}

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/05 15:05:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/23 03:43:34 by brahim           ###   ########.fr       */
+/*   Created: 2023/03/22 02:15:45 by belkarto          #+#    #+#             */
+/*   Updated: 2023/03/30 07:16:12 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "../../include/minishell.h"
-#include <readline/history.h>
-
-t_elem	*lexer(char *line)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int		i;
-	int		statu;
-	t_elem	*head;
+	size_t	i;
+	int		diff;
 
-	head = NULL;
-	statu = GENERAL;
 	i = 0;
-	while (line[i])
-		i += token(&head, &statu, line + i);
-	return (head);
+	diff = 0;
+	while (s1[i] || s2[i])
+	{
+		diff = (unsigned char)s1[i] - (unsigned char)s2[i];
+		if (diff != 0)
+			return (diff);
+		i++;
+	}
+	return (diff);
 }

@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   enums.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 09:07:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/30 08:07:40 by belkarto         ###   ########.fr       */
+/*   Created: 2023/03/19 16:00:57 by belkarto          #+#    #+#             */
+/*   Updated: 2023/03/19 16:03:47 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
-# include "enums.h"
+#ifdef ENUM_H
+# define ENUM_H
 
 /*
  * enum used to know type of token neather word or special charachter
@@ -46,28 +45,5 @@ typedef enum e_state
 	IN_QUOTE,
 	GENERAL,
 }	t_state;
-
-typedef struct s_elem
-{
-	char			*content;
-	int				len;
-	t_token			type;
-	t_state			state;
-	struct s_elem	*next;
-	struct s_elem	*prev;
-	struct s_elem	*head;
-	struct s_elem	*tail;
-}	t_elem;
-
-t_elem	*generate_tokens(char *command_line);
-void	elem_add_tail(t_elem **elem, t_elem *new_elem);
-void	delete_elem(t_elem	**elem);
-void	print_lexer(t_elem *head);
-t_elem	*new_elem(char *con, int len, int token, int state);
-t_elem	*lexer(char *line);
-int		token(t_elem **list, int *status, char *line);
-int		in_quote(t_elem **list, int *status, int picker);
-void	elem_clear(t_elem *list);
-void	delet_elem(t_elem	**elem);
 
 #endif

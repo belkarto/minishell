@@ -6,25 +6,24 @@
 /*   By: ohalim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/03/23 14:18:13 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/03/30 08:20:38 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 # include "../../../include/minishell.h"
 
-// static void	expand(t_elem **tokens)
-// {
-// 	t_env	*env;
+static void	expand(t_elem **tokens)
+{
+	t_env	*env;
 
-// 	env = g_meta.env;
-// 	while (env)
-// 	{
-// 		if (ft_strncmp(env->name, ((*tokens)->content + 1), ft_strlen((*tokens)->content + 1)) == 0)
-// 			(*tokens)->content = ft_strdup(env->content);
-// 		env = env->next;
-// 	}
-// }
+	env = get_var((*tokens)->content + 1, g_meta.env);
+	free((*tokens)->content);
+	if (env == NULL)
+		(*tokens)->content = ft_strdup("");
+	else
+		(*tokens)->content = ft_strdup(env->content);
+}
 
 void	iterate_tokens(t_elem *tokens, t_cmd_tab **cmd_tab)
 {
@@ -32,6 +31,7 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab **cmd_tab)
 	t_token	type;
 
 	i = 0;
+	(void)cmd_tab;
 	while (tokens)
 	{
 		if (tokens->type == ENV && (tokens->state == GENERAL
@@ -42,11 +42,11 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab **cmd_tab)
 		{
 			type = tokens->type;
 			tokens = tokens->next;
-			delete_elem(tokens->prev);
+			delet_elem(&tokens->prev);
 			while (tokens->type == SPAC)
 			{
 				tokens = tokens->next;
-				delete_elem(tokens->prev);
+				delet_elem(&tokens->prev);
 			}
 			if (tokens->type == ENV && (tokens->state == GENERAL
 			|| tokens->state == IN_DQUOTE) && type != HEREDOC)
@@ -61,7 +61,7 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab **cmd_tab)
 				
 			}
 		}
-		if (tokens.type == PIPE)
+		if (tokens->type == PIPE)
 			i++;
 		tokens = tokens->next;
 	}

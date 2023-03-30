@@ -37,7 +37,7 @@ SRC			=	ft_atoi.c		ft_bzero.c		\
 				get_next_line.c	ft_lstnew_int.c 	\
 				ft_lstadd_back_int.c	ft_lstdelone_int.c\
 				ft_lstclear_int.c	ft_atol.c\
-				ft_lstsize_int.c
+				ft_lstsize_int.c	ft_strcmp.c
 
 #----------------------------------------------#
 # 					Colors
@@ -53,10 +53,12 @@ all			: $(NAME)
 #----------------------------------------------#
 %.o : %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "\r$(GRAY)- Creating libft ...⌛$(NO_COLOR)"
-	@sleep 0.03
-	@printf "\r$(GRAY)- Creating libft ...⏳$(NO_COLOR)"
-	@sleep 0.03
+	@printf "$(GREEN)█$(NO_COLOR)"
+
+# @printf "\r$(GRAY)- Creating libft ...⌛$(NO_COLOR)"
+# @sleep 0.03
+# @printf "\r$(GRAY)- Creating libft ...⏳$(NO_COLOR)"
+# @sleep 0.03
 #----------------------------------------------#
 
 
@@ -66,7 +68,7 @@ all			: $(NAME)
 #----------------------------------------------#
 $(NAME)		: $(OBJEC)
 	@ar rc $(NAME) $(OBJEC)
-	@printf "\n$(GREEN)- Libft finished$(NO_COLOR) ✅🥳\n\n"
+	@printf "\n\n$(GREEN)- Libft finished$(NO_COLOR) ✅🥳\n\n"
 #----------------------------------------------#
 #				delete object file
 #----------------------------------------------#
