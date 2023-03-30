@@ -6,12 +6,13 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/30 07:39:52 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:59:19 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 t_data	g_meta;
 
@@ -38,10 +39,20 @@ static int	ft_str_space(char *str)
 	return (0);
 }
 
-static void	ft_add_history(char *str)
+static int	ft_add_history(char *str)
 {
+	if (!str)
+		exit(0);
 	if (str && ft_strlen(str) && ft_str_space(str))
+	{
 		add_history(str);
+		return (0);
+	}
+	else
+	{
+		free(str);
+		return (1);
+	}
 }
 
 void	set_struct(char *readed, t_cmd_tab *cmd)
@@ -62,7 +73,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		// printf("%d\n", g_meta.exit_status);
 		readed = readline("\033[0;1;3;32m MINISHELL $> \033[0;37m");
-		ft_add_history(readed);
+		if (ft_add_history(readed) == 1)
+			continue ;
 		ok = command_table(readed);
 		free(ok);
 		set_struct(readed, &cmd);
