@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:07:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/30 08:07:40 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/30 08:21:44 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_elem
 
 t_elem	*generate_tokens(char *command_line);
 void	elem_add_tail(t_elem **elem, t_elem *new_elem);
-void	delete_elem(t_elem	**elem);
 void	print_lexer(t_elem *head);
 t_elem	*new_elem(char *con, int len, int token, int state);
 t_elem	*lexer(char *line);
