@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/03/30 20:46:52 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/02 06:51:50 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	expand(t_elem **tokens)
 void	iterate_tokens(t_elem *tokens, t_cmd_tab **cmd_tab)
 {
 	int		i;
+	t_redir	*tmp;
 	t_token	type;
 
 	i = 0;
@@ -41,6 +42,7 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab **cmd_tab)
 		{
 			type = tokens->type;
 			tokens = tokens->next;
+			delet_elem(&tokens->prev);
 			while (tokens->type == SPAC)
 				tokens = tokens->next;
 			if (tokens->type == ENV && (tokens->state == GENERAL
@@ -53,8 +55,18 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab **cmd_tab)
 			}
 			else
 			{
-				ft_printf("apaha: %s\n", tokens->content);
-				ft_printf("must throw error\n");
+				i = 0;
+				while (cmd_tab[i])
+				{
+					while (cmd_tab[i]->redir)
+					{
+						tmp = cmd_tab[i]->redir;
+						free(cmd_tab[i]->redir);
+						cmd_tab[i]->redir = tmp;
+					}
+					i++;
+				}
+				ft_putstr_fd("syntax error", 2);
 			}
 		}
 		if (tokens->type == PIPE)
