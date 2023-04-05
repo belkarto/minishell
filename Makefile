@@ -20,7 +20,9 @@ PARSER_DIR	= parser/parsing
 UTILS_DIR	= utils/elem_utils utils/print_utils utils/env_utils utils/env_utils2 utils/var_utils \
 			  utils/export_sort
 BUILIN_DIR	= built/builtins built/ft_cd built/ft_pwd built/ft_exit built/ft_export built/ft_env built/ft_unset
-SRC_FILES	= main signals $(LEXER_DIR) $(PARSER_DIR) $(UTILS_DIR) $(BUILIN_DIR)
+SRC_FILES	= main signals $(LEXER_DIR) $(PARSER_DIR) $(UTILS_DIR) $(BUILIN_DIR) \
+			  $(EXEC_DIR)
+EXEC_DIR	= exec/exec_cmd
 CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 CC			= cc 
 OBJF		=	.cache_exists
