@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/04 21:45:36 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/05 20:15:32 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_elem	*generate_tokens(char *command_line)
 	if (command_line == NULL)
 		end_of_file();
 	tokens = lexer(command_line);
+	ft_printf("Before iterate_tokens:\n");
+	print_lexer(tokens);
 	return (tokens);
 }
 
@@ -29,6 +31,8 @@ int	cmd_tab_len(t_elem *tokens)
 	int	cmd;
 
 	cmd = 1;
+	if (!tokens)
+		return (0);
 	while (tokens->next)
 	{
 		if (tokens->type == PIPE)
@@ -51,8 +55,10 @@ t_cmd_tab	**command_table(char *command_line)
 	cmd_tab = (t_cmd_tab *)malloc(len * sizeof(t_cmd_tab));
 	if (!cmd_tab)
 		return (NULL);
-	cmd_tab->len = len;
+	if (len)
+		cmd_tab->len = len;
 	iterate_tokens(tokens, cmd_tab);
+	ft_printf("\nAfter iterate_tokens:\n");
 	print_lexer(tokens);
 	elem_clear(tokens);
 	return (NULL);

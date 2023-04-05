@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:05:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/30 20:00:52 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/05 20:16:37 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,12 @@ t_elem	*lexer(char *line)
 	i = 0;
 	while (line[i])
 		i += token(&head, &statu, line + i);
+	if (head->tail->state != GENERAL)
+	{
+		ft_putstr_fd("syntax error\n", 2);
+		elem_clear(head);
+		g_meta.exit_status = 1;
+		head = NULL;
+	}
 	return (head);
 }

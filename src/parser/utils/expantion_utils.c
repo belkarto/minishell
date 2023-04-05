@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/05 00:18:53 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/05 17:52:44 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,39 @@ static void	expand(t_elem **tokens)
 		(*tokens)->content = ft_strdup(env->content);
 }
 
+// void	expand_and_join_tokens(t_elem *tokens)
+// {
+// 	while (tokens)
+// 	{
+// 		if (tokens->type == DQUOTE && tokens->state == GENERAL)
+// 		{
+// 			if (!(tokens->next))
+// 				ft_putstr_fd("syntax error\n", 2);
+// 			tokens = tokens->next;
+// 			delet_elem(&tokens->prev);
+// 			while (tokens && tokens->type != DQUOTE)
+// 				tokens = tokens->next;
+// 			if (tokens->type == DQUOTE && tokens->state == GENERAL)
+// 			{
+// 				if (tokens->next)
+// 				{
+// 					tokens = tokens->next;
+// 					delet_elem(&tokens->prev);
+// 				}
+// 				else
+// 				{
+// 					delet_elem(&tokens);
+// 					break ;
+// 				}
+// 			}
+// 			else if (!(tokens->next))
+// 				ft_putstr_fd("syntax error\n", 2);
+// 		}
+// 		if (tokens)
+// 			tokens = tokens->next;
+// 	}
+// }
+
 void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 {
 	int		i;
@@ -33,6 +66,7 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 
 	i = 0;
 	j = 0;
+	// expand_and_join_tokens(tokens);
 	while (tokens)
 	{
 		if (tokens->type == ENV && (tokens->state == GENERAL
