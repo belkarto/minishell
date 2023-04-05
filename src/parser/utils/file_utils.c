@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:23:06 by ohalim            #+#    #+#             */
-/*   Updated: 2023/03/30 20:44:34 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/04 21:34:21 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,20 @@ void	file_add_back(t_redir **lst, t_redir *new)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
+}
+
+void	redir_clear(t_redir *list)
+{
+	t_redir	*tmp_a;
+	t_redir	*tmp_b;
+
+	tmp_a = list;
+	while (tmp_a)
+	{
+		tmp_b = tmp_a->next;
+		free(tmp_a->file_name);
+		free(tmp_a);
+		tmp_a = tmp_b;
+	}
+	list = NULL;
 }
