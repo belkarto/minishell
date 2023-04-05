@@ -6,10 +6,12 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:46:29 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/04 20:46:41 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/05 22:37:24 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
+void	exec_cmd_tab(t_cmd_tab *cmd_tab)
+{
+}
