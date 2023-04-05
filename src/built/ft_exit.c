@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:53:00 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/15 09:53:58 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:33:51 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/minishell.h"
 
+# include "../../include/minishell.h"
 void	ft_exit(t_cmd_tab cmd)
 {
 	int	num;
@@ -21,7 +21,7 @@ void	ft_exit(t_cmd_tab cmd)
 	if (d_strlen(cmd.cmd) > 2)
 	{
 		ft_putstr_fd("exit : too many arguments\n", 2);
-		g_meta.ex_statu = 1;
+		g_meta.exit_status = 1;
 		return ;
 	}
 	while (cmd.cmd[1] && cmd.cmd[1][++i])

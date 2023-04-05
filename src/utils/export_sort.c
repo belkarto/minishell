@@ -6,7 +6,7 @@
 /*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 01:14:50 by brahim            #+#    #+#             */
-/*   Updated: 2023/03/23 03:40:55 by brahim           ###   ########.fr       */
+/*   Updated: 2023/03/30 07:52:53 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ t_env	**get_array(t_env *head)
 	int		i;
 
 	i = 0;
-	arr = (t_env **)ft_calloc((len + 1), sizeof(t_env *));
 	tmp = head;
 	len = env_len(head);
+	arr = (t_env **)ft_calloc((len + 1), sizeof(t_env *));
 	while (tmp != NULL)
 	{
 		arr[i] = tmp;

@@ -6,30 +6,32 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/04 20:46:56 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/05 22:49:30 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./libft/libft.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include "./libft/libft.h"
 # include "lexer.h"
+# include "parser.h"
 # include "builtings.h"
 
 typedef struct s_data
 {
-	int		ex_statu;
+	int		exit_status;
 	t_env	*env;
 }	t_data;
 
 extern t_data	g_meta;
 
-void	parsing_input(char *input);
 void	rl_replace_line(const char *str, int state);
 void	signals(void);
 void	end_of_file(void);

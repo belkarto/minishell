@@ -53,10 +53,12 @@ all			: $(NAME)
 #----------------------------------------------#
 %.o : %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "\r$(GRAY)- Creating libft ...⌛$(NO_COLOR)"
-	@sleep 0.03
-	@printf "\r$(GRAY)- Creating libft ...⏳$(NO_COLOR)"
-	@sleep 0.03
+	@printf "$(GREEN)█$(NO_COLOR)"
+
+# @printf "\r$(GRAY)- Creating libft ...⌛$(NO_COLOR)"
+# @sleep 0.03
+# @printf "\r$(GRAY)- Creating libft ...⏳$(NO_COLOR)"
+# @sleep 0.03
 #----------------------------------------------#
 
 
@@ -66,7 +68,7 @@ all			: $(NAME)
 #----------------------------------------------#
 $(NAME)		: $(OBJEC)
 	@ar rc $(NAME) $(OBJEC)
-	@printf "\n$(GREEN)- Libft finished$(NO_COLOR) ✅🥳\n\n"
+	@printf "\n\n$(GREEN)- Libft finished$(NO_COLOR) ✅🥳\n\n"
 #----------------------------------------------#
 #				delete object file
 #----------------------------------------------#

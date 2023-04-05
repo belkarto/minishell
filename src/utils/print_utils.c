@@ -48,13 +48,16 @@ void	ft_print_state(int state)
 
 void	print_lexer(t_elem *head)
 {
+	t_elem	*tmp;
+
+	tmp = head;
 	ft_printf("|content\t\tlen\t\ttype\t\tstate\n");
 	ft_printf("-------------------------------------------------------------\n");
-	while (head)
+	while (tmp)
 	{
-		ft_printf("\'%s\'\t\t\t%d\t\t", head->content, head->len);
-		ft_print_type(head->type);
-		ft_print_state(head->state);
-		head = head->next;
+		ft_printf("%s\t\t\t%d\t\t", tmp->content, tmp->len);
+		ft_print_type(tmp->type);
+		ft_print_state(tmp->state);
+		tmp = tmp->next;
 	}
 }
