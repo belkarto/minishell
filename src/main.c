@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/01 16:45:33 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/06 00:39:36 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char **argv, char **env)
 		if (ft_add_history(readed) == 1)
 			continue ;
 		ok = command_table(readed);
-		free(ok);
+		free (ok);
 		set_struct(readed, &cmd);
 		builtins(cmd, env);
 		free(cmd.env);

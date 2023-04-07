@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 06:07:10 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/30 07:32:24 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/06 00:53:40 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	env_control(char *var)
 				else
 					prev->next = current->next;
 				del_var(current);
+				break ;
 			}
 			prev = current;
 			current = current->next;
