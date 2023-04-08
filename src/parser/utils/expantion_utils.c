@@ -6,14 +6,14 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/07 00:00:02 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/08 01:46:51 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 # include "../../../include/minishell.h"
 
-static void	expand(t_elem **tokens)
+void	expand(t_elem **tokens)
 {
 	t_env	*env;
 
@@ -25,53 +25,63 @@ static void	expand(t_elem **tokens)
 		(*tokens)->content = ft_strdup(env->content);
 }
 
-
-/*
-	Must not expand on heredoc .
-*/
-void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
+t_elem	*delete_quotes(t_elem *tokens)
 {
 	t_token	type;
-	int		flag;
-	(void)cmd_tab;
 
-	flag = 1;
+	type = tokens->type;
+	tokens = tokens->next;
+	delet_elem(&tokens->prev);
 	while (tokens)
 	{
-		if ((tokens->type == DQUOTE || tokens->type == QUOTE) &&
-			(tokens->state == GENERAL))
+		if (tokens->type == type)
 		{
-			type = tokens->type;
-			tokens = tokens->next;
-			delet_elem(&tokens->prev);
-			while (tokens && tokens->type != type && tokens->state != GENERAL)
-			{
-				if (tokens->type == ENV && tokens->state == IN_DQUOTE)
-					expand(&tokens);
-				tokens = tokens->next;
-			}
-			if (tokens->next)
-			{
-				tokens = tokens->next;
-				flag = 0;
-				delet_elem(&tokens->prev);
-			}
-			else
-			{	
-				delet_elem(&tokens);
-				break ;
-			}
+			tokens = tokens->prev;
+			delet_elem(&(tokens->next));
+			if (!tokens->next)
+				tokens->next = NULL;
+			break ;
 		}
-		if (tokens->type == ENV && tokens->state == GENERAL)
-		{
-			flag = 1;
+		tokens = tokens->next;
+	}
+	return (tokens);
+}
+
+void	is_expand(t_elem *tokens)
+{
+	t_token	type;
+
+	type = tokens->type;
+	tokens = tokens->next;
+	while (tokens)
+	{
+		if (tokens->type == type)
+			return ;
+		if (tokens->type == ENV && (tokens->state == IN_DQUOTE || tokens->state == GENERAL))
 			expand(&tokens);
-		}
-		if (tokens && flag)
+		tokens = tokens->next;
+	}
+}
+
+void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
+{
+	int		i;
+
+	i = 0;
+	(void)cmd_tab;
+	while (tokens)
+	{
+		if ((tokens->type == QUOTE || tokens->type == DQUOTE) && tokens->state == GENERAL)
 		{
-			flag = 1;
-			tokens = tokens->next;
+			is_expand(tokens);
+			tokens = delete_quotes(tokens);
+			// ft_printf("\nIn iterate_tokens\n");
+			// ft_printf("\ndelete_quotes: %s\n", tokens->content);
 		}
+		else if (tokens->type == ENV && (tokens->state == IN_DQUOTE || tokens->state == GENERAL))
+			expand(&tokens);
+		ft_printf("The content: %s\n", tokens->content);
+		tokens = tokens->next;
 	}
 }
 
@@ -136,101 +146,54 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+	Must not expand on heredoc .
+*/
+// void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
+// {
+// 	t_token	type;
+// 	int		flag;
+// 	(void)cmd_tab;
+
+// 	flag = 1;
+// 	while (tokens)
+// 	{
+// 		if ((tokens->type == DQUOTE || tokens->type == QUOTE) &&
+// 			(tokens->state == GENERAL))
+// 		{
+// 			type = tokens->type;
+// 			tokens = tokens->next;
+// 			delet_elem(&tokens->prev);
+// 			while (tokens && tokens->type != type && tokens->state != GENERAL)
+// 			{
+// 				if (tokens->type == ENV && tokens->state == IN_DQUOTE)
+// 					expand(&tokens);
+// 				tokens = tokens->next;
+// 			}
+// 			if (tokens->next)
+// 			{
+// 				tokens = tokens->next;
+// 				flag = 0;
+// 				delet_elem(&tokens->prev);
+// 			}
+// 			else
+// 			{	
+// 				delet_elem(&tokens);
+// 				break ;
+// 			}
+// 		}
+// 		if (tokens->type == ENV && tokens->state == GENERAL)
+// 		{
+// 			flag = 1;
+// 			expand(&tokens);
+// 		}
+// 		if (tokens && flag)
+// 		{
+// 			flag = 1;
+// 			tokens = tokens->next;
+// 		}
+// 	}
+// }
 // void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 // {
 // 	int		i;
