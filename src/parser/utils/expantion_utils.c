@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/08 01:46:51 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/08 02:44:14 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,23 @@ t_elem	*delete_quotes(t_elem *tokens)
 	{
 		if (tokens->type == type)
 		{
-			tokens = tokens->prev;
-			delet_elem(&(tokens->next));
+			if (tokens->next != NULL)
+			{
+				tokens = tokens->next;
+				delet_elem(&(tokens->prev));
+			}
+			else
+			{
+				delet_elem(&(tokens));
+				return (NULL);
+			}
 			if (!tokens->next)
 				tokens->next = NULL;
 			break ;
 		}
 		tokens = tokens->next;
 	}
-	return (tokens);
+	return (tokens->prev);
 }
 
 void	is_expand(t_elem *tokens)
@@ -65,9 +73,6 @@ void	is_expand(t_elem *tokens)
 
 void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 {
-	int		i;
-
-	i = 0;
 	(void)cmd_tab;
 	while (tokens)
 	{
@@ -80,8 +85,8 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 		}
 		else if (tokens->type == ENV && (tokens->state == IN_DQUOTE || tokens->state == GENERAL))
 			expand(&tokens);
-		ft_printf("The content: %s\n", tokens->content);
-		tokens = tokens->next;
+		if (tokens != NULL)
+			tokens = tokens->next;
 	}
 }
 
@@ -147,8 +152,8 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 
 
 /*
-	Must not expand on heredoc .
-*/
+   Must not expand on heredoc .
+   */
 // void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 // {
 // 	t_token	type;
