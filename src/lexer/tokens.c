@@ -70,7 +70,7 @@ int	env(t_elem **list, int *status, char *line)
 
 int	token(t_elem **list, int *status, char *line)
 {
-	if (ft_isalnum(*line) || *line == '_')
+	if (ft_isalnum(*line) || *line == '_' || *line == '-' || *line == ',')
 		return (word(list, *status, line));
 	else if (*line == PIPE)
 		return (tokens(list, status, PIPE));

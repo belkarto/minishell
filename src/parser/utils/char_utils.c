@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   char_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohalim <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 05:51:41 by ohalim            #+#    #+#             */
-/*   Updated: 2023/03/18 05:51:43 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/11 02:30:44 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,14 @@ char	*free_2d(char **tab)
 		free(tab[i]);
 	free(tab);
 	return (NULL);
+}
+
+int	double_len(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }

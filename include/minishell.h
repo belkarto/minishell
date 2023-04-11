@@ -18,7 +18,6 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include "./libft/libft.h"
-# include <wait.h>
 # include "lexer.h"
 # include "parser.h"
 # include "builtings.h"
