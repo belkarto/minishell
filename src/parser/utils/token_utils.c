@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:50:32 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/11 01:02:02 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/11 13:07:02 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,28 @@ t_elem	*delete_last_quote(t_elem *token)
 	return (token->prev);
 }
 
+void	error_unclosed_quotes(void)
+{
+	ft_putstr_fd("syntax error\n", 2);
+	g_meta.exit_status = 1;
+	exit (0); // Must free the cmd_tab and the tokens.
+}
+
 t_elem	*delete_quotes(t_elem *tokens)
 {
 	t_token	type;
 
 	type = tokens->type;
-	tokens = tokens->next;
-	delet_elem(&tokens->prev);
+	if (tokens->next)
+	{
+		tokens = tokens->next;
+		delet_elem(&tokens->prev);
+	}
+	else
+	{
+		delet_elem(&tokens);
+		error_unclosed_quotes();
+	}
 	while (tokens)
 	{
 		if (tokens->type != type && tokens->next && tokens->next->type != type)
@@ -55,5 +70,7 @@ t_elem	*delete_quotes(t_elem *tokens)
 		if (tokens->type == type)
 			break ;
 	}
+	if (!tokens)
+		error_unclosed_quotes();
 	return (delete_last_quote(tokens));
 }

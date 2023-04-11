@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:54:21 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/11 02:37:32 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/11 02:47:53 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	is_expand(t_elem *tokens)
 	{
 		if (tokens->type == type)
 			return ;
-		if (tokens->type == ENV && (tokens->state == IN_DQUOTE || tokens->state == GENERAL))
+		else if (tokens->type == ENV && (tokens->state == IN_DQUOTE || tokens->state == GENERAL))
 			expand(&tokens);
 		tokens = tokens->next;
 	}
