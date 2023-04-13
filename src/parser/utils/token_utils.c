@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:50:32 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/12 05:37:47 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/13 07:55:59 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_elem	*join_tokens(t_elem **token, t_elem **next_token)
 {
+	if (!(*next_token))
+		return ((*token));
 	(*token)->content = ft_strjoin_gnl((*token)->content, (*next_token)->content);
 	if ((*next_token)->next)
 		(*token) = (*next_token)->next;

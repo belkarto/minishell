@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/13 07:31:08 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/13 20:18:35 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,29 @@ t_elem	*join_none_space(t_elem *tokens)
 	return (tokens);
 }
 
+t_elem	*get_file(t_elem *tokens, t_token redir_type)
+{
+	t_elem	*tmp;
+
+	if (tokens->type == SPAC)
+		return (tokens);
+	if (tokens->type == ENV && (tokens->state == IN_DQUOTE
+		|| tokens->state == GENERAL))
+		expand(&tokens);
+	else if ((tokens->type == QUOTE || tokens->type == DQUOTE)
+		&& tokens->state == GENERAL)
+	{
+		is_expand(tokens);
+		tokens = delete_quotes(tokens);
+	}
+	if (tokens->next)
+	{
+		tmp = get_file(tokens->next, redir_type);
+		tokens = join_tokens(&tokens, &tmp);
+	}
+	return (tokens);
+}
+
 void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 {
 	int		i;
@@ -110,57 +133,12 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			if (redir_type != HEREDOC)
 			{
 				in_quote = is_in_quote(tokens);
-				while (tokens)
-				{
-					if (tokens->type == ENV && (tokens->state == IN_DQUOTE
-						|| tokens->state == GENERAL))
-						expand(&tokens);
-					else if ((tokens->type == QUOTE || tokens->type == DQUOTE)
-						&& tokens->state == GENERAL)
-					{
-						is_expand(tokens);
-						tokens = delete_quotes(tokens);
-					}
-					if (tokens)
-					{
-						file_add_back(&cmd_tab[i].redir, file_new(tokens->content, redir_type, in_quote));
-						ft_printf("file_name: %s\n", cmd_tab[i].redir->file_name);
-						if (cmd_tab[i].redir->redir_type == LESS)
-							ft_printf("redir_type: <\n");
-						if (cmd_tab[i].redir->redir_type == GREAT)
-							ft_printf("redir_type: >\n");
-						if (cmd_tab[i].redir->redir_type == HEREDOC)
-							ft_printf("redir_type: <<\n");
-						if (cmd_tab[i].redir->redir_type == REDIR_OUT)
-							ft_printf("redir_type: >>\n");
-						if (cmd_tab[i].redir->in_quote == 1)
-							ft_printf("bool: 1\n");
-						if (cmd_tab[i].redir->in_quote == 0)
-							ft_printf("bool: 0\n");
-					}
-					if (tokens->next)
-						tokens = tokens->next;
-					if (tokens->type != LESS && tokens->type != GREAT
-					&& tokens->type != HEREDOC && tokens->type != REDIR_OUT
-						&& tokens->type != PIPE)
-					{
-						tokens = tokens->prev;
-						break ;
-					}
-					else
-						break ;
-				}
-			}
-			// Else.
-			else
-			{
-				in_quote = is_in_quote(tokens);
-				if ((tokens->type == QUOTE || tokens->type == DQUOTE)
-				&& tokens->state == GENERAL)
-					tokens = delete_quotes(tokens);
+				tokens = get_file(tokens, redir_type);
 				if (tokens)
 				{
 					file_add_back(&cmd_tab[i].redir, file_new(tokens->content, redir_type, in_quote));
+					if (cmd_tab[i].redir->next)
+						cmd_tab[i].redir = cmd_tab[i].redir->next;
 					ft_printf("file_name: %s\n", cmd_tab[i].redir->file_name);
 					if (cmd_tab[i].redir->redir_type == LESS)
 						ft_printf("redir_type: <\n");
@@ -174,6 +152,53 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 						ft_printf("bool: 1\n");
 					if (cmd_tab[i].redir->in_quote == 0)
 						ft_printf("bool: 0\n");
+				}
+				if (tokens->next)
+				{
+					tokens = tokens->next;
+					delet_elem(&tokens->prev);
+					tokens = tokens->prev;
+				}
+				else
+				{
+					tokens = tokens->prev;
+					delet_elem(&tokens->next);
+				}
+			}
+			// Else.
+			else
+			{
+				in_quote = is_in_quote(tokens);
+				tokens = get_file(tokens, redir_type);
+				if (tokens)
+				{
+					file_add_back(&cmd_tab[i].redir, file_new(tokens->content, redir_type, in_quote));
+					if (cmd_tab[i].redir->next)
+						cmd_tab[i].redir = cmd_tab[i].redir->next;
+					ft_printf("file_name: %s\n", cmd_tab[i].redir->file_name);
+					if (cmd_tab[i].redir->redir_type == LESS)
+						ft_printf("redir_type: <\n");
+					if (cmd_tab[i].redir->redir_type == GREAT)
+						ft_printf("redir_type: >\n");
+					if (cmd_tab[i].redir->redir_type == HEREDOC)
+						ft_printf("redir_type: <<\n");
+					if (cmd_tab[i].redir->redir_type == REDIR_OUT)
+						ft_printf("redir_type: >>\n");
+					if (cmd_tab[i].redir->in_quote == 1)
+						ft_printf("bool: 1\n");
+					if (cmd_tab[i].redir->in_quote == 0)
+						ft_printf("bool: 0\n");
+				}
+				if (tokens->next)
+				{
+					tokens = tokens->next;
+					delet_elem(&tokens->prev);
+					tokens = tokens->prev;
+				}
+				else
+				{
+					tokens = tokens->prev;
+					delet_elem(&tokens->next);
 				}
 			}
 		}
