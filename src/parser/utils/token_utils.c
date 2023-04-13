@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:50:32 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/11 13:07:02 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/12 05:37:47 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 t_elem	*join_tokens(t_elem **token, t_elem **next_token)
 {
 	(*token)->content = ft_strjoin_gnl((*token)->content, (*next_token)->content);
-	(*token) = (*next_token)->next;
+	if ((*next_token)->next)
+		(*token) = (*next_token)->next;
+	else
+	{
+		delet_elem(&(*next_token));
+		return ((*token));
+	}
 	if ((*token)->prev)
 		delet_elem(&(*token)->prev);
 	return((*token)->prev);
@@ -30,8 +36,9 @@ t_elem	*delete_last_quote(t_elem *token)
 	}
 	else
 	{
-		delet_elem(&(token));
-		return (NULL);
+		token = token->prev;
+		delet_elem(&(token->next));
+		return (token);
 	}
 	return (token->prev);
 }
@@ -64,13 +71,15 @@ t_elem	*delete_quotes(t_elem *tokens)
 			tokens = join_tokens(&tokens, &tokens->next);
 		else
 		{
-			if (tokens->type != type)
+			if (tokens->type != type && tokens->next)
 				tokens = tokens->next;
+			else if (!tokens->next)
+				break ;
 		}
 		if (tokens->type == type)
 			break ;
 	}
-	if (!tokens)
+	if (!tokens->next && tokens->type != type)
 		error_unclosed_quotes();
 	return (delete_last_quote(tokens));
 }

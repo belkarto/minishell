@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/08 01:49:50 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/12 06:15:05 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ int	cmd_tab_len(t_elem *tokens)
 t_cmd_tab	**command_table(char *command_line)
 {
 	int			len;
+	int			i;
 	t_elem		*tokens;
 	t_cmd_tab	*cmd_tab;
 
+	i = 0;
 	tokens = generate_tokens(command_line);
 	len = cmd_tab_len(tokens);
 	cmd_tab = (t_cmd_tab *)malloc(len * sizeof(t_cmd_tab));
@@ -56,7 +58,6 @@ t_cmd_tab	**command_table(char *command_line)
 	if (len)
 		cmd_tab->len = len;
 	iterate_tokens(tokens, cmd_tab);
-	ft_printf("\nAfter iterate_tokens:\n");
 	print_lexer(tokens);
 	elem_clear(tokens);
 	return (NULL);

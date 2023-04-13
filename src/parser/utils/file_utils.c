@@ -6,13 +6,13 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:23:06 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/04 21:34:21 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/12 05:52:10 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../../include/minishell.h"
 
-t_redir	*file_new(char *file_name, t_token redir_type)
+t_redir	*file_new(char *file_name, t_token redir_type, bool in_quote)
 {
 	t_redir	*elem;
 
@@ -21,6 +21,7 @@ t_redir	*file_new(char *file_name, t_token redir_type)
 		return (NULL);
 	elem->file_name = ft_strdup(file_name);
 	elem->redir_type = redir_type;
+	elem->in_quote = in_quote;
 	elem->next = NULL;
 	return (elem);
 }
