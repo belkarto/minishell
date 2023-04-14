@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:54:21 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/11 02:47:53 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/13 20:55:24 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	expand(t_elem **tokens)
 {
 	t_env	*env;
-	t_elem	*tmp;
-	char	**export;
+	// t_elem	*tmp;
+	// char	**export;
 
 	env = get_var((*tokens)->content + 1, g_meta.env);
 	free((*tokens)->content);
@@ -24,20 +24,20 @@ void	expand(t_elem **tokens)
 		(*tokens)->content = ft_strdup("");
 	else
 		(*tokens)->content = ft_strdup(env->content);
-	if (((*tokens)->state) == GENERAL && (ft_strrchr((*tokens)->content, ' ') + 1))
-	{
-		export = ft_split((*tokens)->content, ' ');
-		(*tokens)->content = *export;
-		export++;
-		while (*export != NULL)
-		{
-			tmp = (*tokens)->next;
-			(*tokens)->next = new_elem(*export, ft_strlen(*export), WORD, (*tokens)->state);
-			(*tokens)->next->next = tmp;
-			free (tmp);
-			export++;
-		}
-	}
+	// if (((*tokens)->state) == GENERAL && (ft_strrchr((*tokens)->content, ' ') + 1))
+	// {
+	// 	export = ft_split((*tokens)->content, ' ');
+	// 	(*tokens)->content = *export;
+	// 	export++;
+	// 	while (*export != NULL)
+	// 	{
+	// 		tmp = (*tokens)->next;
+	// 		(*tokens)->next = new_elem(*export, ft_strlen(*export), WORD, (*tokens)->state);
+	// 		(*tokens)->next->next = tmp;
+	// 		free (tmp);
+	// 		export++;
+	// 	}
+	// }
 	(*tokens)->type = WORD;
 }
 
