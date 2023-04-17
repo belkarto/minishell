@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:54:21 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/13 20:55:24 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/16 20:32:38 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ void	expand(t_elem **tokens)
 	// t_elem	*tmp;
 	// char	**export;
 
+	if (ft_strcmp((*tokens)->content, "$?") == 0)
+	{
+		free((*tokens)->content);
+		(*tokens)->content = ft_itoa(g_meta.exit_status);
+		return ;
+	}
 	env = get_var((*tokens)->content + 1, g_meta.env);
 	free((*tokens)->content);
 	if (env == NULL)

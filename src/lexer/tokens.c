@@ -59,7 +59,7 @@ int	env(t_elem **list, int *status, char *line)
 	i = 0;
 	while (line[++i])
 	{
-		if (ft_isalnum(line[i]) || line[i] == '_')
+		if (ft_isalnum(line[i]) || line[i] == '_' || line[i] == '?')
 			continue ;
 		else
 			break ;
@@ -70,7 +70,7 @@ int	env(t_elem **list, int *status, char *line)
 
 int	token(t_elem **list, int *status, char *line)
 {
-	if (ft_isalnum(*line) || *line == '_' || *line == '-' || *line == ',')
+	if (ft_isalnum(*line) || *line == '_' || *line == '-' || *line == ',' || *line == '.')
 		return (word(list, *status, line));
 	else if (*line == PIPE)
 		return (tokens(list, status, PIPE));

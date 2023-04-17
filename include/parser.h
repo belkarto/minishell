@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/14 23:19:01 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/15 19:59:19 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*generate_cmd_env(char *cmd);
 
 //------------------Expansion_file_utils-----------------//
 void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab);
-void	fill_path_and_cmd(t_elem *tokens, t_cmd_tab *cmd_tab);
+void	fill_cmd_and_path(t_elem *tokens, t_cmd_tab *cmd_tab);
 
 //--------------------Cmd_Tab-----------------------//
 t_cmd_tab	**command_table(char *command_line);

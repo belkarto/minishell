@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/14 23:25:25 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 01:50:41 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,76 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 	}
 }
 
-// int	is_builtin(char *content)
+int	is_builtin(char *content)
+{
+	return ((ft_strcmp(content, "echo") == 0)
+		|| (ft_strcmp(content, "cd") == 0)
+			|| (ft_strcmp(content, "pwd") == 0)
+				|| (ft_strcmp(content, "export") == 0)
+					|| (ft_strcmp(content, "unset") == 0)
+						|| (ft_strcmp(content, "env") == 0)
+							|| (ft_strcmp(content, "exit") == 0));
+}
+
+void	delete_spaces(t_elem *tokens)
+{
+	while (tokens)
+	{
+		if (tokens->type == SPAC)
+			tokens = delete_file(tokens);
+		tokens = tokens->next;
+	}
+}
+
+void	path(t_elem *tokens, t_cmd_tab cmd_tab)
+{
+	if (is_builtin(tokens->content))
+		cmd_tab.env = NULL ;
+	else
+		cmd_tab.env = generate_cmd_env(tokens->content);
+}
+
+// void	fill_path(t_elem *tokens, t_cmd_tab *cmd_tab)
 // {
-// 	return ((ft_strcmp(content, "echo") == 0)
-// 		|| (ft_strcmp(content, "cd") == 0)
-// 			|| (ft_strcmp(content, "pwd") == 0)
-// 				|| (ft_strcmp(content, "export") == 0)
-// 					|| (ft_strcmp(content, "unset") == 0)
-// 						|| (ft_strcmp(content, "env") == 0)
-// 							|| (ft_strcmp(content, "exit") == 0));
+	
 // }
 
-// void	fill_path_and_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
-// {
-// 	int	i;
+void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
+{
+	int	i;
+	int	len;
 
-// 	i = 0;
-// }
+	i = 0;
+	len = 0;
+	while (1)
+	{
+		if (tokens->type == PIPE || !tokens->next)
+		{
+			if (i == 0)
+				len -= 1;
+			if (!tokens->next)
+				len += 1;
+			cmd_tab[i++].cmd = (char **)ft_calloc(sizeof(char *), (len + 1));
+			if (!cmd_tab[i].cmd)
+				return ; // MUST FREE
+			if (!tokens->next)
+				break ;
+			len = 0;
+		}
+		else
+			len++;
+		tokens = tokens->next;
+	}
+}
+
+void	fill_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
+{
+	allocate_2d_cmd(tokens, cmd_tab);
+}
+
+void	fill_cmd_and_path(t_elem *tokens, t_cmd_tab *cmd_tab)
+{
+	(void)cmd_tab;
+	delete_spaces(tokens);
+	fill_cmd(tokens, cmd_tab);
+}

@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/06 00:39:36 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/15 18:44:39 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_str_space(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]))
+		if (str[i] != ' ')
 			return (1);
 		i++;
 	}
