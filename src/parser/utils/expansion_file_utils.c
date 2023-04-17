@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/17 05:03:17 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 06:01:17 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,7 @@ void	delete_spaces(t_elem *tokens)
 void	fill_env(t_elem *tokens, t_cmd_tab cmd_tab)
 {
 	if (is_builtin(tokens->content))
-	{
-		printf("is_builtin: %s\n", tokens->content);
 		cmd_tab.env = NULL;
-	}
 	else
 		cmd_tab.env = generate_cmd_env(tokens->content);
 }
@@ -109,8 +106,6 @@ void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
 	{
 		if (tokens->type == PIPE || !tokens->next)
 		{
-			if (i == 0)
-				len -= 1;
 			if (!tokens->next)
 				len += 1;
 			cmd_tab[i].cmd = (char **)ft_calloc(sizeof(char *), (len + 1));
@@ -127,7 +122,7 @@ void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
 	}
 }
 
-void	fill_cmd(t_elem **tokens, t_cmd_tab cmd_tab)
+void	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
 {
 	int	i;
 
@@ -136,15 +131,23 @@ void	fill_cmd(t_elem **tokens, t_cmd_tab cmd_tab)
 	{
 		if ((*tokens)->type == PIPE)
 		{
-			(*tokens) = (*tokens)->next;
+			if ((*tokens)->next)
+				(*tokens) = (*tokens)->next;
+			else
+			{
+				ft_putstr_fd("syntax error\n", 2);
+				exit (0);
+			}
 			break ;
 		}
 		if (i == 0)
 		{
-			printf("Token: %s\n", (*tokens)->content);
-			fill_env((*tokens), cmd_tab);
+			if (is_builtin((*tokens)->content))
+				cmd_tab->env = NULL;
+			else
+				cmd_tab->env = generate_cmd_env((*tokens)->content);
 		}
-		cmd_tab.cmd[i++] = ft_strdup((*tokens)->content);
+		cmd_tab->cmd[i++] = ft_strdup((*tokens)->content);
 		(*tokens) = (*tokens)->next;
 	}
 }
@@ -156,27 +159,10 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 
 	i = 0;
 	tokens_dup = tokens;
-	delete_spaces(tokens_dup);
-	allocate_2d_cmd(tokens_dup, cmd_tab);
 	if (tokens_dup->next)
 		tokens_dup = tokens_dup->next;
+	delete_spaces(tokens_dup);
+	allocate_2d_cmd(tokens_dup, cmd_tab);
 	while (i < cmd_tab->len - 1)
-	{
-		fill_cmd(&tokens_dup, cmd_tab[i]);
-		i++;
-	}
-	i = 0;
-	int	j = 0;
-	while (i < cmd_tab->len - 1)
-	{
-		printf("cmd_tab[%d].env = %s, ", i, cmd_tab[i].env);
-		while (cmd_tab[i].cmd[j])
-		{
-			printf("cmd_tab[%d].cmd[%d] = %s, ", i, j, cmd_tab[i].cmd[j]);
-			j++;
-		}
-		printf("\n");
-		j = 0;
-		i++;
-	}
+		fill(&tokens_dup, &cmd_tab[i++]);
 }
