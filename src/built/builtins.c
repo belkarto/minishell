@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 04:37:58 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/23 00:55:36 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/16 09:13:51 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	execut_she(t_cmd_tab cmd, char **env)
 	waitpid(pid, NULL, 0);
 }
 
-void	builtins(t_cmd_tab cmd, char **env)
+void	builtins(t_cmd_tab cmd)
 {
+	if (cmd.cmd == NULL)
+		return ;
 	if (ft_strcmp(cmd.cmd[0], "cd") == 0)
 		ft_cd(cmd);
 	else if (ft_strcmp(cmd.cmd[0], "pwd") == 0)
@@ -43,6 +45,4 @@ void	builtins(t_cmd_tab cmd, char **env)
 		ft_env(cmd);
 	else if (ft_strcmp(cmd.cmd[0], "unset") == 0)
 		ft_unset(cmd);
-	else
-		execut_she(cmd, env);
 }

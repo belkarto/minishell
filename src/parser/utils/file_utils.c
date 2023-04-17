@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:23:06 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/14 20:43:35 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 20:54:36 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,19 @@ t_elem	*check_file(t_elem *file)
 		return (NULL);
 	}
 	return (file);
+}
+
+void	clear_files(t_redir *list)
+{
+	t_redir *tmp;
+
+	tmp = list;
+	while (tmp)
+	{
+		list = list->next;
+		free(tmp->file_name);
+		free(tmp);
+		tmp = list;
+	}
+	list = NULL;
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:53:00 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/22 15:33:51 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 21:06:33 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../../include/minishell.h"
 
-# include "../../include/minishell.h"
 void	ft_exit(t_cmd_tab cmd)
 {
 	int	num;
