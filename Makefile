@@ -16,14 +16,15 @@ OBJ_DIR		= obj/
 LIBFT		= include/libft/libft.a
 LEXER_DIR	= lexer/lexer lexer/quote lexer/tokens
 PARSER_DIR	= parser/command_table
-PARSER_UTILS_DIR	= parser/utils/char_utils parser/utils/path_utils parser/utils/expantion_utils \
-					parser/utils/file_utils
+PARSER_UTILS_DIR	= parser/utils/char_utils parser/utils/path_utils parser/utils/expansion_utils \
+					parser/utils/file_utils parser/utils/expansion_file_utils parser/utils/token_utils \
+					parser/utils/iterate_tokens_utils
 UTILS_DIR	= utils/elem_utils utils/print_utils utils/env_utils utils/env_utils2 utils/var_utils \
-			  utils/export_sort
+			  utils/export_sort utils/tab_utils
 BUILIN_DIR	= built/builtins built/ft_cd built/ft_pwd built/ft_exit built/ft_export built/ft_env built/ft_unset
+EXEC_DIR	= exec/exec_cmd exec/init_files exec/execute
 SRC_FILES	= main signals $(LEXER_DIR) $(PARSER_UTILS_DIR) $(PARSER_DIR) \
 			  $(UTILS_DIR) $(BUILIN_DIR) $(EXEC_DIR)
-EXEC_DIR	= exec/exec_cmd
 CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 CC			= cc 
 OBJF		=	.cache_exists
@@ -34,7 +35,7 @@ ifeq ($(USER), belkarto)
 	READLINE = -L ~/Desktop/homebrew/Cellar/readline/8.2.1/lib
 endif
 ifeq ($(USER), iiouma_ii)
-	READLINE = -L ~/homebrew/Cellar/readline/8.2.1/lib
+	READLINE = -L ~/Desktop/brew/Cellar/readline/8.2.1/lib
 endif
 ifeq ($(USER), ohalim)
 	READLINE = -L ~/Desktop/brew/Cellar/readline/8.2.1/lib
@@ -62,6 +63,7 @@ $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
 
 # #=== rule that compile the final program ===
 $(NAME) : $(LIBFT) $(OBJ)
+	stty -echoctl
 	@$(CC) $(CFLAGS) $(OBJ) -lreadline $(READLINE) $(LIBFT) -o $(NAME)
 	@printf "$(GREEN)\n- Little shell is ready ✅🥳\n$(NO_COLOR)"
 # #===========================================

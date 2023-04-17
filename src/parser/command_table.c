@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/05 20:15:32 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 20:56:15 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,23 @@ int	cmd_tab_len(t_elem *tokens)
 	return (cmd + 1);
 }
 
-t_cmd_tab	**command_table(char *command_line)
+t_cmd_tab	*command_table(char *command_line)
 {
-	int			i;
 	int			len;
 	t_elem		*tokens;
+	t_elem		*tokens_dup;
 	t_cmd_tab	*cmd_tab;
 
-	i = 0;
 	tokens = generate_tokens(command_line);
+	tokens_dup = tokens;
 	len = cmd_tab_len(tokens);
-	cmd_tab = (t_cmd_tab *)malloc(len * sizeof(t_cmd_tab));
+	cmd_tab = (t_cmd_tab *)ft_calloc(sizeof(t_cmd_tab), len);
 	if (!cmd_tab)
 		return (NULL);
 	if (len)
 		cmd_tab->len = len;
 	iterate_tokens(tokens, cmd_tab);
-	ft_printf("\nAfter iterate_tokens:\n");
+	fill_cmd_and_env(tokens_dup, cmd_tab);
 	print_lexer(tokens);
 	elem_clear(tokens);
 	return (NULL);

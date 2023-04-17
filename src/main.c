@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/01 16:45:33 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 20:41:18 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_str_space(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]))
+		if (str[i] != ' ')
 			return (1);
 		i++;
 	}
@@ -55,34 +55,37 @@ static int	ft_add_history(char *str)
 	}
 }
 
-void	set_struct(char *readed, t_cmd_tab *cmd)
+void	ft_wait_pid(pid_t *pid, int len)
 {
-	cmd->cmd = ft_split(readed, ' ');
-	cmd->env = ft_strjoin("/bin/", cmd->cmd[0]);
+	int	i;
+
+	i = -1;
+	if (!pid)
+		return ;
+	while (++i < len)
+		waitpid(pid[i], &g_meta.exit_status, 0);
+	WEXITSTATUS(g_meta.exit_status);
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	char	*readed;
-	t_cmd_tab	**ok;
+	t_cmd_tab	*cmd_tab;
+	pid_t		*pid;
 
 	init_program(argc, argv, env);
 	signals();
-	t_cmd_tab cmd;
 	while (1)
 	{
 		printf("%d\n", g_meta.exit_status);
 		readed = readline("\033[0;1;3;32m MINISHELL $> \033[0;37m");
 		if (ft_add_history(readed) == 1)
 			continue ;
-		ok = command_table(readed);
-		free(ok);
-		set_struct(readed, &cmd);
-		builtins(cmd, env);
-		free(cmd.env);
-		free(cmd.cmd[0]);
-		free(cmd.cmd[1]);
-		free(cmd.cmd);
+		cmd_tab = command_table(readed);
+		pid = exec_cmd_tab(cmd_tab, env);
+		ft_wait_pid(pid, cmd_tab->len);
+		cmd_tab_free(&cmd_tab);
+		free(pid);
 		free(readed);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/04 21:19:32 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 20:38:57 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,43 @@ typedef struct s_cmd_tab
 	char	**cmd;
 	char	*env;
 	t_redir	*redir;
-	bool	pip;
 	int		len;
 }	t_cmd_tab;
 
 //------------------Char_Utils----------------------//
 char	*free_2d(char **tab);
-
+int		double_len(char **tab);
 
 //------------------Path_utils----------------------//
 char	*generate_cmd_env(char *cmd);
 
-//------------------Expantion_utils-----------------//
+//------------------Expansion_file_utils-----------------//
 void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab);
+void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab);
 
 //--------------------Cmd_Tab-----------------------//
-t_cmd_tab	**command_table(char *command_line);
+t_cmd_tab	*command_table(char *command_line);
 
-//--------------------File_utils--------------------//
-t_redir	*file_new(char *file_name, t_token redir_type);
+//--------------------File_utils_a--------------------//
+t_redir	*file_new(char *file_name, t_token redir_type, bool in_quote);
 void	file_add_back(t_redir **lst, t_redir *new);
-void	redir_clear(t_redir *list);
+t_elem	*delete_file(t_elem *token);
+t_elem	*get_file(t_elem *tokens, t_token redir_type);
+t_elem	*check_file(t_elem *file);
+
+//-------------------Expansion_utils-----------------//
+void	expand(t_elem **tokens);
+void	is_expand(t_elem *tokens);
+
+//--------------------Token_utils--------------------//
+t_elem	*join_tokens(t_elem **token, t_elem **next_token);
+t_elem	*delete_quotes(t_elem *tokens);
+t_elem	*delete_last_quote(t_elem *token);
+
+//-----------------Iterate_tokens_utils--------------//
+t_elem	*inside_quotes(t_elem *token);
+void	skip_spaces(t_elem **tokens);
+int		is_in_quote(t_elem *tokens);
+t_elem	*join_none_space(t_elem *tokens);
 
 #endif
