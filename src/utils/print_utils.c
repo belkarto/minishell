@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 00:08:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/10 09:20:26 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/17 01:56:41 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,35 @@
 void	ft_print_type(int type)
 {
 	if (type == WORD)
-		ft_printf("WORD\t\t");
+		printf("WORD\t\t");
 	else if (type == PIPE)
-		ft_printf("PIPE\t\t");
+		printf("PIPE\t\t");
 	else if (type == LESS)
-		ft_printf("LESS\t\t");
+		printf("LESS\t\t");
 	else if (type == HEREDOC)
-		ft_printf("HERDOC\t\t");
+		printf("HERDOC\t\t");
 	else if (type == REDIR_OUT)
-		ft_printf("REDIR_OUT\t\t");
+		printf("REDIR_OUT\t\t");
 	else if (type == GREAT)
-		ft_printf("GREAT\t\t");
+		printf("GREAT\t\t");
 	else if (type == ENV)
-		ft_printf("ENV\t\t");
+		printf("ENV\t\t");
 	else if (type == QUOTE)
-		ft_printf("QUOTE\t\t");
+		printf("QUOTE\t\t");
 	else if (type == DQUOTE)
-		ft_printf("DQUOTE\t\t");
+		printf("DQUOTE\t\t");
 	else
-		ft_printf("SPAC\t\t");
+		printf("SPAC\t\t");
 }
 
 void	ft_print_state(int state)
 {
 	if (state == GENERAL)
-		ft_printf("GENERAL\n");
+		printf("GENERAL\n");
 	else if (state == IN_QUOTE)
-		ft_printf("IN_QUOTE\n");
+		printf("IN_QUOTE\n");
 	else
-		ft_printf("IN_DQUOTE\n");
+		printf("IN_DQUOTE\n");
 }
 
 void	print_lexer(t_elem *head)
@@ -51,11 +51,11 @@ void	print_lexer(t_elem *head)
 	t_elem	*tmp;
 
 	tmp = head;
-	ft_printf("|content\t\tlen\t\ttype\t\tstate\n");
-	ft_printf("-------------------------------------------------------------\n");
+	printf("|content\t\tlen\t\ttype\t\tstate\n");
+	printf("-------------------------------------------------------------\n");
 	while (tmp)
 	{
-		ft_printf("%s\t\t\t%d\t\t", tmp->content, tmp->len);
+		printf("%s\t\t\t%d\t\t", tmp->content, tmp->len);
 		ft_print_type(tmp->type);
 		ft_print_state(tmp->state);
 		tmp = tmp->next;
