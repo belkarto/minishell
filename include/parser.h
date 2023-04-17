@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/17 02:04:33 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 20:40:23 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab);
 void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab);
 
 //--------------------Cmd_Tab-----------------------//
-t_cmd_tab	**command_table(char *command_line);
+t_cmd_tab	*command_table(char *command_line);
 
 //--------------------File_utils_a--------------------//
 t_redir	*file_new(char *file_name, t_token redir_type, bool in_quote);
@@ -66,5 +66,7 @@ t_elem	*inside_quotes(t_elem *token);
 void	skip_spaces(t_elem **tokens);
 int		is_in_quote(t_elem *tokens);
 t_elem	*join_none_space(t_elem *tokens);
+
+void	printf_cmd_tab( t_cmd_tab *cmd_tab);
 
 #endif

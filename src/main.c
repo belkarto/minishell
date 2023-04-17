@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/15 18:44:39 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 20:40:45 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	set_struct(char *readed, t_cmd_tab *cmd)
 int	main(int argc, char **argv, char **env)
 {
 	char	*readed;
-	t_cmd_tab	**ok;
+	t_cmd_tab	*ok;
 
 	init_program(argc, argv, env);
 	signals();
