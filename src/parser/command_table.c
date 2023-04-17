@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 20:56:15 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/17 21:02:29 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ t_cmd_tab	*command_table(char *command_line)
 	fill_cmd_and_env(tokens_dup, cmd_tab);
 	print_lexer(tokens);
 	elem_clear(tokens);
-	return (NULL);
+	return (cmd_tab);
 }

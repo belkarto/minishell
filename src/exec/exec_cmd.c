@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:46:29 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/16 13:43:20 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/17 21:04:40 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	*exec_cmd_tab(t_cmd_tab *cmd_tab, char **env)
 	pid_t		*pid;
 
 	i = -1;
+	ft_printf("command +++ %s\n", cmd_tab->cmd[0]);
 	pid = ft_calloc(cmd_tab->len, sizeof(int));
 	if (!pid)
 		return (NULL);

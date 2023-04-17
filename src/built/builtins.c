@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 04:37:58 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 20:56:41 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/16 09:13:51 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	execut_she(t_cmd_tab cmd, char **env)
 
 void	builtins(t_cmd_tab cmd)
 {
+	if (cmd.cmd == NULL)
+		return ;
 	if (ft_strcmp(cmd.cmd[0], "cd") == 0)
 		ft_cd(cmd);
 	else if (ft_strcmp(cmd.cmd[0], "pwd") == 0)
