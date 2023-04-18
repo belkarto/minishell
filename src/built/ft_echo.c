@@ -6,14 +6,14 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 01:56:09 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/18 05:36:28 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <unistd.h>
 
-void	ft_echo(t_cmd_tab cmd)
+void	ft_echo(t_cmd_tab cmd, bool in_child)
 {
 	int	i;
 	int	j;
@@ -37,5 +37,6 @@ void	ft_echo(t_cmd_tab cmd)
 	}
 	if (print_line == true)
 		write(1, "\n", 1);
-	exit(0);
+	if (in_child == true)
+		exit(0);
 }

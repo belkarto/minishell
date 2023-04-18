@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 21:06:55 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/18 05:26:57 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	env_control(char *env)
 	}
 }
 
-void	ft_export(t_cmd_tab cmd)
+void	ft_export(t_cmd_tab cmd, bool in_child)
 {
 	int		len;
 	int		i;
@@ -87,12 +87,12 @@ void	ft_export(t_cmd_tab cmd)
 	{
 		sort_env(g_meta.env);
 		g_meta.exit_status = 0;
-		return ;
 	}
 	else if (len > 1)
 	{
 		while (++i < len)
 			env_control(cmd.cmd[i]);
 	}
-	return ;
+	if (in_child == true)
+		exit(0);
 }
