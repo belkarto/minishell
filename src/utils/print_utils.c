@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 00:08:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 20:45:23 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 22:31:10 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ void	printf_cmd_tab(t_cmd_tab *cmd_tab)
 
 	i = 0;
 	j = 0;
-	while (i < cmd_tab->len - 1)
+	while (i < cmd_tab->len)
 	{
-		printf("cmd_tab[%d].env: %s, ", i, cmd_tab[i].env);
+		printf("env: %s\ncmd: ", cmd_tab[i].env);
 		while (cmd_tab[i].cmd[j])
 		{
-			printf("cmd_tab[%d].cmd[%d]: %s, ", i, j, cmd_tab[i].cmd[j]);
+			printf("%s|", cmd_tab[i].cmd[j]);
 			j++;
 		}
 		if (!cmd_tab[i].cmd[j])
-			printf("cmd_tab[%d].cmd[%d]: %s, ", i, j, cmd_tab[i].cmd[j]);
+			printf("%s\n\n", cmd_tab[i].cmd[j]);
 		printf("\n");
 		j = 0;
 		i++;

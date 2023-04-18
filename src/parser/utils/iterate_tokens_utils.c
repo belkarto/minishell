@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 20:31:27 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/14 00:43:02 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/18 00:25:23 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	skip_spaces(t_elem **tokens)
 	delet_elem(&(*tokens)->prev);
 	while ((*tokens))
 	{
-		if (ft_strncmp((*tokens)->content, " ", 2) != 0)
+		if ((*tokens)->type != SPAC)
 			return ;
 		(*tokens) = (*tokens)->next;
 	}

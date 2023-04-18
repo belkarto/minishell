@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:23:06 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/17 20:54:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/18 05:35:00 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ t_redir	*file_new(char *file_name, t_token redir_type, bool in_quote)
 	elem = ft_calloc(sizeof(t_redir), 1);
 	if (!elem)
 		return (NULL);
+	printf("\n----------File_new---------\n");
+	printf("file_name: %s\n", file_name);
+	printf("file_name_size: %zu\n", ft_strlen(file_name));
+	if (redir_type == LESS)
+		printf("redir_type: <\n");
+	if (redir_type == GREAT)
+		printf("redir_type: >\n");
+	if (redir_type == HEREDOC)
+		printf("redir_type: <<\n");
+	if (redir_type == REDIR_OUT)
+		printf("redir_type: >>\n");
+	printf("\n---------------------------\n");
 	elem->file_name = ft_strdup(file_name);
 	elem->redir_type = redir_type;
 	elem->in_quote = in_quote;
@@ -44,6 +56,21 @@ void	file_add_back(t_redir **lst, t_redir *new)
 	}
 }
 
+t_elem	*delete_token(t_elem *token)
+{
+	if (token->next)
+	{
+		token = token->next;
+		delet_elem(&token->prev);
+	}
+	else
+	{
+		token = token->prev;
+		delet_elem(&token->next);
+	}
+	return (token);
+}
+
 t_elem	*delete_file(t_elem *token)
 {
 	if (token->next)
@@ -64,8 +91,8 @@ t_elem	*get_file(t_elem *tokens, t_token redir_type)
 {
 	t_elem	*tmp;
 
-	if (tokens->type == SPAC)
-		return (tokens);
+	if (tokens->type == SPAC || tokens->type == redir_type)
+		return (tokens->prev);
 	if (tokens->type == ENV && (tokens->state == IN_DQUOTE
 		|| tokens->state == GENERAL))
 	{

@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/17 20:44:40 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/18 05:42:01 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,27 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			tokens = get_file(tokens, redir_type);
 			if (tokens)
 			{
+				printf("Token: %s\n", tokens->content);
 				file_add_back(&cmd_tab[i].redir, file_new(tokens->content, redir_type, quote));
-				if (cmd_tab[i].redir->next)
-						cmd_tab[i].redir = cmd_tab[i].redir->next;
-				ft_printf("file_name: %s\n", cmd_tab[i].redir->file_name);
-				if (cmd_tab[i].redir->redir_type == LESS)
-					ft_printf("redir_type: <\n");
-				if (cmd_tab[i].redir->redir_type == GREAT)
-					ft_printf("redir_type: >\n");
-				if (cmd_tab[i].redir->redir_type == HEREDOC)
-					ft_printf("redir_type: <<\n");
-				if (cmd_tab[i].redir->redir_type == REDIR_OUT)
-					ft_printf("redir_type: >>\n");
-				if (cmd_tab[i].redir->in_quote == 1)
-					ft_printf("bool: 1\n");
-				if (cmd_tab[i].redir->in_quote == 0)
-					ft_printf("bool: 0\n");
+				ft_printf("redir_head: %s\n", cmd_tab[i].redir->file_name);
+				// if (cmd_tab[i].redir->next)
+				// 		cmd_tab[i].redir = cmd_tab[i].redir->next;
+				// ft_printf("file_name: %s\n", cmd_tab[i].redir->file_name);
+				// if (cmd_tab[i].redir->redir_type == LESS)
+				// 	ft_printf("redir_type: <\n");
+				// if (cmd_tab[i].redir->redir_type == GREAT)
+				// 	ft_printf("redir_type: >\n");
+				// if (cmd_tab[i].redir->redir_type == HEREDOC)
+				// 	ft_printf("redir_type: <<\n");
+				// if (cmd_tab[i].redir->redir_type == REDIR_OUT)
+				// 	ft_printf("redir_type: >>\n");
+				// if (cmd_tab[i].redir->in_quote == 1)
+				// 	ft_printf("bool: 1\n");
+				// if (cmd_tab[i].redir->in_quote == 0)
+				// 	ft_printf("bool: 0\n");
 			}
 			tokens = delete_file(tokens);
+			printf("To: %s, To _size: %zu\n", tokens->content, ft_strlen(tokens->content));
 		}
 		else
 			cmd_tab[i].redir = NULL;
@@ -77,14 +80,16 @@ int	is_builtin(char *content)
 							|| (ft_strcmp(content, "exit") == 0));
 }
 
-void	delete_spaces(t_elem *tokens)
+t_elem	*delete_spaces(t_elem *tokens)
 {
-	while (tokens)
+	while (1)
 	{
 		if (tokens->type == SPAC)
-			tokens = delete_file(tokens);
-		tokens = tokens->next;
+			tokens = delete_token(tokens);
+		if (!tokens || !tokens->next)
+			break ;
 	}
+	return (tokens);
 }
 
 void	fill_env(t_elem *tokens, t_cmd_tab cmd_tab)
@@ -118,7 +123,8 @@ void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
 		}
 		else
 			len++;
-		tokens = tokens->next;
+		if (tokens->next)
+			tokens = tokens->next;
 	}
 }
 
@@ -165,9 +171,11 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 	tokens_dup = tokens;
 	if (tokens_dup->next)
 		tokens_dup = tokens_dup->next;
-	delete_spaces(tokens_dup);
+	ft_printf("Token: %s\n", tokens_dup->content);
+	tokens_dup = delete_spaces(tokens_dup);
+	print_lexer(tokens);
 	allocate_2d_cmd(tokens_dup, cmd_tab);
-	while (i < cmd_tab->len - 1)
+	while (i < cmd_tab->len)
 		fill(&tokens_dup, &cmd_tab[i++]);
 	printf_cmd_tab(cmd_tab);
 }
