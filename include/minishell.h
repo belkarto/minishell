@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 20:33:40 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/18 04:40:20 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	rl_replace_line(const char *str, int state);
 void	signals(void);
 void	end_of_file(void);
 t_env	*init_env(char **env);
-void	builtins(t_cmd_tab cmd);
+void	builtins(t_cmd_tab cmd, bool in_child);
 int		d_strlen(char **list);
 #endif

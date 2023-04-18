@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 21:02:29 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/17 22:18:46 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_elem	*generate_tokens(char *command_line)
 	if (command_line == NULL)
 		end_of_file();
 	tokens = lexer(command_line);
-	ft_printf("Before iterate_tokens:\n");
-	print_lexer(tokens);
+	// ft_printf("Before iterate_tokens:\n");
+	// print_lexer(tokens);
 	return (tokens);
 }
 
@@ -59,7 +59,7 @@ t_cmd_tab	*command_table(char *command_line)
 		cmd_tab->len = len;
 	iterate_tokens(tokens, cmd_tab);
 	fill_cmd_and_env(tokens_dup, cmd_tab);
-	print_lexer(tokens);
+	// print_lexer(tokens);
 	elem_clear(tokens);
 	return (cmd_tab);
 }

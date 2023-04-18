@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 04:37:58 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/16 09:13:51 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/18 04:46:33 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void	execut_she(t_cmd_tab cmd, char **env)
 	waitpid(pid, NULL, 0);
 }
 
-void	builtins(t_cmd_tab cmd)
+void	builtins(t_cmd_tab cmd, bool in_child)
 {
 	if (cmd.cmd == NULL)
 		return ;
 	if (ft_strcmp(cmd.cmd[0], "cd") == 0)
-		ft_cd(cmd);
+		ft_cd(cmd, in_child);
 	else if (ft_strcmp(cmd.cmd[0], "pwd") == 0)
 		ft_pwd(cmd);
 	else if (ft_strcmp(cmd.cmd[0], "exit") == 0)
@@ -45,4 +45,6 @@ void	builtins(t_cmd_tab cmd)
 		ft_env(cmd);
 	else if (ft_strcmp(cmd.cmd[0], "unset") == 0)
 		ft_unset(cmd);
+	else if (ft_strcmp(cmd.cmd[0], "echo") == 0)
+		ft_echo(cmd);
 }

@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 09:54:34 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 02:06:33 by belkarto         ###   ########.fr       */
+/*   Created: 2023/04/18 00:01:18 by belkarto          #+#    #+#             */
+/*   Updated: 2023/04/18 01:56:09 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <unistd.h>
 
-void	ft_pwd(t_cmd_tab cmd)
+void	ft_echo(t_cmd_tab cmd)
 {
-	char	*cwd;
+	int	i;
+	int	j;
+	char	*str;
+	bool	print_line;
 
-	(void)cmd;
-	cwd = getcwd(NULL, 128);
-	if (cwd)
+	print_line = true;
+	i = 0;
+	if (cmd.cmd[1] && ft_strcmp(cmd.cmd[1], "-n") == 0)
 	{
-		write(1, cwd, ft_strlen(cwd));
-		write(1, "\n", 1);
+		i++;
+		print_line = false;
 	}
-	free(cwd);
-	exit (0);
+	while (cmd.cmd[++i])
+	{
+		j = -1;
+		str = cmd.cmd[i];
+		while (str[++j])
+			write(1, &str[j], 1);
+		write(1, " ", 1);
+	}
+	if (print_line == true)
+		write(1, "\n", 1);
+	exit(0);
 }

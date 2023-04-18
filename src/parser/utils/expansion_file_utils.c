@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/17 06:01:17 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 22:14:22 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,6 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 				file_add_back(&cmd_tab[i].redir, file_new(tokens->content, redir_type, quote));
 				if (cmd_tab[i].redir->next)
 						cmd_tab[i].redir = cmd_tab[i].redir->next;
-				ft_printf("file_name: %s\n", cmd_tab[i].redir->file_name);
-				if (cmd_tab[i].redir->redir_type == LESS)
-					ft_printf("redir_type: <\n");
-				if (cmd_tab[i].redir->redir_type == GREAT)
-					ft_printf("redir_type: >\n");
-				if (cmd_tab[i].redir->redir_type == HEREDOC)
-					ft_printf("redir_type: <<\n");
-				if (cmd_tab[i].redir->redir_type == REDIR_OUT)
-					ft_printf("redir_type: >>\n");
-				if (cmd_tab[i].redir->in_quote == 1)
-					ft_printf("bool: 1\n");
-				if (cmd_tab[i].redir->in_quote == 0)
-					ft_printf("bool: 0\n");
 			}
 			tokens = delete_file(tokens);
 		}

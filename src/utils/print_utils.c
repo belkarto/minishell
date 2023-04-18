@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 00:08:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 01:56:41 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/17 22:07:22 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,37 @@ void	print_lexer(t_elem *head)
 		tmp = tmp->next;
 	}
 }
+
+void	print_cmd(t_cmd_tab cmd)
+{
+	int		i;
+	t_redir	*tmp;
+
+	i = -1;
+	while (cmd.cmd[++i])
+	{
+		printf("%s  |  ", cmd.cmd[i]);
+	}
+	printf("\npath --> %s\n", cmd.env);
+	tmp = cmd.redir;
+	while (tmp)
+	{
+		printf("%s %c", tmp->file_name, tmp->redir_type);
+		tmp = tmp->next;
+	}
+	printf("\n");
+}
+
+void	print_cmd_tab(t_cmd_tab *tab)
+{
+	int	i;
+
+	i = -1;
+	if (tab == NULL)
+		return ;
+	while (++i < tab->len - 1)
+	{
+		print_cmd(tab[i]);
+	}
+}
+
