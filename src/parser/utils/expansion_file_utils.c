@@ -6,7 +6,11 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/04/17 22:14:22 by belkarto         ###   ########.fr       */
+=======
+/*   Updated: 2023/04/17 20:44:40 by ohalim           ###   ########.fr       */
+>>>>>>> c2dda7432733fca6f95cec3af7d0cfbbc45d2e9f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +136,11 @@ void	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
 			if (is_builtin((*tokens)->content))
 				cmd_tab->env = NULL;
 			else
+			{
 				cmd_tab->env = generate_cmd_env((*tokens)->content);
+				if (!cmd_tab->env)
+					cmd_tab->cmd[i++] = NULL;
+			}
 		}
 		cmd_tab->cmd[i++] = ft_strdup((*tokens)->content);
 		(*tokens) = (*tokens)->next;
@@ -152,4 +160,5 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 	allocate_2d_cmd(tokens_dup, cmd_tab);
 	while (i < cmd_tab->len - 1)
 		fill(&tokens_dup, &cmd_tab[i++]);
+	printf_cmd_tab(cmd_tab);
 }
