@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 04:45:59 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/18 05:33:00 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,7 @@ pid_t	exec_one(t_cmd_tab cmd, char **env)
 	pid_t	pid;
 
 	pid = -1;
-	if (cmd.cmd != NULL && (ft_strcmp(cmd.cmd[0], "exit") == 0
-				|| ft_strcmp(cmd.cmd[0], "cd") == 0))
+	if (cmd.cmd != NULL && is_builtin(cmd.cmd[0]))
 	{
 		open_files(cmd.redir);
 		builtins(cmd, false);
@@ -111,7 +110,6 @@ pid_t	exec_one(t_cmd_tab cmd, char **env)
 			open_files(cmd.redir);
 			if (cmd.cmd == NULL)
 				exit(127);
-			builtins(cmd, true);
 			if (execve(cmd.env, cmd.cmd, env) == -1)
 				put_error("ERROR : exeve", true);
 		}

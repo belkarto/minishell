@@ -6,13 +6,14 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 05:59:10 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/17 06:03:04 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/18 05:35:08 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stdbool.h>
 
-void	ft_env(t_cmd_tab cmd)
+void	ft_env(t_cmd_tab cmd, bool in_child)
 {
 	t_env	*tmp;
 
@@ -24,4 +25,6 @@ void	ft_env(t_cmd_tab cmd)
 			printf("%s=%s\n", tmp->name, tmp->content);
 		tmp = tmp->next;
 	}
+	if (in_child == true)
+		exit(0);
 }
