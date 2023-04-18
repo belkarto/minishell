@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/18 07:41:38 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/18 07:59:02 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			tokens = delete_file(tokens);
 			printf("To: %s, To _size: %zu\n", tokens->content, ft_strlen(tokens->content));
 		}
-		else
-			cmd_tab[i].redir = NULL;
 		if (tokens->type == PIPE)
 			i++;
 		if (tokens != NULL)
@@ -74,14 +72,14 @@ void	delete_spaces(t_elem *tokens)
 	}
 }
 
-void	fill_env(t_elem *tokens, t_cmd_tab cmd_tab)
+/* void	fill_env(t_elem *tokens, t_cmd_tab cmd_tab)
 {
 	if (is_builtin(tokens->content))
 		cmd_tab.env = NULL;
 	else
 		cmd_tab.env = generate_cmd_env(tokens->content);
 }
-
+ */
 void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
 {
 	int	i;
