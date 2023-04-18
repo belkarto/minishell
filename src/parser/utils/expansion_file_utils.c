@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/18 07:59:02 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/18 20:22:10 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,8 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			quote = is_in_quote(tokens);
 			tokens = get_file(tokens, redir_type);
 			if (tokens)
-			{
-				printf("Token: %s\n", tokens->content);
 				file_add_back(&cmd_tab[i].redir, file_new(tokens->content, redir_type, quote));
-			}
 			tokens = delete_file(tokens);
-			printf("To: %s, To _size: %zu\n", tokens->content, ft_strlen(tokens->content));
 		}
 		if (tokens->type == PIPE)
 			i++;
@@ -151,11 +147,8 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 	tokens_dup = tokens;
 	if (tokens_dup->next)
 		tokens_dup = tokens_dup->next;
-	ft_printf("Token: %s\n", tokens_dup->content);
 	delete_spaces(tokens_dup);
-	// print_lexer(tokens);
 	allocate_2d_cmd(tokens_dup, cmd_tab);
 	while (i < cmd_tab->len)
 		fill(&tokens_dup, &cmd_tab[i++]);
-	printf_cmd_tab(cmd_tab);
 }

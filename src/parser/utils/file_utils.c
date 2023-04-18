@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:23:06 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/18 05:35:00 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/18 20:15:34 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,6 @@ t_redir	*file_new(char *file_name, t_token redir_type, bool in_quote)
 	elem = ft_calloc(sizeof(t_redir), 1);
 	if (!elem)
 		return (NULL);
-	printf("\n----------File_new---------\n");
-	printf("file_name: %s\n", file_name);
-	printf("file_name_size: %zu\n", ft_strlen(file_name));
-	if (redir_type == LESS)
-		printf("redir_type: <\n");
-	if (redir_type == GREAT)
-		printf("redir_type: >\n");
-	if (redir_type == HEREDOC)
-		printf("redir_type: <<\n");
-	if (redir_type == REDIR_OUT)
-		printf("redir_type: >>\n");
-	printf("\n---------------------------\n");
 	elem->file_name = ft_strdup(file_name);
 	elem->redir_type = redir_type;
 	elem->in_quote = in_quote;

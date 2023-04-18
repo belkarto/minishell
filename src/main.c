@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 05:49:47 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/18 20:21:46 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,13 @@ int	main(int argc, char **argv, char **env)
 	signals();
 	while (1)
 	{
-		// printf("%d\n", g_meta.exit_status);
 		readed = readline("\033[0;1;3;32m MINISHELL $> \033[0;37m");
 		if (ft_add_history(readed) == 1)
 			continue ;
 		cmd_tab = command_table(readed);
 		pid = exec_cmd_tab(cmd_tab, env);
-		// print_cmd_tab(cmd_tab);
 		ft_wait_pid(pid, cmd_tab->len);
-		// cmd_tab_free(&cmd_tab);
+		cmd_tab_free(&cmd_tab);
 		free(pid);
 		free(readed);
 	}
