@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 06:07:10 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 21:07:11 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/18 05:27:37 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	env_control(char *var)
 	}
 }
 
-void	ft_unset(t_cmd_tab cmd)
+void	ft_unset(t_cmd_tab cmd, bool in_child)
 {
 	int	len;
 	int	i;
@@ -73,11 +73,11 @@ void	ft_unset(t_cmd_tab cmd)
 	len = d_strlen(cmd.cmd);
 	g_meta.exit_status = 0;
 	i = 0;
-	if (len == 1)
-		return ;
-	else
+	if (len > 1)
 	{
 		while (++i < len)
 			env_control(cmd.cmd[i]);
 	}
+	if (in_child == true)
+		exit(0);
 }

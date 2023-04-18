@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/18 05:42:01 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/18 07:41:38 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,6 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			{
 				printf("Token: %s\n", tokens->content);
 				file_add_back(&cmd_tab[i].redir, file_new(tokens->content, redir_type, quote));
-				ft_printf("redir_head: %s\n", cmd_tab[i].redir->file_name);
-				// if (cmd_tab[i].redir->next)
-				// 		cmd_tab[i].redir = cmd_tab[i].redir->next;
-				// ft_printf("file_name: %s\n", cmd_tab[i].redir->file_name);
-				// if (cmd_tab[i].redir->redir_type == LESS)
-				// 	ft_printf("redir_type: <\n");
-				// if (cmd_tab[i].redir->redir_type == GREAT)
-				// 	ft_printf("redir_type: >\n");
-				// if (cmd_tab[i].redir->redir_type == HEREDOC)
-				// 	ft_printf("redir_type: <<\n");
-				// if (cmd_tab[i].redir->redir_type == REDIR_OUT)
-				// 	ft_printf("redir_type: >>\n");
-				// if (cmd_tab[i].redir->in_quote == 1)
-				// 	ft_printf("bool: 1\n");
-				// if (cmd_tab[i].redir->in_quote == 0)
-				// 	ft_printf("bool: 0\n");
 			}
 			tokens = delete_file(tokens);
 			printf("To: %s, To _size: %zu\n", tokens->content, ft_strlen(tokens->content));
@@ -80,16 +64,14 @@ int	is_builtin(char *content)
 							|| (ft_strcmp(content, "exit") == 0));
 }
 
-t_elem	*delete_spaces(t_elem *tokens)
+void	delete_spaces(t_elem *tokens)
 {
-	while (1)
+	while (tokens)
 	{
 		if (tokens->type == SPAC)
-			tokens = delete_token(tokens);
-		if (!tokens || !tokens->next)
-			break ;
+			tokens = delete_file(tokens);
+		tokens = tokens->next;
 	}
-	return (tokens);
 }
 
 void	fill_env(t_elem *tokens, t_cmd_tab cmd_tab)
@@ -172,8 +154,8 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 	if (tokens_dup->next)
 		tokens_dup = tokens_dup->next;
 	ft_printf("Token: %s\n", tokens_dup->content);
-	tokens_dup = delete_spaces(tokens_dup);
-	print_lexer(tokens);
+	delete_spaces(tokens_dup);
+	// print_lexer(tokens);
 	allocate_2d_cmd(tokens_dup, cmd_tab);
 	while (i < cmd_tab->len)
 		fill(&tokens_dup, &cmd_tab[i++]);

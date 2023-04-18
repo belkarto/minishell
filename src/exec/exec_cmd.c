@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:46:29 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 22:27:16 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/18 05:54:35 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	*exec_cmd_tab(t_cmd_tab *cmd_tab, char **env)
 
 	i = -1;
 	return NULL;
-	// ft_printf("command +++ %s %d\n", cmd_tab->cmd[0], cmd_tab->len);
 	pid = ft_calloc(cmd_tab->len, sizeof(int));
 	if (!pid)
 		return (NULL);

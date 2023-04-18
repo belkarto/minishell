@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 05:59:10 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 05:35:08 by belkarto         ###   ########.fr       */
+/*   Created: 2023/04/18 00:01:18 by belkarto          #+#    #+#             */
+/*   Updated: 2023/04/18 05:36:28 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <stdbool.h>
+#include <unistd.h>
 
-void	ft_env(t_cmd_tab cmd, bool in_child)
+void	ft_echo(t_cmd_tab cmd, bool in_child)
 {
-	t_env	*tmp;
+	int	i;
+	int	j;
+	char	*str;
+	bool	print_line;
 
-	(void)cmd;
-	tmp = g_meta.env;
-	while (tmp)
+	print_line = true;
+	i = 0;
+	if (cmd.cmd[1] && ft_strcmp(cmd.cmd[1], "-n") == 0)
 	{
-		if (tmp->content != NULL)
-			printf("%s=%s\n", tmp->name, tmp->content);
-		tmp = tmp->next;
+		i++;
+		print_line = false;
 	}
+	while (cmd.cmd[++i])
+	{
+		j = -1;
+		str = cmd.cmd[i];
+		while (str[++j])
+			write(1, &str[j], 1);
+		write(1, " ", 1);
+	}
+	if (print_line == true)
+		write(1, "\n", 1);
 	if (in_child == true)
 		exit(0);
 }

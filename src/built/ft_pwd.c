@@ -6,18 +6,25 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:54:34 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/16 07:25:58 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/18 05:34:09 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <unistd.h>
 
-void	ft_pwd(t_cmd_tab cmd)
+void	ft_pwd(t_cmd_tab cmd, bool in_child)
 {
-	char	cwd[128];
+	char	*cwd;
 
 	(void)cmd;
-	getcwd(cwd, 128);
-	printf("%s\n", cwd);
-	exit (0);
+	cwd = getcwd(NULL, 128);
+	if (cwd)
+	{
+		write(1, cwd, ft_strlen(cwd));
+		write(1, "\n", 1);
+	}
+	free(cwd);
+	if (in_child == true)
+		exit (0);
 }

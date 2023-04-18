@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 20:33:03 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/18 05:33:00 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,9 @@ void	executor(t_cmd_tab cmd, t_pipe fd_pipe, t_phase phase, char **env)
 	open_files(cmd.redir);
 	if (cmd.cmd == NULL)
 		exit (127);
-	execve(cmd.env, cmd.cmd, env);
+	builtins(cmd, true);
+	if (execve(cmd.env, cmd.cmd, env) == -1)
+		put_error("ERROR : exeve", true);
 }
 
 int	exec_cmd(t_cmd_tab cmd, t_pipe fd_pipe, int len, int ind, char **env)
@@ -94,14 +96,10 @@ pid_t	exec_one(t_cmd_tab cmd, char **env)
 	pid_t	pid;
 
 	pid = -1;
-	if (cmd.cmd != NULL && (ft_strcmp(cmd.cmd[0], "exit") == 0
-				|| ft_strcmp(cmd.cmd[0], "cd") == 0))
+	if (cmd.cmd != NULL && is_builtin(cmd.cmd[0]))
 	{
 		open_files(cmd.redir);
-		if (ft_strcmp(cmd.cmd[0], "cd") == 0)
-			ft_cd(cmd);
-		else
-			ft_exit(cmd);
+		builtins(cmd, false);
 	}
 	else
 	{
@@ -109,11 +107,11 @@ pid_t	exec_one(t_cmd_tab cmd, char **env)
 			put_error("fork :", true);
 		if (pid == 0)
 		{
+			open_files(cmd.redir);
 			if (cmd.cmd == NULL)
 				exit(127);
-			open_files(cmd.redir);
-			builtins(cmd);
-			execve(cmd.env, cmd.cmd, env);
+			if (execve(cmd.env, cmd.cmd, env) == -1)
+				put_error("ERROR : exeve", true);
 		}
 	}
 	return (pid);
