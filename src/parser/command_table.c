@@ -6,11 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/04/18 20:16:25 by belkarto         ###   ########.fr       */
-=======
-/*   Updated: 2023/04/19 01:05:38 by ohalim           ###   ########.fr       */
->>>>>>> 3a24a11d1f57a04065f165a3ec7425f70295cc6c
+/*   Updated: 2023/04/19 03:26:24 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +53,9 @@ t_cmd_tab	*command_table(char *command_line)
 		return (NULL);
 	if (len)
 		cmd_tab->len = len;
-	// ft_printf("Len: %d\n", cmd_tab->len);
 	iterate_tokens(tokens, cmd_tab);
-<<<<<<< HEAD
-	fill_cmd_and_env(tokens_dup, cmd_tab);
-	// printf_cmd_tab(cmd_tab);
-	// ft_printf("\nAfter iterate_tokens: \n");
-	// print_lexer(tokens);
-
-	// print_lexer(tokens);
-=======
 	fill_cmd_and_env(tokens, cmd_tab);
-	printf("\n-----After iterate_tokens-----\n");
-	print_lexer(tokens);
 	printf_cmd_tab(cmd_tab);
->>>>>>> 3a24a11d1f57a04065f165a3ec7425f70295cc6c
 	elem_clear(tokens);
 	return (cmd_tab);
 }
