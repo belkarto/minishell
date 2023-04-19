@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:46:29 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 20:19:11 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/19 03:21:11 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	*exec_cmd_tab(t_cmd_tab *cmd_tab, char **env)
 	int		i;
 	t_pipe	pip;
 	int		fd_pip[2][2];
-	pid_t		*pid;
+	pid_t	*pid;
 
 	i = -1;
 	pid = ft_calloc(cmd_tab->len, sizeof(int));
