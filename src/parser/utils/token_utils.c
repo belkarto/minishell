@@ -6,11 +6,13 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:50:32 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/14 20:50:59 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/19 01:23:12 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../../include/minishell.h"
+
+
 
 t_elem	*join_tokens(t_elem **token, t_elem **next_token)
 {
