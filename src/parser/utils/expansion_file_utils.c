@@ -6,13 +6,10 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/04/17 22:14:22 by belkarto         ###   ########.fr       */
-=======
-/*   Updated: 2023/04/17 20:44:40 by ohalim           ###   ########.fr       */
->>>>>>> c2dda7432733fca6f95cec3af7d0cfbbc45d2e9f
+/*   Updated: 2023/04/19 02:40:45 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 # include "../../../include/minishell.h"
 
@@ -23,6 +20,8 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 	t_token	redir_type;
 
 	i = 0;
+	// printf("\n-----After join-----\n");
+	// print_lexer(tokens);
 	while (tokens)
 	{
 		if ((tokens->type == QUOTE || tokens->type == DQUOTE)
@@ -41,15 +40,9 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			quote = is_in_quote(tokens);
 			tokens = get_file(tokens, redir_type);
 			if (tokens)
-			{
 				file_add_back(&cmd_tab[i].redir, file_new(tokens->content, redir_type, quote));
-				if (cmd_tab[i].redir->next)
-						cmd_tab[i].redir = cmd_tab[i].redir->next;
-			}
 			tokens = delete_file(tokens);
 		}
-		else
-			cmd_tab[i].redir = NULL;
 		if (tokens->type == PIPE)
 			i++;
 		if (tokens != NULL)
@@ -59,6 +52,8 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 
 int	is_builtin(char *content)
 {
+	if (!content)
+		return (0);
 	return ((ft_strcmp(content, "echo") == 0)
 		|| (ft_strcmp(content, "cd") == 0)
 			|| (ft_strcmp(content, "pwd") == 0)
@@ -68,22 +63,47 @@ int	is_builtin(char *content)
 							|| (ft_strcmp(content, "exit") == 0));
 }
 
-void	delete_spaces(t_elem *tokens)
-{
-	while (tokens)
-	{
-		if (tokens->type == SPAC)
-			tokens = delete_file(tokens);
-		tokens = tokens->next;
-	}
-}
+// t_elem *delete_space(t_elem **tokens)
+// {
+// 	if ((*tokens)->type == SPAC)
+// 	{
+// 		if ((*tokens)->next)
+// 		{
+// 			(*tokens) = (*tokens)->next;
+// 			delet_elem(&(*tokens)->prev);
+// 		}
+// 	}
+// 	ft_printf("Tokeno: %s\n", (*tokens)->content);
+// 	return ((*tokens));
+// }
 
-void	fill_env(t_elem *tokens, t_cmd_tab cmd_tab)
+void	delete_space(t_elem **tokens)
 {
-	if (is_builtin(tokens->content))
-		cmd_tab.env = NULL;
-	else
-		cmd_tab.env = generate_cmd_env(tokens->content);
+	while ((*tokens))
+	{
+		if ((*tokens)->type == SPAC)
+		{
+			if ((*tokens)->next)
+			{
+				(*tokens) = (*tokens)->next;
+				delet_elem(&(*tokens)->prev);
+			}
+			else
+			{
+				if ((*tokens)->prev)
+				{
+					(*tokens) = (*tokens)->prev;
+					delet_elem(&(*tokens)->next);
+				}
+				else
+					delet_elem(&(*tokens));
+			}
+		}
+		else if ((*tokens)->next)
+			(*tokens) = (*tokens)->next;
+		else
+			break ;
+	}
 }
 
 void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
@@ -156,9 +176,10 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 	tokens_dup = tokens;
 	if (tokens_dup->next)
 		tokens_dup = tokens_dup->next;
-	delete_spaces(tokens_dup);
-	allocate_2d_cmd(tokens_dup, cmd_tab);
-	while (i < cmd_tab->len - 1)
-		fill(&tokens_dup, &cmd_tab[i++]);
-	printf_cmd_tab(cmd_tab);
+	delete_space(&tokens_dup);
+	if (tokens->next)
+		tokens = tokens->next;
+	allocate_2d_cmd(tokens, cmd_tab);
+	while (i < cmd_tab->len)
+		fill(&tokens, &cmd_tab[i++]);
 }

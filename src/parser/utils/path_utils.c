@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 05:52:34 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/17 05:29:29 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/19 02:40:06 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*generate_cmd_env(char *cmd)
 	char	**path;
 
 	i = -1;
-	if (access(cmd, X_OK) != -1)
+	if (access(cmd, X_OK) == 0)
 		return (cmd);
 	if (!(paths = generate_paths()))
 		return (NULL);
@@ -63,7 +63,7 @@ char	*generate_cmd_env(char *cmd)
 	while (path[++i])
 	{
 		env = ft_strjoin(path[i], cmd);
-		if (access(env, X_OK) != -1)
+		if (access(env, X_OK) == 0)
 		{
 			free_2d(path);
 			return (env);

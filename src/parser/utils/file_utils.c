@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:23:06 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/17 20:54:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/19 00:45:23 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ t_elem	*get_file(t_elem *tokens, t_token redir_type)
 {
 	t_elem	*tmp;
 
-	if (tokens->type == SPAC)
-		return (tokens);
+	if (tokens->type == SPAC || tokens->type == redir_type)
+		return (tokens->prev);
 	if (tokens->type == ENV && (tokens->state == IN_DQUOTE
 		|| tokens->state == GENERAL))
 	{
