@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/19 03:23:38 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/19 03:35:01 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 	t_token	redir_type;
 
 	i = 0;
-	// printf("\n-----After join-----\n");
-	// print_lexer(tokens);
 	while (tokens)
 	{
 		if ((tokens->type == QUOTE || tokens->type == DQUOTE)
@@ -62,20 +60,6 @@ int	is_builtin(char *content)
 						|| (ft_strcmp(content, "env") == 0)
 							|| (ft_strcmp(content, "exit") == 0));
 }
-
-// t_elem *delete_space(t_elem **tokens)
-// {
-// 	if ((*tokens)->type == SPAC)
-// 	{
-// 		if ((*tokens)->next)
-// 		{
-// 			(*tokens) = (*tokens)->next;
-// 			delet_elem(&(*tokens)->prev);
-// 		}
-// 	}
-// 	ft_printf("Tokeno: %s\n", (*tokens)->content);
-// 	return ((*tokens));
-// }
 
 void	delete_space(t_elem **tokens)
 {
