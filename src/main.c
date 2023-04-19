@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 20:21:46 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/19 03:17:53 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@ t_data	g_meta;
 
 void	init_program(int ac, char **av, char **env)
 {
+	struct termios term;
+
 	(void)ac;
 	(void)av;
 	g_meta.env = init_env(env);
 	g_meta.exit_status = 0;
+	tcgetattr(STDIN_FILENO, &term);
+    term.c_lflag &= ~ECHOCTL;
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	printf("\n\t	-USE AT YOUR OWN RISK-	\n\n");
 }
 

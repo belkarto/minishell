@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 20:14:30 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/19 02:11:34 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <termios.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include "./libft/libft.h"
