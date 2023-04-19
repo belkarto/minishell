@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/19 03:04:58 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/19 05:57:05 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	put_error(char *error, bool state)
 	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd("\n", 2);
 	if (state == true)
-		exit(1);
+		exit(127);
 	else
 		return ;
 }
@@ -110,9 +110,10 @@ pid_t	exec_one(t_cmd_tab cmd, char **env)
 			open_files(cmd.redir);
 			if (cmd.cmd == NULL)
 				exit(127);
-			ft_printf("cmd.env: %s\n", cmd.env);
 			if (execve(cmd.env, cmd.cmd, env) == -1)
+			{
 				put_error("ERROR : exeve", true);
+			}
 		}
 	}
 	return (pid);

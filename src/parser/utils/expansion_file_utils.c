@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/19 03:28:02 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/19 06:02:37 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			redir_type = tokens->type;
 			skip_spaces(&tokens);
 			if (!check_file(tokens))
-				exit(0); // Must free the cmd_tab and the tokens.
+				exit(258); // Must free the cmd_tab and the tokens.
 			quote = is_in_quote(tokens);
 			tokens = get_file(tokens, redir_type);
 			if (tokens)
