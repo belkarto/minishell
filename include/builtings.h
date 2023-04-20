@@ -6,14 +6,15 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:02:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 05:35:32 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/20 09:23:40 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINGS_H
 # define BUILTINGS_H
-
+# define MAX_SIZE 1000
 # include "parser.h"
+
 
 typedef struct s_env
 {

@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/19 03:20:51 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/20 05:40:46 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_redir
 	char			*file_name;
 	t_token			redir_type;
 	bool			in_quote;
+	char			*herdoc_content;
 	struct s_redir	*next;
 }	t_redir;
 
@@ -51,6 +52,7 @@ void	file_add_back(t_redir **lst, t_redir *new);
 t_elem	*delete_file(t_elem *token);
 t_elem	*get_file(t_elem *tokens, t_token redir_type);
 t_elem	*check_file(t_elem *file);
+void	heredoc_content(t_elem **delimiter, int to_expand);
 
 //-------------------Expansion_utils-----------------//
 void	expand(t_elem **tokens);

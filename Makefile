@@ -18,12 +18,12 @@ LEXER_DIR	= lexer/lexer lexer/quote lexer/tokens
 PARSER_DIR	= parser/command_table
 PARSER_UTILS_DIR	= parser/utils/char_utils parser/utils/path_utils parser/utils/expansion_utils \
 					parser/utils/file_utils parser/utils/expansion_file_utils parser/utils/token_utils \
-					parser/utils/iterate_tokens_utils
+					parser/utils/iterate_tokens_utils parser/utils/get_herdoc
 UTILS_DIR	= utils/elem_utils utils/print_utils utils/env_utils utils/env_utils2 utils/var_utils \
 			  utils/export_sort utils/tab_utils
 BUILIN_DIR	= built/builtins built/ft_cd built/ft_pwd built/ft_exit built/ft_export built/ft_env built/ft_unset \
 			  built/ft_echo
-EXEC_DIR	= exec/exec_cmd exec/init_files exec/execute
+EXEC_DIR	= exec/exec_cmd exec/init_files exec/execute exec/heredoc
 SRC_FILES	= main signals $(LEXER_DIR) $(PARSER_UTILS_DIR) $(PARSER_DIR) \
 			  $(UTILS_DIR) $(BUILIN_DIR) $(EXEC_DIR)
 CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address

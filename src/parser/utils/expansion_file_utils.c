@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/19 03:35:01 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/20 05:40:17 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 				exit(0); // Must free the cmd_tab and the tokens.
 			quote = is_in_quote(tokens);
 			tokens = get_file(tokens, redir_type);
+			if (redir_type == HEREDOC)
+				heredoc_content(&tokens, quote);
 			if (tokens)
 				file_add_back(&cmd_tab[i].redir, file_new(tokens->content, redir_type, quote));
 			tokens = delete_file(tokens);

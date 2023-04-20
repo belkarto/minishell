@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:28:31 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/10 05:53:15 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/19 20:30:40 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	handle_sigquit(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_meta.exit_status = 1;
 }
 
 void	end_of_file(void)

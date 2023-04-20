@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 05:36:28 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/19 20:31:36 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void	ft_echo(t_cmd_tab cmd, bool in_child)
 		write(1, "\n", 1);
 	if (in_child == true)
 		exit(0);
+	g_meta.exit_status = 0;
 }

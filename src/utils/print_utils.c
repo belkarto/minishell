@@ -6,11 +6,12 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 00:08:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/19 03:24:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/20 01:37:03 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stdio.h>
 
 void	ft_print_type(int type)
 {
@@ -89,7 +90,7 @@ void	print_cmd_tab(t_cmd_tab *tab)
 	i = -1;
 	if (tab == NULL)
 		return ;
-	while (++i < tab->len - 1)
+	while (++i < tab->len)
 	{
 		print_cmd(tab[i]);
 	}

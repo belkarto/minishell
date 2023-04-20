@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/19 03:04:58 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/19 03:40:33 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	exec_cmd(t_cmd_tab cmd, t_pipe fd_pipe, int len, int ind, char **env)
 {
 	pid_t	pid;
 	if ((pid = fork()) < 0)
-		put_error("fork", true);
+		put_error("fork", false);
 	if (pid == 0)
 	{
 		if (ind == 0)
@@ -110,9 +110,8 @@ pid_t	exec_one(t_cmd_tab cmd, char **env)
 			open_files(cmd.redir);
 			if (cmd.cmd == NULL)
 				exit(127);
-			ft_printf("cmd.env: %s\n", cmd.env);
 			if (execve(cmd.env, cmd.cmd, env) == -1)
-				put_error("ERROR : exeve", true);
+				put_error("command not found", true);
 		}
 	}
 	return (pid);
