@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/19 06:02:37 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/20 09:51:11 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			tokens = inside_quotes(tokens);
 		else if (tokens->type == ENV && (tokens->state == IN_DQUOTE
 			|| tokens->state == GENERAL))
-			expand(&tokens);
+				expand(&tokens);
 		else if (tokens->type == LESS || tokens->type == GREAT
 			|| tokens->type == HEREDOC || tokens->type == REDIR_OUT)
 		{
@@ -70,7 +70,8 @@ void	delete_space(t_elem **tokens)
 			if ((*tokens)->next)
 			{
 				(*tokens) = (*tokens)->next;
-				delet_elem(&(*tokens)->prev);
+				if ((*tokens)->prev)
+					delet_elem(&(*tokens)->prev);
 			}
 			else
 			{
@@ -158,11 +159,12 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 
 	i = 0;
 	tokens_dup = tokens;
-	if (tokens_dup->next)
-		tokens_dup = tokens_dup->next;
 	delete_space(&tokens_dup);
-	if (tokens->next)
-		tokens = tokens->next;
+	if (tokens->content == NULL)
+	{
+		if (tokens->next)
+			tokens = tokens->next;
+	}
 	allocate_2d_cmd(tokens, cmd_tab);
 	while (i < cmd_tab->len)
 		fill(&tokens, &cmd_tab[i++]);

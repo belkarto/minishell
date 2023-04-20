@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 03:19:31 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/30 07:28:40 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/20 04:57:01 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ void	shell_lvl(t_env *list)
 	free(tmp->content);
 	tmp->content = ft_itoa(num);
 	tmp = get_var("OLDPWD", list);
-	free(tmp->content);
-	tmp->content = NULL;
+	if (tmp)
+	{
+		free(tmp->content);
+		tmp->content = NULL;
+	}
 }
