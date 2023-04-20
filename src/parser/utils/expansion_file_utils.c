@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/20 09:51:11 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/20 10:47:18 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,18 @@ int	is_builtin(char *content)
 
 void	delete_space(t_elem **tokens)
 {
-	while ((*tokens))
+	t_elem	*tmp;
+	t_elem	*head;
+
+	head = (*tokens);
+	while (head)
+	{
+		tmp = head->next;
+		if (head->type == SPAC)
+			delet_elem(&head);
+		head = tmp;
+	}
+	/* while ((*tokens))
 	{
 		if ((*tokens)->type == SPAC)
 		{
@@ -88,7 +99,7 @@ void	delete_space(t_elem **tokens)
 			(*tokens) = (*tokens)->next;
 		else
 			break ;
-	}
+	} */
 }
 
 void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)

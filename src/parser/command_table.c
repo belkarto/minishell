@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/20 09:51:23 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/20 10:49:04 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_cmd_tab	*command_table(char *command_line)
 		cmd_tab->len = len;
 	iterate_tokens(tokens, cmd_tab);
 	join_unseparated_tokens(tokens);
+	print_lexer(tokens);
 	fill_cmd_and_env(tokens, cmd_tab);
 	elem_clear(tokens);
 	return (cmd_tab);

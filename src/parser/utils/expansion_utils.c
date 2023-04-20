@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:54:21 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/20 09:51:55 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/20 10:52:16 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_elem	*split_env(t_elem *tokens)
 	env = ft_split(tokens->content, ' ');
 	while (env[i] != NULL)
 	{
-		elem_add_tail(&head, new_elem(env[i], ft_strlen(env[i]), WORD, GENERAL));
-		elem_add_tail(&head, new_elem(" ", 1, SPAC, GENERAL));
+		elem_add_tail(&head, new_elem(ft_strdup(env[i]), ft_strlen(env[i]), WORD, GENERAL));
+		elem_add_tail(&head, new_elem(ft_strdup(" "), 1, SPAC, GENERAL));
 		i++;
 	}
 	return (head);
@@ -33,7 +33,7 @@ t_elem	*split_env(t_elem *tokens)
 void	expand(t_elem **tokens)
 {
 	t_env	*env;
-	// t_elem	*env_val;
+	t_elem	*env_val;
 
 	if (ft_strcmp((*tokens)->content, "$?") == 0)
 	{		free((*tokens)->content);
@@ -43,36 +43,23 @@ void	expand(t_elem **tokens)
 	env = get_var((*tokens)->content + 1, g_meta.env);
 	free((*tokens)->content);
 	if (env == NULL)
+	{
 		(*tokens)->content = ft_strdup("");
+		return ;
+	}
 	else
 		(*tokens)->content = ft_strdup(env->content);
-	// if ((*tokens)->state == GENERAL && (ft_strrchr((*tokens)->content, ' ') + 1))
-	// {
-	// 	// t_elem *tmp;
-	// 	// tmp = NULL;
-	// 	// if ((*tokens)->next)
-	// 	// 	tmp = (*tokens)->next;
-	// 	env_val = split_env(*tokens);
-	// 	ft_printf("env_val1: %s\n", env_val->content);
-	// 	ft_printf("env_val2: %s\n", env_val->next->content);
-	// 	ft_printf("env_val3: %s\n", env_val->next->next->content);
-	// 	ft_printf("env_val4: %s\n", env_val->next->next->next->content);
-	// 	ft_printf("env_val5: %s\n", env_val->next->next->next->next->content);
-	// 	ft_printf("env_val6: %s\n", env_val->next->next->next->next->next->content);
-	// 	t_elem *tmp;
-	// 	tmp = NULL;
-	// 	if ((*tokens)->next)
-	// 		tmp = (*tokens)->next;
-	// 	(*tokens)->prev->next = env_val;
-	// 	if (tmp)
-	// 		env_val->tail = tmp;
-	// 	// 	(*tokens)->next = tmp;
-	// 	// env_val->tail = (*tokens)->next;
-	// 	// (*tokens) = (*tokens)->next;
-	// 	// delet_elem(&(*tokens)->prev);
-	// 	// (*tokens) = env_val->tail;
-	// }
-	// (*tokens)->type = WORD;
+	if ((*tokens)->state == GENERAL && (ft_strrchr((*tokens)->content, ' ') + 1))
+	{
+		env_val = split_env(*tokens);
+		env_val->tail->next = (*tokens)->next;
+		(*tokens)->next = env_val;
+		env_val->prev = (*tokens);
+		delet_elem(&env_val->prev);
+		(*tokens) = env_val;
+		(void)env_val;
+	}
+	(*tokens)->type = WORD;
 }
 
 void	is_expand(t_elem *tokens)
