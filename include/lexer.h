@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:07:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 20:24:15 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/20 13:18:33 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		token(t_elem **list, int *status, char *line);
 int		in_quote(t_elem **list, int *status, int picker);
 void	elem_clear(t_elem *list);
 void	delet_elem(t_elem	**elem);
-
+int	env(t_elem **list, int *status, char *line);
 
 
 #endif

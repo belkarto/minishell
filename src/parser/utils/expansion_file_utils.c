@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/20 05:40:17 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:57:13 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
 	{
 		if (tokens->type == PIPE || !tokens->next)
 		{
-			if (!tokens->next)
-				len += 1;
+			/* if (!tokens->next)
+				len += 1; */
 			cmd_tab[i].cmd = (char **)ft_calloc(sizeof(char *), (len + 1));
 			if (!cmd_tab[i].cmd)
 				return ; // MUST FREE
@@ -135,6 +135,7 @@ void	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
 			{
 				ft_putstr_fd("syntax error\n", 2);
 				exit (0);
+				// free everything and return
 			}
 			break ;
 		}
