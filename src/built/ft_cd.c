@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:57:27 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 16:38:47 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 20:49:56 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -45,6 +45,7 @@ static void	update_pwd(void)
 static	char	*get_home(void)
 {
 	t_env	*var;
+
 	var = get_var("HOME", g_meta.env);
 	if (var != NULL)
 		return (ft_strdup(var->content));

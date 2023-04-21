@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:46:29 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 10:48:54 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/21 22:00:43 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	open_pipes(t_pipe fd_pip, int ind)
 		pipe(fd_pip.write_end);
 }
 
-void set_pipes(t_pipe *pip, int i, int fd_pip[2][2])
+void	set_pipes(t_pipe *pip, int i, int fd_pip[2][2])
 {
 	if (i % 2 == 0)
 	{
@@ -43,28 +43,38 @@ void set_pipes(t_pipe *pip, int i, int fd_pip[2][2])
 	}
 }
 
-int	*exec_cmd_tab(t_cmd_tab *cmd_tab, char **env)
+pid_t	*allocat_pid_tab(t_cmd_tab *cmd_tab)
+{
+	pid_t	*pid;
+
+	if (cmd_tab == NULL)
+		return (NULL);
+	pid = ft_calloc(cmd_tab->len, sizeof(int));
+	if (!pid)
+		return (NULL);
+	return (pid);
+}
+
+int	*exec_cmd_tab(t_cmd_tab *cmd_tab)
 {
 	int		i;
 	t_pipe	pip;
 	int		fd_pip[2][2];
 	pid_t	*pid;
 
-	if (cmd_tab == NULL)
-		return (NULL);
 	i = -1;
-	pid = ft_calloc(cmd_tab->len, sizeof(int));
+	pid = allocat_pid_tab(cmd_tab);
 	if (!pid)
 		return (NULL);
 	if (cmd_tab->len == 1)
-		pid[0] = exec_one(*cmd_tab, env);
+		pid[0] = exec_one(*cmd_tab);
 	else
 	{
 		while (++i < cmd_tab->len)
 		{
 			set_pipes(&pip, i, fd_pip);
 			open_pipes(pip, i);
-			pid[i] = exec_cmd(cmd_tab[i], pip, cmd_tab->len, i, env);
+			pid[i] = exec_cmd(cmd_tab[i], pip, cmd_tab->len, i);
 			close(pip.read_end[0]);
 			close(pip.read_end[1]);
 		}

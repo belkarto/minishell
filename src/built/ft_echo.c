@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/19 20:31:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 20:50:24 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	ft_echo(t_cmd_tab cmd, bool in_child)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*str;
 	bool	print_line;
 

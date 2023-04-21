@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 18:51:21 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 21:55:36 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_program(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	g_meta.exec_env = env;
 	g_meta.env = init_env(env);
 	g_meta.exit_status = 0;
 	tcgetattr(STDIN_FILENO, &term);
@@ -88,7 +89,8 @@ int	main(int argc, char **argv, char **env)
 		cmd_tab = command_table(readed);
 		if (!cmd_tab->syntax_error->error)
 		{
-			pid = exec_cmd_tab(cmd_tab, env);
+			// print_cmd_tab(cmd_tab);
+			pid = exec_cmd_tab(cmd_tab);
 			ft_wait_pid(pid, cmd_tab->len);
 			free(pid);
 		}

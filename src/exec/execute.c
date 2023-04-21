@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 10:59:59 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 21:56:32 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	put_error(char *error, bool state)
 	{
 		ft_putstr_fd("ERROR : ", 2);
 		ft_putstr_fd(error, 2);
-		ft_putstr_fd(" :\n", 2);
 	}
 	ft_putstr_fd("\n", 2);
 	if (state == true)
@@ -53,8 +52,9 @@ void	ft_dup(t_pipe fd_pipe, t_phase phase)
 
 int	open_files(t_redir *files)
 {
-	t_redir *tmp;
+	t_redir	*tmp;
 	int		check;
+
 	if (files == NULL)
 		return (0);
 	tmp = files;
@@ -71,7 +71,7 @@ int	open_files(t_redir *files)
 	return (0);
 }
 
-void	executor(t_cmd_tab cmd, t_pipe fd_pipe, t_phase phase, char **env)
+void	executor(t_cmd_tab cmd, t_pipe fd_pipe, t_phase phase)
 {
 	ft_dup(fd_pipe, phase);
 	open_files(cmd.redir);
@@ -80,11 +80,11 @@ void	executor(t_cmd_tab cmd, t_pipe fd_pipe, t_phase phase, char **env)
 	if (cmd.env == NULL)
 		put_error(cmd.cmd[0], true);
 	builtins(cmd, true);
-	if (execve(cmd.env, cmd.cmd, env) == -1)
+	if (execve(cmd.env, cmd.cmd, g_meta.exec_env) == -1)
 		put_error("ERROR : exeve", true);
 }
 
-int	exec_cmd(t_cmd_tab cmd, t_pipe fd_pipe, int len, int ind, char **env)
+int	exec_cmd(t_cmd_tab cmd, t_pipe fd_pipe, int len, int ind)
 {
 	pid_t	pid;
 
@@ -94,16 +94,60 @@ int	exec_cmd(t_cmd_tab cmd, t_pipe fd_pipe, int len, int ind, char **env)
 	{
 		cmd.env = generate_cmd_env(cmd.cmd[0]);
 		if (ind == 0)
-			executor(cmd, fd_pipe, FIRST, env);
+			executor(cmd, fd_pipe, FIRST);
 		else if (ind == len - 1)
-			executor(cmd, fd_pipe, LAST, env);
+			executor(cmd, fd_pipe, LAST);
 		else
-			executor(cmd, fd_pipe, MIDDLE, env);
+			executor(cmd, fd_pipe, MIDDLE);
 	}
 	return (pid);
 }
 
-pid_t	exec_one(t_cmd_tab cmd, char **env)
+int	run_builtin(t_cmd_tab cmd)
+{
+	if (cmd.cmd != NULL && is_builtin(cmd.cmd[0]))
+	{
+		open_files(cmd.redir);
+		builtins(cmd, false);
+		return (-1);
+	}
+	return (0);
+}
+
+pid_t	run_external(t_cmd_tab cmd)
+{
+	pid_t	pid;
+
+	pid = -1;
+	pid = fork();
+	if (pid < 0)
+		put_error("fork:", false);
+	else if (pid == 0)
+	{
+		cmd.env = generate_cmd_env(cmd.cmd[0]);
+		if (open_files(cmd.redir) == -1)
+			exit(1);
+		if (cmd.cmd == NULL || cmd.cmd[0][0] == '\0')
+			exit(0);
+		if (cmd.env == NULL)
+			put_error("command not found", true);
+		execve(cmd.env, cmd.cmd, g_meta.exec_env);
+	}
+	return (pid);
+}
+
+pid_t	exec_one(t_cmd_tab cmd)
+{
+	pid_t	pid;
+
+	pid = -1;
+	if (run_builtin(cmd) == 1)
+		return (-1);
+	pid = run_external(cmd);
+	return (pid);
+}
+
+/* pid_t	exec_one(t_cmd_tab cmd)
 {
 	pid_t	pid;
 
@@ -115,9 +159,10 @@ pid_t	exec_one(t_cmd_tab cmd, char **env)
 	}
 	else
 	{
-		if ((pid = fork()) < 0)
-			put_error("fork :", true);
-		if (pid == 0)
+		pid = fork();
+		if (pid < 0)
+			put_error("fork :", false);
+		else if (pid == 0)
 		{
 			cmd.env = generate_cmd_env(cmd.cmd[0]);
 			if (open_files(cmd.redir) == -1)
@@ -125,12 +170,9 @@ pid_t	exec_one(t_cmd_tab cmd, char **env)
 			if (cmd.cmd == NULL || cmd.cmd[0][0] == 0)
 				exit (0);
 			if (cmd.env == NULL)
-			{
-				put_error("command not found", false);
-				exit(127);
-			}
-			execve(cmd.env, cmd.cmd, env);
+				put_error("command not found", true);
+			execve(cmd.env, cmd.cmd, g_meta.exec_env);
 		}
 	}
 	return (pid);
-}
+} */

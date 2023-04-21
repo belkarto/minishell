@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 18:32:00 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 20:53:07 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_data
 	int		exit_status;
 	t_env	*env;
 	int		signal_flag;
+	char	**exec_env;
 }	t_data;
 
 extern t_data	g_meta;

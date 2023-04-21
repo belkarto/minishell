@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:00:50 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 10:56:13 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 21:50:58 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ int	open_out_file(t_redir files)
 		close(out_file);
 	}
 	return (-1);
-
 }
-
 
 void	quitin(int sig)
 {
@@ -51,7 +49,7 @@ void	quitin(int sig)
 
 void	open_heredocs(char *delemiter)
 {
-	int	fd_pipe[2];
+	int		fd_pipe[2];
 	char	*line;
 
 	pipe(fd_pipe);
@@ -97,4 +95,3 @@ int	open_in_file(t_redir files)
 	}
 	return (0);
 }
-

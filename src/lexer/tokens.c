@@ -1,4 +1,4 @@
-  /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 05:00:17 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 11:02:49 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 22:02:52 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ int	env(t_elem **list, int *status, char *line)
 
 int	token(t_elem **list, int *status, char *line)
 {
-	/* if (ft_isalnum(*line) || *line == '_' || *line == '-' || *line == ',' || *line == '.'
-		|| *line == '/') */
 	if (*line == PIPE)
 		return (tokens(list, status, PIPE));
 	else if (*line == LESS && line[1] == LESS)
@@ -94,3 +92,6 @@ int	token(t_elem **list, int *status, char *line)
 		return (word(list, *status, line));
 	return (1);
 }
+/* if (ft_isalnum(*line) || *line == '_' || *line == '-' || *line == ',' || 
+ * *line == '.'
+   || *line == '/') */
