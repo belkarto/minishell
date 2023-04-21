@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tab_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:43:04 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 10:08:02 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 13:10:27 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,26 @@ int	tab_len(t_elem *head)
 	return (i);
 }
 
-void	cmd_tab_free(t_cmd_tab **cmd_tab)
+void	cmd_tab_free(t_cmd_tab **cmd_tab, int len)
 {
 	int	i;
 	t_cmd_tab	*cmd;
 
 	cmd = *cmd_tab;
-	i = -1;
+	i = 0;
 	if (cmd == NULL)
 		return ;
-	while (++i < (*cmd_tab)->len)
+	while (i < len)
 	{
-		clear_files(cmd[i].redir);
-		free(cmd[i].env);
-		free_2d(cmd[i].cmd);
+		if (cmd[i].redir)
+			clear_files(cmd[i].redir);
+		if (cmd[i].env)
+			free(cmd[i].env);
+		if (cmd[i].cmd)
+			free_2d(cmd[i].cmd);
+		i++;
 	}
-	free(cmd);
+	free(cmd->syntax_error);
+	free((*cmd_tab));
 	(*cmd_tab) = NULL;
 }

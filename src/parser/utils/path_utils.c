@@ -6,11 +6,24 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 05:52:34 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/19 03:49:54 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/21 15:58:12 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+int	is_builtin(char *content)
+{
+	if (!content)
+		return (0);
+	return ((ft_strcmp(content, "echo") == 0)
+		|| (ft_strcmp(content, "cd") == 0)
+		|| (ft_strcmp(content, "pwd") == 0)
+		|| (ft_strcmp(content, "export") == 0)
+		|| (ft_strcmp(content, "unset") == 0)
+		|| (ft_strcmp(content, "env") == 0)
+		|| (ft_strcmp(content, "exit") == 0));
+}
 
 static char	*generate_paths(void)
 {
@@ -56,9 +69,11 @@ char	*generate_cmd_env(char *cmd)
 	i = -1;
 	if (access(cmd, X_OK) == 0)
 		return (ft_strdup(cmd));
-	if (!(paths = generate_paths()))
+	paths = generate_paths();
+	if (!paths)
 		return (NULL);
-	if (!(path = split_add_slash(paths)))
+	path = split_add_slash(paths);
+	if (!paths)
 		return (NULL);
 	while (path[++i])
 	{
