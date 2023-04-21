@@ -26,8 +26,7 @@ BUILIN_DIR	= built/builtins built/ft_cd built/ft_pwd built/ft_exit built/ft_expo
 EXEC_DIR	= exec/exec_cmd exec/init_files exec/execute exec/heredoc
 SRC_FILES	= main signals $(LEXER_DIR) $(PARSER_UTILS_DIR) $(PARSER_DIR) \
 			  $(UTILS_DIR) $(BUILIN_DIR) $(EXEC_DIR)
-CFLAGS		= -Wall -Wextra -Werror
-#-g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 CC			= cc 
 OBJF		=	.cache_exists
 # #================

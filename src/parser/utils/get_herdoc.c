@@ -6,15 +6,16 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 04:10:47 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 18:14:25 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:49:13 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 #include <readline/history.h>
+#include <signal.h>
 #include <stdio.h>
 
-int	general(t_elem **list, int status, char *line)
+static int	general(t_elem **list, int status, char *line)
 {
 	int	i;
 
@@ -29,7 +30,7 @@ int	general(t_elem **list, int status, char *line)
 	return (i);
 }
 
-int	herdoc_lexer(t_elem **head, char *line)
+static int	herdoc_lexer(t_elem **head, char *line)
 {
 	int	status;
 
@@ -40,7 +41,7 @@ int	herdoc_lexer(t_elem **head, char *line)
 		return (general(head, status, line));
 }
 
-char	*join_and_expand_env(t_elem *head)
+static char	*join_and_expand_env(t_elem *head)
 {
 	char	*line;
 
@@ -55,7 +56,7 @@ char	*join_and_expand_env(t_elem *head)
 	return (line);
 }
 
-char	*parse_line(char *line)
+static char	*parse_line(char *line)
 {
 	t_elem	*head;
 	int		i;
@@ -71,17 +72,36 @@ char	*parse_line(char *line)
 	return (parsed_line);
 }
 
-void	heredoc_content(t_elem **delimiter, int to_expand)
+static void	sig_handler(int	sig)
+{
+	(void)sig;
+	g_meta.signal_flag = 1;
+	g_meta.exit_status = 1;
+	/* printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay(); */
+}
+
+int	heredoc_content(t_elem **delimiter, int to_expand)
 {
 	char	*dili;
 	char	*content;
 	char	*line;
 
+	signal(SIGINT, sig_handler);
+	g_meta.signal_flag = 0;
 	dili = (*delimiter)->content;
 	content = NULL;
 	while (1)
 	{
 		line = readline("> ");
+		if (g_meta.signal_flag == 1)
+		{
+			free(content);
+			content = NULL;
+			return (1);
+		}
 		if (line == NULL || ft_strcmp(line, dili) == 0)
 		{
 			free(line);
@@ -95,4 +115,5 @@ void	heredoc_content(t_elem **delimiter, int to_expand)
 	}
 	free(dili);
 	(*delimiter)->content = content;
+	return (0);
 }
