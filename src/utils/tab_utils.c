@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:43:04 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/17 20:44:08 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 10:08:02 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	cmd_tab_free(t_cmd_tab **cmd_tab)
 
 	cmd = *cmd_tab;
 	i = -1;
+	if (cmd == NULL)
+		return ;
 	while (++i < (*cmd_tab)->len)
 	{
 		clear_files(cmd[i].redir);
@@ -47,5 +49,4 @@ void	cmd_tab_free(t_cmd_tab **cmd_tab)
 	}
 	free(cmd);
 	(*cmd_tab) = NULL;
-
 }

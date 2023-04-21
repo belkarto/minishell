@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/21 08:30:00 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 10:03:53 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,6 @@ int	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
 			{
 				ft_putstr_fd("syntax error\n", 2);
 				return (1);
-				// free everything and return
 			}
 			break ;
 		}

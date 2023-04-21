@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 08:49:04 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 10:11:52 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	executor(t_cmd_tab cmd, t_pipe fd_pipe, t_phase phase, char **env)
 {
 	ft_dup(fd_pipe, phase);
 	open_files(cmd.redir);
+	if (cmd.cmd == NULL || cmd.cmd[0][0] == 0)
+		exit (0);
 	if (cmd.env == NULL)
 		put_error(cmd.cmd[0], true);
-	if (cmd.cmd == NULL || cmd.cmd[0] == NULL)
-		exit (0);
 	builtins(cmd, true);
 	if (execve(cmd.env, cmd.cmd, env) == -1)
 		put_error("ERROR : exeve", true);
@@ -118,11 +118,11 @@ pid_t	exec_one(t_cmd_tab cmd, char **env)
 		{
 			cmd.env = generate_cmd_env(cmd.cmd[0]);
 			open_files(cmd.redir);
-			if (cmd.cmd == NULL || cmd.cmd[0] == NULL)
+			if (cmd.cmd == NULL || cmd.cmd[0][0] == 0)
 				exit (0);
 			if (cmd.env == NULL)
 			{
-				put_error("command not found", true);
+				put_error("command not found", false);
 				exit(127);
 			}
 			execve(cmd.env, cmd.cmd, env);
