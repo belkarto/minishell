@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:00:50 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/20 09:04:25 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 08:40:34 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	open_out_file(t_redir files)
 		out_file = open(files.file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
 	if (out_file == -1)
-		put_error("open :", false);
+		put_error(NULL, false);
 	else
 	{
 		dup2(out_file, STDOUT_FILENO);
@@ -88,7 +88,7 @@ void	open_in_file(t_redir files)
 		close(fd_pipe[1]);
 	}
 	if (in_file == -1)
-		put_error("open :", false);
+		put_error(NULL, false);
 	else
 	{
 		dup2(in_file, STDIN_FILENO);

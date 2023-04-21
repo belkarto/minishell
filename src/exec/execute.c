@@ -6,20 +6,25 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 07:43:28 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 08:49:04 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
 
 void	put_error(char *error, bool state)
 {
-	ft_putstr_fd("ERROR : ", 2);
-	ft_putstr_fd(error, 2);
-	ft_putstr_fd(" :\n", 2);
-	ft_putstr_fd(strerror(errno), 2);
+	if (error == NULL)
+		ft_putstr_fd(strerror(errno), 2);
+	else
+	{
+		ft_putstr_fd("ERROR : ", 2);
+		ft_putstr_fd(error, 2);
+		ft_putstr_fd(" :\n", 2);
+	}
 	ft_putstr_fd("\n", 2);
 	if (state == true)
 		exit(127);
@@ -67,8 +72,10 @@ void	executor(t_cmd_tab cmd, t_pipe fd_pipe, t_phase phase, char **env)
 {
 	ft_dup(fd_pipe, phase);
 	open_files(cmd.redir);
-	if (cmd.cmd == NULL)
-		exit (127);
+	if (cmd.env == NULL)
+		put_error(cmd.cmd[0], true);
+	if (cmd.cmd == NULL || cmd.cmd[0] == NULL)
+		exit (0);
 	builtins(cmd, true);
 	if (execve(cmd.env, cmd.cmd, env) == -1)
 		put_error("ERROR : exeve", true);
@@ -77,10 +84,12 @@ void	executor(t_cmd_tab cmd, t_pipe fd_pipe, t_phase phase, char **env)
 int	exec_cmd(t_cmd_tab cmd, t_pipe fd_pipe, int len, int ind, char **env)
 {
 	pid_t	pid;
+
 	if ((pid = fork()) < 0)
 		put_error("fork", false);
 	if (pid == 0)
 	{
+		cmd.env = generate_cmd_env(cmd.cmd[0]);
 		if (ind == 0)
 			executor(cmd, fd_pipe, FIRST, env);
 		else if (ind == len - 1)
@@ -107,11 +116,16 @@ pid_t	exec_one(t_cmd_tab cmd, char **env)
 			put_error("fork :", true);
 		if (pid == 0)
 		{
+			cmd.env = generate_cmd_env(cmd.cmd[0]);
 			open_files(cmd.redir);
-			if (cmd.cmd == NULL)
-				exit(127);
-			if (execve(cmd.env, cmd.cmd, env) == -1)
+			if (cmd.cmd == NULL || cmd.cmd[0] == NULL)
+				exit (0);
+			if (cmd.env == NULL)
+			{
 				put_error("command not found", true);
+				exit(127);
+			}
+			execve(cmd.env, cmd.cmd, env);
 		}
 	}
 	return (pid);

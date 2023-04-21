@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/21 08:10:43 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 08:30:00 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,5 +197,5 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 			// and break the while 
 		}
 	}
-	print_cmd_tab(cmd_tab);
+	// print_cmd_tab(cmd_tab);
 }
