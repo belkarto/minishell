@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 10:11:52 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 10:59:59 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,24 @@ void	ft_dup(t_pipe fd_pipe, t_phase phase)
 	close(fd_pipe.write_end[1]);
 }
 
-void	open_files(t_redir *files)
+int	open_files(t_redir *files)
 {
 	t_redir *tmp;
-
+	int		check;
 	if (files == NULL)
-		return ;
+		return (0);
 	tmp = files;
 	while (tmp)
 	{
 		if (tmp->redir_type == LESS || tmp->redir_type == HEREDOC)
-			open_in_file(*tmp);
+			check = open_in_file(*tmp);
 		else if (tmp->redir_type == GREAT || tmp->redir_type == REDIR_OUT)
-			open_out_file(*tmp);
+			check = open_out_file(*tmp);
+		if (check == -1)
+			return (-1);
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
 void	executor(t_cmd_tab cmd, t_pipe fd_pipe, t_phase phase, char **env)
@@ -117,7 +120,8 @@ pid_t	exec_one(t_cmd_tab cmd, char **env)
 		if (pid == 0)
 		{
 			cmd.env = generate_cmd_env(cmd.cmd[0]);
-			open_files(cmd.redir);
+			if (open_files(cmd.redir) == -1)
+				exit(1);
 			if (cmd.cmd == NULL || cmd.cmd[0][0] == 0)
 				exit (0);
 			if (cmd.env == NULL)

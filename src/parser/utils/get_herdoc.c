@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 04:10:47 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/20 13:46:45 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/21 11:20:28 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void	heredoc_content(t_elem **delimiter, int to_expand)
 		content = ft_strjoin_gnl(content, "\n");
 		free(line);
 	}
+	free(dili);
 	(*delimiter)->content = content;
 }

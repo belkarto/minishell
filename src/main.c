@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 08:29:08 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 11:18:46 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	main(int argc, char **argv, char **env)
 		// print_cmd_tab(cmd_tab);
 		pid = exec_cmd_tab(cmd_tab, env);
 		ft_wait_pid(pid, cmd_tab->len);
-		// cmd_tab_free(&cmd_tab);
-		// free(pid);
+		cmd_tab_free(&cmd_tab);
+		free(pid);
 		free(readed);
 	}
 	(void)pid;

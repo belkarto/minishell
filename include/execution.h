@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 20:38:14 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/19 21:19:47 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 10:46:50 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_heredoc
 }	t_heredoc;
 
 pid_t		*exec_cmd_tab(t_cmd_tab *cmd_tab, char **env);
-void		open_out_file(t_redir files);
-void		open_in_file(t_redir files);
+int		open_out_file(t_redir files);
+int		open_in_file(t_redir files);
 void		put_error(char *error, bool state);
 pid_t		exec_cmd(t_cmd_tab cmd, t_pipe fd_pipe, int len, int ind, char **env);
 pid_t		exec_one(t_cmd_tab cmd, char **env);

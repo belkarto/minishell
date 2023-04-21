@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:00:50 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 08:40:34 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 10:56:13 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 #include <sys/signal.h>
 #include <unistd.h>
 
-void	open_out_file(t_redir files)
+int	open_out_file(t_redir files)
 {
 	int		out_file;
 
 	out_file = -1;
 	if (files.redir_type == GREAT)
-	{
 		out_file = open(files.file_name, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	}
 	else
-	{
 		out_file = open(files.file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	}
 	if (out_file == -1)
+	{
 		put_error(NULL, false);
+		return (-1);
+	}
 	else
 	{
 		dup2(out_file, STDOUT_FILENO);
 		close(out_file);
 	}
+	return (-1);
 
 }
 
@@ -70,16 +70,14 @@ void	open_heredocs(char *delemiter)
 	}
 }
 
-void	open_in_file(t_redir files)
+int	open_in_file(t_redir files)
 {
 	int	in_file;
 	int	fd_pipe[2];
 
 	in_file = -1;
 	if (files.redir_type == LESS)
-	{
 		in_file = open(files.file_name, O_RDONLY | O_TRUNC);
-	}
 	else
 	{
 		pipe(fd_pipe);
@@ -88,11 +86,15 @@ void	open_in_file(t_redir files)
 		close(fd_pipe[1]);
 	}
 	if (in_file == -1)
+	{
 		put_error(NULL, false);
+		return (-1);
+	}
 	else
 	{
 		dup2(in_file, STDIN_FILENO);
 		close(in_file);
 	}
+	return (0);
 }
 

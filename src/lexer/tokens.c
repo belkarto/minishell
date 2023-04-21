@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 05:00:17 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/10 09:18:49 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 11:02:49 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,9 @@ int	env(t_elem **list, int *status, char *line)
 
 int	token(t_elem **list, int *status, char *line)
 {
-	if (ft_isalnum(*line) || *line == '_' || *line == '-' || *line == ',' || *line == '.'
-		|| *line == '/')
-		return (word(list, *status, line));
-	else if (*line == PIPE)
+	/* if (ft_isalnum(*line) || *line == '_' || *line == '-' || *line == ',' || *line == '.'
+		|| *line == '/') */
+	if (*line == PIPE)
 		return (tokens(list, status, PIPE));
 	else if (*line == LESS && line[1] == LESS)
 		return (tokens(list, status, HEREDOC));
@@ -91,5 +90,7 @@ int	token(t_elem **list, int *status, char *line)
 		return (in_quote(list, status, 0));
 	else if (*line == DQUOTE)
 		return (in_quote(list, status, 1));
+	else
+		return (word(list, *status, line));
 	return (1);
 }
