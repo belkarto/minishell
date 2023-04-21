@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/20 11:23:07 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/21 07:44:02 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include "parser.h"
 # include "builtings.h"
 # include "execution.h"
-# include <wait.h>
 
 typedef struct s_data
 {

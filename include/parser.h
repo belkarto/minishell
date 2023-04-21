@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/20 05:40:46 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 07:43:45 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_elem	*join_tokens(t_elem **token, t_elem **next_token);
 t_elem	*delete_quotes(t_elem *tokens);
 t_elem	*delete_last_quote(t_elem *token);
 t_elem	*delete_token(t_elem *token);
+void	join_unseparated_tokens(t_elem *tokens);
 
 //-----------------Iterate_tokens_utils--------------//
 t_elem	*inside_quotes(t_elem *token);

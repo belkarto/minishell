@@ -6,13 +6,11 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:50:32 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/20 04:34:25 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 07:41:38 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../../include/minishell.h"
-
-
 
 t_elem	*join_tokens(t_elem **token, t_elem **next_token)
 {
@@ -88,4 +86,20 @@ t_elem	*delete_quotes(t_elem *tokens)
 	if (!tokens->next && tokens->type != type)
 		error_unclosed_quotes();
 	return (delete_last_quote(tokens));
+}
+
+void	join_unseparated_tokens(t_elem *tokens)
+{
+	while (tokens)
+	{
+		if (tokens->type == WORD && tokens->next && tokens->next->type == WORD)
+			tokens = join_tokens(&tokens, &tokens->next);
+		else
+		{
+			if (tokens->next)
+				tokens = tokens->next;
+			else
+				break ;
+		}
+	}
 }

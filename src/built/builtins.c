@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 04:37:58 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 05:35:53 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/19 05:39:11 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	builtins(t_cmd_tab cmd, bool in_child)
 {
-	if (cmd.cmd == NULL)
+	if (cmd.cmd == NULL || cmd.cmd[0] == NULL)
 		return ;
 	if (ft_strcmp(cmd.cmd[0], "cd") == 0)
 		ft_cd(cmd, in_child);

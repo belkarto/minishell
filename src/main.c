@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/20 16:38:41 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/21 07:51:29 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_wait_pid(pid_t *pid, int len)
 		return ;
 	while (++i < len)
 		waitpid(pid[i], &g_meta.exit_status, 0);
-	WEXITSTATUS(g_meta.exit_status);
+	g_meta.exit_status = WEXITSTATUS(g_meta.exit_status);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -87,10 +87,10 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		cmd_tab = command_table(readed);
 		// print_cmd_tab(cmd_tab);
-		pid = exec_cmd_tab(cmd_tab, env);
-		ft_wait_pid(pid, cmd_tab->len);
-		cmd_tab_free(&cmd_tab);
-		free(pid);
+		/* pid = exec_cmd_tab(cmd_tab, env);
+		ft_wait_pid(pid, cmd_tab->len); */
+		// cmd_tab_free(&cmd_tab);
+		// free(pid);
 		free(readed);
 	}
 	(void)pid;

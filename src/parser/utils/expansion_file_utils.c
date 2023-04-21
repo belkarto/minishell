@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/20 16:57:13 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/21 08:10:43 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			tokens = inside_quotes(tokens);
 		else if (tokens->type == ENV && (tokens->state == IN_DQUOTE
 			|| tokens->state == GENERAL))
-			expand(&tokens);
+				expand(&tokens);
 		else if (tokens->type == LESS || tokens->type == GREAT
 			|| tokens->type == HEREDOC || tokens->type == REDIR_OUT)
 		{
 			redir_type = tokens->type;
 			skip_spaces(&tokens);
 			if (!check_file(tokens))
-				exit(0); // Must free the cmd_tab and the tokens.
+				exit(258); // Must free the cmd_tab and the tokens.
 			quote = is_in_quote(tokens);
 			tokens = get_file(tokens, redir_type);
 			if (redir_type == HEREDOC)
@@ -65,14 +65,26 @@ int	is_builtin(char *content)
 
 void	delete_space(t_elem **tokens)
 {
-	while ((*tokens))
+	t_elem	*tmp;
+	t_elem	*head;
+
+	head = (*tokens);
+	while (head)
+	{
+		tmp = head->next;
+		if (head->type == SPAC)
+			delet_elem(&head);
+		head = tmp;
+	}
+	/* while ((*tokens))
 	{
 		if ((*tokens)->type == SPAC)
 		{
 			if ((*tokens)->next)
 			{
 				(*tokens) = (*tokens)->next;
-				delet_elem(&(*tokens)->prev);
+				if ((*tokens)->prev)
+					delet_elem(&(*tokens)->prev);
 			}
 			else
 			{
@@ -89,7 +101,7 @@ void	delete_space(t_elem **tokens)
 			(*tokens) = (*tokens)->next;
 		else
 			break ;
-	}
+	} */
 }
 
 void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
@@ -103,8 +115,8 @@ void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
 	{
 		if (tokens->type == PIPE || !tokens->next)
 		{
-			/* if (!tokens->next)
-				len += 1; */
+			if (!tokens->next)
+				len += 1;
 			cmd_tab[i].cmd = (char **)ft_calloc(sizeof(char *), (len + 1));
 			if (!cmd_tab[i].cmd)
 				return ; // MUST FREE
@@ -120,11 +132,27 @@ void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
 	}
 }
 
-void	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
+/* if (i == 0)
+   {
+   if (is_builtin((*tokens)->content))
+   cmd_tab->env = NULL;
+   else
+   {
+   cmd_tab->env = generate_cmd_env((*tokens)->content);
+   if (!cmd_tab->env)
+   cmd_tab->cmd[i++] = NULL;
+   }
+   } */
+// remove this part of code to check for commands in execution
+// and get its path in execution
+
+
+int	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
 {
 	int	i;
 
 	i = 0;
+	cmd_tab->env = NULL;
 	while ((*tokens))
 	{
 		if ((*tokens)->type == PIPE)
@@ -134,25 +162,15 @@ void	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
 			else
 			{
 				ft_putstr_fd("syntax error\n", 2);
-				exit (0);
+				return (1);
 				// free everything and return
 			}
 			break ;
 		}
-		if (i == 0)
-		{
-			if (is_builtin((*tokens)->content))
-				cmd_tab->env = NULL;
-			else
-			{
-				cmd_tab->env = generate_cmd_env((*tokens)->content);
-				if (!cmd_tab->env)
-					cmd_tab->cmd[i++] = NULL;
-			}
-		}
 		cmd_tab->cmd[i++] = ft_strdup((*tokens)->content);
 		(*tokens) = (*tokens)->next;
 	}
+	return (0);
 }
 
 void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
@@ -162,12 +180,22 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 
 	i = 0;
 	tokens_dup = tokens;
-	if (tokens_dup->next)
-		tokens_dup = tokens_dup->next;
 	delete_space(&tokens_dup);
-	if (tokens->next)
-		tokens = tokens->next;
+	if (tokens->content == NULL)
+	{
+		if (tokens->next)
+			tokens = tokens->next;
+	}
 	allocate_2d_cmd(tokens, cmd_tab);
 	while (i < cmd_tab->len)
-		fill(&tokens, &cmd_tab[i++]);
+	{
+		if (fill(&tokens, &cmd_tab[i++]) == 1)
+		{
+			// free everythin from 0 to that index i
+			// and clear tokens
+			// and put NULL in cmd_tab
+			// and break the while 
+		}
+	}
+	print_cmd_tab(cmd_tab);
 }

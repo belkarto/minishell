@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/19 03:40:33 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 07:43:28 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	put_error(char *error, bool state)
 	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd("\n", 2);
 	if (state == true)
-		exit(1);
+		exit(127);
 	else
 		return ;
 }
