@@ -6,16 +6,16 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 20:31:27 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/18 00:25:23 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/21 16:07:15 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../../include/minishell.h"
+#include "../../../include/minishell.h"
 
-t_elem	*inside_quotes(t_elem *token)
+t_elem	*inside_quotes(t_cmd_tab *cmd_tab, t_elem *token, int index)
 {
 	is_expand(token);
-	token = delete_quotes(token);
+	token = delete_quotes(cmd_tab, token, index);
 	return (token);
 }
 
@@ -23,9 +23,8 @@ void	skip_spaces(t_elem **tokens)
 {
 	if (!(*tokens)->next)
 	{
-		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2); //Must free the cmd_tab and the tokens.
-		g_meta.exit_status = 258;
-		exit (0);
+		(*tokens) = (*tokens)->next;
+		return ;
 	}
 	(*tokens) = (*tokens)->next;
 	delet_elem(&(*tokens)->prev);
@@ -37,30 +36,14 @@ void	skip_spaces(t_elem **tokens)
 	}
 }
 
-int	is_in_quote(t_elem *tokens)
-{
-	int	i;
-
-	i = 1;
-	while (tokens)
-	{
-		if (tokens->type == PIPE || tokens->type == LESS || tokens->type == GREAT
-			|| tokens->type == HEREDOC || tokens->type == REDIR_OUT)
-			break;
-		if (tokens->type == QUOTE || tokens->type == DQUOTE)
-			i = 0;
-		tokens = tokens->next;
-	}
-	return (i);
-}
-
 t_elem	*join_none_space(t_elem *tokens)
 {
 	while (tokens->next)
 	{
 		if (tokens->type != WORD || tokens->type == SPAC)
 			break ;
-		tokens->content = ft_strjoin_gnl(tokens->content, tokens->next->content);
+		tokens->content
+			= ft_strjoin_gnl(tokens->content, tokens->next->content);
 		tokens = tokens->next;
 	}
 	return (tokens);

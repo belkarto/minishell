@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 20:38:14 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/19 21:19:47 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 10:34:11 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		open_in_file(t_redir files);
 void		put_error(char *error, bool state);
 pid_t		exec_cmd(t_cmd_tab cmd, t_pipe fd_pipe, int len, int ind, char **env);
 pid_t		exec_one(t_cmd_tab cmd, char **env);
-void		cmd_tab_free(t_cmd_tab **cmd_tab);
+void		cmd_tab_free(t_cmd_tab **cmd_tab, int len);
 void		clear_files(t_redir *list);
 void		print_cmd_tab(t_cmd_tab *tab);
 t_heredoc	*open_heredoc(t_cmd_tab *tab);

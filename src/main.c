@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 08:29:08 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/21 15:13:33 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ t_data	g_meta;
 
 void	init_program(int ac, char **av, char **env)
 {
-	struct termios term;
+	struct termios	term;
 
 	(void)ac;
 	(void)av;
 	g_meta.env = init_env(env);
 	g_meta.exit_status = 0;
 	tcgetattr(STDIN_FILENO, &term);
-    term.c_lflag &= ~ECHOCTL;
-    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	printf("\n\t	-USE AT YOUR OWN RISK-	\n\n");
 }
 
@@ -74,9 +74,9 @@ void	ft_wait_pid(pid_t *pid, int len)
 
 int	main(int argc, char **argv, char **env)
 {
-	char	*readed;
-	t_cmd_tab	*cmd_tab;
+	char		*readed;
 	pid_t		*pid;
+	t_cmd_tab	*cmd_tab;
 
 	init_program(argc, argv, env);
 	signals();
@@ -86,11 +86,13 @@ int	main(int argc, char **argv, char **env)
 		if (ft_add_history(readed) == 1)
 			continue ;
 		cmd_tab = command_table(readed);
-		// print_cmd_tab(cmd_tab);
-		pid = exec_cmd_tab(cmd_tab, env);
-		ft_wait_pid(pid, cmd_tab->len);
-		// cmd_tab_free(&cmd_tab);
-		// free(pid);
+		if (!cmd_tab->syntax_error->error)
+		{
+			pid = exec_cmd_tab(cmd_tab, env);
+			ft_wait_pid(pid, cmd_tab->len);
+			free(pid);
+		}
+		cmd_tab_free(&cmd_tab, cmd_tab->syntax_error->index);
 		free(readed);
 	}
 	(void)pid;
