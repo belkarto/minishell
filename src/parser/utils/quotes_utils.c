@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 16:05:36 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/21 16:25:00 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 13:07:57 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ t_elem	*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens, int index)
 	while (tokens)
 	{
 		if (tokens->type != type && tokens->next && tokens->next->type != type)
+		{
 			tokens = join_tokens(&tokens, &tokens->next);
+			tokens->type = WORD;
+		}
 		else
 		{
 			if (tokens->type != type && tokens->next)
