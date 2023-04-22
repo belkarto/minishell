@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 22:30:48 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 11:53:37 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 12:16:36 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	delet_elem(t_elem	**elem)
 	}
 	else
 	{
-
 		(*elem)->prev->next = (*elem)->next;
 		(*elem)->next->prev = (*elem)->prev;
 	}

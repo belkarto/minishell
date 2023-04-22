@@ -6,10 +6,9 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:43:04 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 13:10:27 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 12:17:39 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/minishell.h"
 
@@ -34,7 +33,7 @@ int	tab_len(t_elem *head)
 
 void	cmd_tab_free(t_cmd_tab **cmd_tab, int len)
 {
-	int	i;
+	int			i;
 	t_cmd_tab	*cmd;
 
 	cmd = *cmd_tab;

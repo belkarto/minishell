@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 03:19:31 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/20 04:57:01 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 12:18:01 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_env	*get_var(char *name, t_env *list)
 void	shell_lvl(t_env *list)
 {
 	t_env	*tmp;
-	int	num;
+	int		num;
 
 	tmp = get_var("SHLVL", list);
 	num = ft_atoi(tmp->content);
