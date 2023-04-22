@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:20:53 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/21 15:24:45 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 15:27:08 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_elem	*get_file(t_cmd_tab *cmd_tab, t_elem *tokens,
 	{
 		if (redir_type != HEREDOC)
 			is_expand(tokens);
-		tokens = delete_quotes(cmd_tab, tokens, index);
+		tokens = delete_quotes(cmd_tab, tokens, index, tokens->type);
 	}
 	if (tokens->next)
 	{

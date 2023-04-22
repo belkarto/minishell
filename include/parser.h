@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/21 18:33:34 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:27:38 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,13 @@ void		delete_space(t_elem **tokens);
 t_elem		*delete_token(t_elem *token);
 
 //--------------------Syntax_error_utils--------------------//
-void		error_unclosed_quotes(t_cmd_tab *cmd_tab, int index);
+t_elem		*error_unclosed_quotes(t_cmd_tab *cmd_tab, int index);
 void		set_syntax_error(t_cmd_tab *cmd_tab, int index);
 void		init_syntax_error(t_cmd_tab *cmd_tab);
 
 //--------------------Quotes_utils--------------------//
-t_elem		*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens, int index);
+t_elem		*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens, int index,
+				t_token redir_type);
 t_elem		*delete_last_quote(t_elem *token);
 int			is_in_quote(t_elem *tokens);
 

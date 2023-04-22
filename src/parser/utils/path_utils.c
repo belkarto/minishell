@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 05:52:34 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/21 15:58:12 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 15:06:49 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static char	**split_add_slash(char *paths)
 	char	**split;
 	char	**path;
 
+	if (!paths)
+		return (NULL);
 	i = 0;
 	split = ft_split(paths, ':');
 	while (split[i])
@@ -70,10 +72,8 @@ char	*generate_cmd_env(char *cmd)
 	if (access(cmd, X_OK) == 0)
 		return (ft_strdup(cmd));
 	paths = generate_paths();
-	if (!paths)
-		return (NULL);
 	path = split_add_slash(paths);
-	if (!paths)
+	if (!path)
 		return (NULL);
 	while (path[++i])
 	{
