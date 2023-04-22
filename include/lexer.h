@@ -6,13 +6,12 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:07:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 11:55:36 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 15:09:39 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
-# include "enums.h"
 # include <stdbool.h>
 /*
  * enum used to know type of token neather word or special charachter
@@ -47,7 +46,6 @@ typedef enum e_state
 	GENERAL,
 }	t_state;
 
-
 typedef struct s_elem
 {
 	char			*content;
@@ -70,6 +68,5 @@ int		in_quote(t_elem **list, int *status, int picker);
 void	elem_clear(t_elem *list);
 void	delet_elem(t_elem	**elem);
 int		env(t_elem **list, int *status, char *line);
-
 
 #endif

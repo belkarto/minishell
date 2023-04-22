@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtings.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:02:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/20 09:23:40 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 14:43:38 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 # define MAX_SIZE 1000
 # include "parser.h"
 
-
 typedef struct s_env
 {
 	char			*name;
 	char			*content;
 	struct s_env	*next;
 }	t_env;
-
 
 void	env_add_back(t_env **list, t_env *new_env);
 int		join_env(char *name, char *env);

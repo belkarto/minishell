@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:50:32 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/22 15:47:13 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 18:35:39 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void	set_syntax_error(t_cmd_tab *cmd_tab, int index, int statu)
 	g_meta.exit_status = statu;
 }
 
-void	error_unclosed_quotes(t_cmd_tab *cmd_tab, int index)
+t_elem	*error_unclosed_quotes(t_cmd_tab *cmd_tab, int index)
 {
 	ft_putstr_fd("quotes syntax error\n", 2);
 	set_syntax_error(cmd_tab, index, 258);
+	return (NULL);
 }

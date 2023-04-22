@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 16:05:36 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/22 13:07:57 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 15:30:25 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,44 +28,33 @@ t_elem	*delete_last_quote(t_elem *token)
 	return (token->prev);
 }
 
-t_elem	*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens, int index)
+t_elem	*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens,
+			int index, t_token redir_type)
 {
-	t_token	type;
-
-	type = tokens->type;
-	if (tokens->next)
-	{
-		tokens = tokens->next;
-		delet_elem(&tokens->prev);
-	}
-	else
-	{
-		delet_elem(&tokens);
-		error_unclosed_quotes(cmd_tab, index);
-		return (NULL);
-	}
+	if (!tokens->next)
+		return (error_unclosed_quotes(cmd_tab, index));
+	tokens = tokens->next;
+	delet_elem(&tokens->prev);
 	while (tokens)
 	{
-		if (tokens->type != type && tokens->next && tokens->next->type != type)
+		if (tokens->type != redir_type && tokens->next
+			&& tokens->next->type != redir_type)
 		{
 			tokens = join_tokens(&tokens, &tokens->next);
 			tokens->type = WORD;
 		}
 		else
 		{
-			if (tokens->type != type && tokens->next)
+			if (tokens->type != redir_type && tokens->next)
 				tokens = tokens->next;
 			else if (!tokens->next)
 				break ;
 		}
-		if (tokens->type == type)
+		if (tokens->type == redir_type)
 			break ;
 	}
-	if (!tokens->next && tokens->type != type)
-	{
-		error_unclosed_quotes(cmd_tab, index);
-		return (NULL);
-	}
+	if (!tokens->next && tokens->type != redir_type)
+		return (error_unclosed_quotes(cmd_tab, index));
 	return (delete_last_quote(tokens));
 }
 

@@ -6,11 +6,11 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 13:01:33 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/20 07:25:45 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 14:47:01 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
 char	*ft_strdup(const char *s1)
 {
