@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:46:29 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 22:21:57 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 22:33:04 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ pid_t	*exec_cmd_tab(t_cmd_tab *cmd_tab)
 	int		i;
 	pid_t	*pid;
 
+	if (open_heredoc(cmd_tab) == 1)
+		return (NULL);
 	i = -1;
 	pid = allocat_pid_tab(cmd_tab);
 	if (!pid)

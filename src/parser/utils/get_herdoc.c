@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 04:10:47 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 22:04:23 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 23:41:17 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@ static void	sig_handler(int sig)
 	(void)sig;
 	printf("\n");
 	exit (1);
-}
-
-static int	set_error(t_cmd_tab **cmd_tab, int index, int status)
-{
-	set_syntax_error(*cmd_tab, index, status);
-	return (1);
 }
 
 void	get_string(char *dilimiter, int fd_pip[2], int to_expand)
@@ -53,7 +47,7 @@ void	get_string(char *dilimiter, int fd_pip[2], int to_expand)
 	exit(0);
 }
 
-int	read_line(int fd_pip[2], t_elem **tokens, t_cmd_tab **cmd_tab, int index)
+int	read_line(int fd_pip[2], char **dilimiter)
 {
 	size_t	len;
 	char	*content;
@@ -61,22 +55,21 @@ int	read_line(int fd_pip[2], t_elem **tokens, t_cmd_tab **cmd_tab, int index)
 	read(fd_pip[0], &len, sizeof(size_t));
 	content = ft_calloc(sizeof(char), len);
 	if (!content)
-		return (set_error(cmd_tab, index, 1));
-	read(fd_pip[0], content, len);
-	free((*tokens)->content);
-	(*tokens)->content = content;
+		return (1);
+	if (read(fd_pip[0], content, len) == -1)
+		return (1);
+	free(*dilimiter);
+	*dilimiter = content;
 	return (0);
 }
 
-int	heredoc_content(t_elem **delimiter, int to_expand, \
-		t_cmd_tab *cmd_tab, int index)
+int	heredoc_content(t_redir	*file)
 {
 	pid_t	pid;
 	int		fd_pip[2];
 	int		statu;
 
-	if (!(*delimiter))
-		return (1);
+	g_meta.heredoc--;
 	if (pipe(fd_pip) == -1)
 		return (1);
 	pid = fork();
@@ -86,12 +79,14 @@ int	heredoc_content(t_elem **delimiter, int to_expand, \
 		return (1);
 	}
 	if (pid == 0)
-		get_string((*delimiter)->content, fd_pip, to_expand);
+		get_string(file->file_name, fd_pip, file->in_quote);
 	waitpid(pid, &statu, 0);
 	close(fd_pip[1]);
 	if (statu == 0)
-		read_line(fd_pip, delimiter, &cmd_tab, index);
+		return (read_line(fd_pip, &file->file_name));
 	else
-		return (set_error(&cmd_tab, index, 1));
-	return (0);
+	{
+		g_meta.exit_status = 1;
+		return (1);
+	}
 }
