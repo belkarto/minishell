@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/21 18:13:53 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 18:25:03 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			quote = is_in_quote(tokens);
 			tokens = get_file(cmd_tab, tokens, redir_type, i);
 			if (redir_type == HEREDOC)
-				heredoc_content(&tokens, quote);
+				if (heredoc_content(&tokens, quote, cmd_tab, i) == 1)
+					return ;
 			if (tokens)
 				file_add_back(&cmd_tab[i].redir,
 					file_new(tokens->content, redir_type, quote));
@@ -122,7 +123,7 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 		if (fill(&holder, &cmd_tab[i]) == 1
 			&& !cmd_tab->syntax_error->display)
 		{
-			set_syntax_error(cmd_tab, i);
+			set_syntax_error(cmd_tab, i, 258);
 			ft_putstr_fd("pipe syntax error\n", 2);
 			return ;
 		}
