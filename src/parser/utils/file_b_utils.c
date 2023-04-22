@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:20:53 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/21 15:24:45 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 16:05:24 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ t_elem	*check_file(t_elem *file, t_cmd_tab *cmd_tab, int index)
 	{
 		if (!file && !cmd_tab->syntax_error->display)
 		{
-			set_syntax_error(cmd_tab, index);
+			set_syntax_error(cmd_tab, index, 258);
 			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 		}
 		else if (!cmd_tab->syntax_error->display)
 		{
-			set_syntax_error(cmd_tab, index);
+			set_syntax_error(cmd_tab, index, 258);
 			ft_putstr_fd("syntax error near unexpected token ", 2);
 			write(2, "`", 1);
 			ft_putstr_fd(file->content, 2);

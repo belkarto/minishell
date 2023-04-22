@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/21 18:33:34 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:44:55 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_elem		*delete_token(t_elem *token);
 
 //--------------------Syntax_error_utils--------------------//
 void		error_unclosed_quotes(t_cmd_tab *cmd_tab, int index);
-void		set_syntax_error(t_cmd_tab *cmd_tab, int index);
+void		set_syntax_error(t_cmd_tab *cmd_tab, int index, int statu);
 void		init_syntax_error(t_cmd_tab *cmd_tab);
 
 //--------------------Quotes_utils--------------------//
@@ -92,6 +92,6 @@ void		skip_spaces(t_elem **tokens);
 t_elem		*join_none_space(t_elem *tokens);
 
 void		printf_cmd_tab( t_cmd_tab *cmd_tab);
-int			heredoc_content(t_elem **delimiter, int to_expand);
+int			heredoc_content(t_elem **delimiter, int to_expand, t_cmd_tab *cmt_tab, int index);
 
 #endif
