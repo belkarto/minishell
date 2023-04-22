@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:46:29 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 22:00:43 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 22:21:57 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,28 @@ pid_t	*allocat_pid_tab(t_cmd_tab *cmd_tab)
 	return (pid);
 }
 
-int	*exec_cmd_tab(t_cmd_tab *cmd_tab)
+void	exec_multi_cmd(pid_t *pid, t_cmd_tab *cmd_tab)
 {
-	int		i;
 	t_pipe	pip;
 	int		fd_pip[2][2];
+	int		i;
+
+	i = -1;
+	while (++i < cmd_tab->len)
+	{
+		set_pipes(&pip, i, fd_pip);
+		open_pipes(pip, i);
+		pid[i] = exec_cmd(cmd_tab[i], pip, cmd_tab->len, i);
+		close(pip.read_end[0]);
+		close(pip.read_end[1]);
+	}
+	close(pip.write_end[0]);
+	close(pip.write_end[1]);
+}
+
+pid_t	*exec_cmd_tab(t_cmd_tab *cmd_tab)
+{
+	int		i;
 	pid_t	*pid;
 
 	i = -1;
@@ -69,17 +86,6 @@ int	*exec_cmd_tab(t_cmd_tab *cmd_tab)
 	if (cmd_tab->len == 1)
 		pid[0] = exec_one(*cmd_tab);
 	else
-	{
-		while (++i < cmd_tab->len)
-		{
-			set_pipes(&pip, i, fd_pip);
-			open_pipes(pip, i);
-			pid[i] = exec_cmd(cmd_tab[i], pip, cmd_tab->len, i);
-			close(pip.read_end[0]);
-			close(pip.read_end[1]);
-		}
-		close(pip.write_end[0]);
-		close(pip.write_end[1]);
-	}
+		exec_multi_cmd(pid, cmd_tab);
 	return (pid);
 }

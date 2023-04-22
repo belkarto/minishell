@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 04:10:47 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 19:13:27 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 22:04:23 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	heredoc_content(t_elem **delimiter, int to_expand, \
 	int		fd_pip[2];
 	int		statu;
 
-	if ((*delimiter) == NULL)
+	if (!(*delimiter))
 		return (1);
 	if (pipe(fd_pip) == -1)
 		return (1);

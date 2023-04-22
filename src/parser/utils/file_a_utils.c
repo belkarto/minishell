@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 22:23:06 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/21 15:24:14 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 18:55:36 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	file_add_back(t_redir **lst, t_redir *new)
 
 t_elem	*delete_file(t_elem *token)
 {
+	if (!token)
+		return (NULL);
 	if (token->next)
 	{
 		token = token->next;
