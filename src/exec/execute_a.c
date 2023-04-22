@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 14:52:05 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 19:17:15 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	exec_cmd(t_cmd_tab cmd, t_pipe fd_pipe, int len, int ind)
 		put_error("fork", false);
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		cmd.env = generate_cmd_env(cmd.cmd[0]);
 		if (ind == 0)
 			executor(cmd, fd_pipe, FIRST);

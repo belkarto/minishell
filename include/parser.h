@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/22 18:34:12 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 18:44:33 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ t_elem		*join_none_space(t_elem *tokens);
 
 void		printf_cmd_tab( t_cmd_tab *cmd_tab);
 int			heredoc_content(t_elem **delimiter, int to_expand, t_cmd_tab *cmt_tab, int index);
+char		*parse_line(char *line);
 
 #endif
