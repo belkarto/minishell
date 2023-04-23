@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 19:17:15 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 00:55:51 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	executor(t_cmd_tab cmd, t_pipe fd_pipe, t_phase phase)
 		put_error(cmd.cmd[0], true);
 	builtins(cmd, true);
 	if (execve(cmd.env, cmd.cmd, g_meta.exec_env) == -1)
-		put_error("ERROR : exeve", true);
+		put_error(NULL, true);
 }
 
 int	exec_cmd(t_cmd_tab cmd, t_pipe fd_pipe, int len, int ind)

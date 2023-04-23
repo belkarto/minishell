@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 14:49:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 00:16:22 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 00:58:40 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ pid_t	run_external(t_cmd_tab cmd)
 			exit(0);
 		if (cmd.env == NULL)
 			put_error("command not found", true);
-		execve(cmd.env, cmd.cmd, g_meta.exec_env);
+		if (execve(cmd.env, cmd.cmd, g_meta.exec_env) == -1)
+			put_error("command not found", true);
 	}
 	return (pid);
 }
