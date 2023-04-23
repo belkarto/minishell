@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 00:08:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/23 06:27:38 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 06:59:55 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	print_lexer(t_elem *head)
 	}
 }
 
-
 void	print_cmd(t_cmd_tab cmd)
 {
 	int		i;
@@ -83,7 +82,6 @@ void	print_cmd(t_cmd_tab cmd)
 	}
 	printf("\n");
 }
-
 
 void	print_cmd_tab(t_cmd_tab *tab)
 {

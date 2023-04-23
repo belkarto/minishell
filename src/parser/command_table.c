@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:32:49 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/23 05:46:10 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 06:55:46 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	cmd_tab_len(t_elem *tokens)
 		return (0);
 	while (tokens->next)
 	{
-		if (tokens->type == PIPE && tokens->state != IN_DQUOTE
-			&& tokens->state != IN_QUOTE)
+		if (tokens->type == PIPE && tokens->state == GENERAL)
 			cmd++;
 		tokens = tokens->next;
 	}

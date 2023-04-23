@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:54:21 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 04:56:23 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 06:44:58 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static t_elem	*split_env(t_elem *tokens)
 	i = 0;
 	head = NULL;
 	env = ft_split(tokens->content, ' ');
+	if (double_len(env) == 1)
+		return (NULL);
 	while (env[i] != NULL)
 	{
 		elem_add_tail(&head, new_elem(ft_strdup(env[i]), ft_strlen(env[i]),
@@ -37,6 +39,8 @@ static void	re_tokenize(t_elem **tokens)
 	t_elem	*env_val;
 
 	env_val = split_env(*tokens);
+	if (!env_val)
+		return ;
 	env_val->tail->next = (*tokens)->next;
 	(*tokens)->next = env_val;
 	env_val->prev = (*tokens);
@@ -66,7 +70,7 @@ void	expand(t_elem **tokens, t_token redir_type)
 	else
 		(*tokens)->content = ft_strdup(env->content);
 	if ((*tokens)->state == GENERAL
-		&& (ft_strrchr((*tokens)->content, ' ') + 1))
+		&& (ft_strrchr((*tokens)->content, ' ')))
 		re_tokenize(tokens);
 	(*tokens)->type = WORD;
 }

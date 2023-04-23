@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 05:24:16 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 06:55:25 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,11 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 	{
 		if (fill(&holder, &cmd_tab[i]) == 1)
 		{
-			set_syntax_error(cmd_tab);
 			if (!cmd_tab->syntax_error->display)
+			{
+				set_syntax_error(cmd_tab);
 				ft_putstr_fd("syntax error\n", 2);
+			}
 			return ;
 		}
 		i++;
