@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 21:51:21 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 06:50:13 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_data
 	t_env	*env;
 	int		heredoc;
 	char	**exec_env;
+	int		fd_stdin;
+	int		fd_stdout;
 }	t_data;
 
 extern t_data	g_meta;
