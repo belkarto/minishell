@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:43:04 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/23 01:12:23 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 04:45:45 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ void	cmd_tab_free(t_cmd_tab **cmd_tab, int len)
 	i = 0;
 	if (cmd == NULL)
 		return ;
-	// if (len == 0)
-	// 	len = 1;
-	ft_printf("len: %d\n", len);
 	while (i <= len)
 	{
 		if (cmd[i].redir)

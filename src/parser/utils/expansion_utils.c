@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:54:21 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/21 15:47:47 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 03:57:11 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static t_elem	*split_env(t_elem *tokens)
 		elem_add_tail(&head, new_elem(ft_strdup(" "), 1, SPAC, GENERAL));
 		i++;
 	}
+	free_2d(env);
 	return (head);
 }
 
