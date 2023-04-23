@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 04:10:47 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 23:41:17 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 00:28:30 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	get_string(char *dilimiter, int fd_pip[2], int to_expand)
 		content = ft_strjoin_gnl(content, line);
 		content = ft_strjoin_gnl(content, "\n");
 	}
-	len = ft_strlen(content) + 1;
+	len = ft_strlen(content);
 	if (write(fd_pip[1], &len, sizeof(size_t)) == -1)
 		exit (1);
 	if (write(fd_pip[1], content, len) == -1)
@@ -53,13 +53,15 @@ int	read_line(int fd_pip[2], char **dilimiter)
 	char	*content;
 
 	read(fd_pip[0], &len, sizeof(size_t));
+	if (len == 0)
+		return (0);
 	content = ft_calloc(sizeof(char), len);
 	if (!content)
 		return (1);
-	if (read(fd_pip[0], content, len) == -1)
-		return (1);
+	read(fd_pip[0], content, len);
 	free(*dilimiter);
 	*dilimiter = content;
+	close(fd_pip[0]);
 	return (0);
 }
 
