@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:54:21 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 03:57:11 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 04:56:23 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ static void	re_tokenize(t_elem **tokens)
 	(*tokens) = env_val;
 }
 
-void	expand(t_elem **tokens)
+void	expand(t_elem **tokens, t_token redir_type)
 {
 	t_env	*env;
 
+	if (redir_type == HEREDOC)
+		return ;
 	if (ft_strcmp((*tokens)->content, "$?") == 0)
 	{
 		free((*tokens)->content);
@@ -69,19 +71,18 @@ void	expand(t_elem **tokens)
 	(*tokens)->type = WORD;
 }
 
-void	is_expand(t_elem *tokens)
+void	is_expand(t_elem *tokens, t_token redir_type)
 {
-	t_token	type;
-
-	type = tokens->type;
+	if (redir_type == HEREDOC)
+		return ;
 	tokens = tokens->next;
 	while (tokens)
 	{
-		if (tokens->type == type)
+		if (tokens->type == redir_type)
 			return ;
 		else if (tokens->type == ENV
 			&& (tokens->state == IN_DQUOTE || tokens->state == GENERAL))
-			expand(&tokens);
+			expand(&tokens, redir_type);
 		tokens = tokens->next;
 	}
 }

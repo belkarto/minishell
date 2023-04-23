@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 16:05:36 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 02:09:59 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 05:52:01 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ t_elem	*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens, t_token redir_type)
 		else
 		{
 			if (tokens->type != redir_type && tokens->next)
+			{
+				tokens->type = WORD;
 				tokens = tokens->next;
+			}
 			else if (!tokens->next)
 				break ;
 		}

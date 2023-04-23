@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:20:53 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 02:14:22 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 05:03:28 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,11 @@ t_elem	*get_file(t_cmd_tab *cmd_tab, t_elem *tokens, t_token redir_type)
 		return (tokens->prev);
 	if (tokens->type == ENV && (tokens->state == IN_DQUOTE
 			|| tokens->state == GENERAL))
-	{
-		if (redir_type != HEREDOC)
-			expand(&tokens);
-	}
+		expand(&tokens, redir_type);
 	else if ((tokens->type == QUOTE || tokens->type == DQUOTE)
 		&& tokens->state == GENERAL)
 	{
-		if (redir_type != HEREDOC)
-			is_expand(tokens);
+		is_expand(tokens, redir_type);
 		tokens = delete_quotes(cmd_tab, tokens, tokens->type);
 	}
 	if (tokens && tokens->next)

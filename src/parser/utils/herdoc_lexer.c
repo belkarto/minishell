@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   herdoc_lexer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 18:40:59 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 18:43:17 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 05:05:12 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*join_and_expand_env(t_elem *head)
 	while (head)
 	{
 		if (head->type == ENV)
-			expand(&head);
+			expand(&head, head->type);
 		line = ft_strjoin_gnl(line, head->content);
 		head = head->next;
 	}

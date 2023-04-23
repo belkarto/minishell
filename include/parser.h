@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 03:18:14 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 04:54:28 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ t_elem		*get_file(t_cmd_tab *cmd_tab, t_elem *tokens, t_token redir_type);
 t_elem		*check_file(t_elem *file, t_cmd_tab *cmd_tab);
 
 //-------------------Expansion_utils-----------------//
-void		expand(t_elem **tokens);
-void		is_expand(t_elem *tokens);
+void		expand(t_elem **tokens, t_token redir_type);
+void		is_expand(t_elem *tokens, t_token redir_type);
 
 //--------------------Token_utils--------------------//
 t_elem		*join_tokens(t_elem **token, t_elem **next_token);
@@ -80,7 +80,8 @@ void		set_syntax_error(t_cmd_tab *cmd_tab);
 void		init_syntax_error(t_cmd_tab *cmd_tab);
 
 //--------------------Quotes_utils--------------------//
-t_elem		*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens, t_token redir_type);
+t_elem		*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens,
+				t_token redir_type);
 t_elem		*delete_last_quote(t_elem *token);
 int			is_in_quote(t_elem *tokens);
 

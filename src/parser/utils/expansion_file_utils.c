@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 04:46:50 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 05:24:16 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			tokens = inside_quotes(cmd_tab, tokens);
 		else if (tokens && tokens->type == ENV && (tokens->state == IN_DQUOTE
 				|| tokens->state == GENERAL))
-			expand(&tokens);
+			expand(&tokens, tokens->type);
 		else if (tokens && (tokens->type == LESS || tokens->type == GREAT
 				|| tokens->type == HEREDOC || tokens->type == REDIR_OUT))
 		{

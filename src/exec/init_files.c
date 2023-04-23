@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:00:50 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 23:53:38 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 04:50:15 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	open_heredoc(t_cmd_tab *cmd_tab)
 {
-	int	i;
+	int		i;
 	t_redir	*file;
 
 	if (g_meta.heredoc >= MAX_HERDOC)
