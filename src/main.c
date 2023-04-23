@@ -6,13 +6,14 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/23 00:16:46 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 06:51:30 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 t_data	g_meta;
 
@@ -28,6 +29,8 @@ void	init_program(int ac, char **av, char **env)
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	g_meta.fd_stdin = dup(STDIN_FILENO);
+	g_meta.fd_stdout = dup(STDOUT_FILENO);
 	printf("\n\t	-USE AT YOUR OWN RISK-	\n\n");
 }
 
@@ -88,6 +91,7 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		signal(SIGINT, SIG_IGN);
 		cmd_tab = command_table(readed);
+		// print_cmd_tab(cmd_tab);
 		if (!cmd_tab->syntax_error->error)
 		{
 			pid = exec_cmd_tab(cmd_tab);

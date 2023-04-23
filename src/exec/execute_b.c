@@ -6,11 +6,12 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 14:49:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 00:58:40 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 06:53:22 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <unistd.h>
 
 int	run_builtin(t_cmd_tab cmd)
 {
@@ -18,6 +19,8 @@ int	run_builtin(t_cmd_tab cmd)
 	{
 		open_files(cmd.redir);
 		builtins(cmd, false);
+		dup2(g_meta.fd_stdin, STDIN_FILENO);
+		dup2(g_meta.fd_stdout, STDOUT_FILENO);
 		return (1);
 	}
 	return (0);
