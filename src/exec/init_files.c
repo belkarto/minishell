@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:00:50 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 21:50:58 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/22 23:53:38 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,33 @@
 #include <sys/fcntl.h>
 #include <sys/signal.h>
 #include <unistd.h>
+
+int	open_heredoc(t_cmd_tab *cmd_tab)
+{
+	int	i;
+	t_redir	*file;
+
+	if (g_meta.heredoc >= MAX_HERDOC)
+	{
+		ft_putstr_fd("maximum here-document count exceeded\n", 2);
+		exit (2);
+	}
+	i = -1;
+	while (++i < cmd_tab->len && g_meta.heredoc > 0)
+	{
+		file = cmd_tab->redir;
+		while (file)
+		{
+			if (file->redir_type == HEREDOC)
+			{
+				if (heredoc_content(file) == 1)
+					return (1);
+			}
+			file = file->next;
+		}
+	}
+	return (0);
+}
 
 int	open_out_file(t_redir files)
 {
@@ -37,37 +64,6 @@ int	open_out_file(t_redir files)
 	return (-1);
 }
 
-void	quitin(int sig)
-{
-	(void)sig;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	exit(0);
-}
-
-void	open_heredocs(char *delemiter)
-{
-	int		fd_pipe[2];
-	char	*line;
-
-	pipe(fd_pipe);
-	signal(SIGINT, quitin);
-	while (1)
-	{
-		line = readline("> ");
-		if (line == NULL || ft_strcmp(delemiter, line) == 0)
-		{
-			close(fd_pipe[1]);
-			dup2(fd_pipe[0], STDIN_FILENO);
-			return ;
-		}
-		else
-			write(fd_pipe[0], line, ft_strlen(line));
-	}
-}
-
 int	open_in_file(t_redir files)
 {
 	int	in_file;
@@ -75,7 +71,7 @@ int	open_in_file(t_redir files)
 
 	in_file = -1;
 	if (files.redir_type == LESS)
-		in_file = open(files.file_name, O_RDONLY | O_TRUNC);
+		in_file = open(files.file_name, O_RDONLY);
 	else
 	{
 		pipe(fd_pipe);

@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 15:05:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/20 09:44:35 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/22 23:44:15 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_elem	*lexer(char *line)
 	int		statu;
 	t_elem	*head;
 
+	g_meta.heredoc = 0;
 	head = new_elem(NULL, 0, WORD, GENERAL);
 	statu = GENERAL;
 	i = 0;

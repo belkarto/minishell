@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 14:49:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/22 14:50:36 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 00:58:40 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ pid_t	run_external(t_cmd_tab cmd)
 		put_error("fork:", false);
 	else if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		cmd.env = generate_cmd_env(cmd.cmd[0]);
 		if (open_files(cmd.redir) == -1)
 			exit(1);
@@ -40,7 +42,8 @@ pid_t	run_external(t_cmd_tab cmd)
 			exit(0);
 		if (cmd.env == NULL)
 			put_error("command not found", true);
-		execve(cmd.env, cmd.cmd, g_meta.exec_env);
+		if (execve(cmd.env, cmd.cmd, g_meta.exec_env) == -1)
+			put_error("command not found", true);
 	}
 	return (pid);
 }

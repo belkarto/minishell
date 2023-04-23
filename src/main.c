@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 14:47:28 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 00:16:46 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,13 @@ int	main(int argc, char **argv, char **env)
 	t_cmd_tab	*cmd_tab;
 
 	init_program(argc, argv, env);
-	signals();
 	while (1)
 	{
+		signals();
 		readed = readline("\033[0;1;3;32m MINISHELL $> \033[0;37m");
 		if (ft_add_history(readed) == 1)
 			continue ;
+		signal(SIGINT, SIG_IGN);
 		cmd_tab = command_table(readed);
 		if (!cmd_tab->syntax_error->error)
 		{
