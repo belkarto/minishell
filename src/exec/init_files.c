@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:00:50 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/23 04:50:15 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 08:18:17 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	open_out_file(t_redir files)
 		dup2(out_file, STDOUT_FILENO);
 		close(out_file);
 	}
-	return (-1);
+	return (0);
 }
 
 int	open_in_file(t_redir files)
