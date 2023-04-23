@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 16:05:36 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 05:52:01 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 08:42:03 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ t_elem	*delete_last_quote(t_elem *token)
 	return (token->prev);
 }
 
+void	join_and_set_type(t_elem *tokens)
+{
+	tokens = join_tokens(&tokens, &tokens->next);
+	tokens->type = WORD;
+}
+
 t_elem	*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens, t_token redir_type)
 {
 	if (!tokens->next)
@@ -38,10 +44,7 @@ t_elem	*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens, t_token redir_type)
 	{
 		if (tokens->type != redir_type && tokens->next
 			&& tokens->next->type != redir_type)
-		{
-			tokens = join_tokens(&tokens, &tokens->next);
-			tokens->type = WORD;
-		}
+			join_and_set_type(tokens);
 		else
 		{
 			if (tokens->type != redir_type && tokens->next)

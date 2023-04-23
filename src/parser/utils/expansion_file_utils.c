@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 06:55:25 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 08:57:38 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static int	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
 
 	i = 0;
 	flag = 0;
-	cmd_tab->env = NULL;
 	if ((*tokens)->type == PIPE && !flag)
 		return (1);
 	while ((*tokens))
@@ -70,11 +69,27 @@ static int	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
 	return (0);
 }
 
+t_elem	*iterate_files(t_elem *tokens, t_cmd_tab **cmd_tab, int i)
+{
+	t_token	redir_type;
+	int		quote;
+
+	redir_type = tokens->type;
+	skip_spaces(&tokens);
+	if (!check_file(tokens, *cmd_tab))
+		return (NULL);
+	quote = is_in_quote(tokens);
+	tokens = get_file(*cmd_tab, tokens, redir_type);
+	if (tokens)
+		file_add_back(&cmd_tab[i]->redir,
+			file_new(tokens->content, redir_type, quote));
+	tokens = delete_file(tokens);
+	return (tokens);
+}
+
 void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 {
 	int		i;
-	int		quote;
-	t_token	redir_type;
 
 	i = 0;
 	g_meta.heredoc = 0;
@@ -89,16 +104,7 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 		else if (tokens && (tokens->type == LESS || tokens->type == GREAT
 				|| tokens->type == HEREDOC || tokens->type == REDIR_OUT))
 		{
-			redir_type = tokens->type;
-			skip_spaces(&tokens);
-			if (!check_file(tokens, cmd_tab))
-				return ;
-			quote = is_in_quote(tokens);
-			tokens = get_file(cmd_tab, tokens, redir_type);
-			if (tokens)
-				file_add_back(&cmd_tab[i].redir,
-					file_new(tokens->content, redir_type, quote));
-			tokens = delete_file(tokens);
+			tokens = iterate_files(tokens, &cmd_tab, i);
 		}
 		if (tokens && tokens->type == PIPE)
 			i++;
@@ -113,17 +119,15 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 	t_elem	*tokens_dup;
 	t_elem	*holder;
 
-	i = 0;
+	i = -1;
 	tokens_dup = tokens;
 	holder = tokens;
 	delete_space(&tokens_dup);
 	if (holder->content == NULL)
-	{
 		if (holder->next)
 			holder = holder->next;
-	}
 	allocate_2d_cmd(holder, cmd_tab);
-	while (i < cmd_tab->len)
+	while (++i < cmd_tab->len)
 	{
 		if (fill(&holder, &cmd_tab[i]) == 1)
 		{
@@ -134,6 +138,5 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 			}
 			return ;
 		}
-		i++;
 	}
 }

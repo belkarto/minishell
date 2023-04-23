@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/23 00:55:51 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 08:44:53 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,33 +101,3 @@ int	exec_cmd(t_cmd_tab cmd, t_pipe fd_pipe, int len, int ind)
 	}
 	return (pid);
 }
-
-// pid_t	exec_one(t_cmd_tab cmd)
-// {
-// 	pid_t	pid;
-
-// 	pid = -1;
-// 	if (cmd.cmd != NULL && is_builtin(cmd.cmd[0]))
-// 	{
-// 		open_files(cmd.redir);
-// 		builtins(cmd, false);
-// 	}
-// 	else
-// 	{
-// 		pid = fork();
-// 		if (pid < 0)
-// 			put_error("fork :", false);
-// 		else if (pid == 0)
-// 		{
-// 			cmd.env = generate_cmd_env(cmd.cmd[0]);
-// 			if (open_files(cmd.redir) == -1)
-// 				exit(1);
-// 			if (cmd.cmd == NULL || cmd.cmd[0][0] == 0)
-// 				exit (0);
-// 			if (cmd.env == NULL)
-// 				put_error("command not found", true);
-// 			execve(cmd.env, cmd.cmd, g_meta.exec_env);
-// 		}
-// 	}
-// 	return (pid);
-// } 
