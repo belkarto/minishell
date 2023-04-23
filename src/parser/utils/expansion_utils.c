@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:54:21 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 06:44:58 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 10:12:26 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	expand(t_elem **tokens, t_token redir_type)
 	{
 		free((*tokens)->content);
 		(*tokens)->content = ft_itoa(g_meta.exit_status);
+		(*tokens)->type = WORD;
 		return ;
 	}
 	env = get_var((*tokens)->content + 1, g_meta.env);

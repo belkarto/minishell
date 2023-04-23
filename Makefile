@@ -28,7 +28,7 @@ EXEC_DIR	= exec/exec_cmd exec/init_files exec/execute_a exec/execute_b
 SRC_FILES	= main signals $(LEXER_DIR) $(PARSER_UTILS_DIR) $(PARSER_DIR) \
 			  $(UTILS_DIR) $(BUILIN_DIR) $(EXEC_DIR)
 CFLAGS		= -Wall -Wextra -Werror -g
-#-fsanitize=address
+# -fsanitize=address
 CC			= cc 
 OBJF		=	.cache_exists
 # #================
