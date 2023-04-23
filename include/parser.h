@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/22 18:34:12 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 02:13:26 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_redir
 	char			*file_name;
 	t_token			redir_type;
 	bool			in_quote;
-	char			*herdoc_content;
 	struct s_redir	*next;
 }	t_redir;
 
@@ -62,9 +61,8 @@ t_elem		*delete_file(t_elem *token);
 void		clear_files(t_redir *list);
 
 //--------------------File_utils_b--------------------//
-t_elem		*get_file(t_cmd_tab *cmd_tab, t_elem *tokens,
-				t_token redir_type, int index);
-t_elem		*check_file(t_elem *file, t_cmd_tab *cmd_tab, int index);
+t_elem		*get_file(t_cmd_tab *cmd_tab, t_elem *tokens, t_token redir_type);
+t_elem		*check_file(t_elem *file, t_cmd_tab *cmd_tab);
 
 //-------------------Expansion_utils-----------------//
 void		expand(t_elem **tokens);
@@ -77,18 +75,17 @@ void		delete_space(t_elem **tokens);
 t_elem		*delete_token(t_elem *token);
 
 //--------------------Syntax_error_utils--------------------//
-t_elem		*error_unclosed_quotes(t_cmd_tab *cmd_tab, int index);
-void		set_syntax_error(t_cmd_tab *cmd_tab, int index, int statu);
+t_elem		*error_unclosed_quotes(t_cmd_tab *cmd_tab);
+void		set_syntax_error(t_cmd_tab *cmd_tab);
 void		init_syntax_error(t_cmd_tab *cmd_tab);
 
 //--------------------Quotes_utils--------------------//
-t_elem		*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens, int index,
-				t_token redir_type);
+t_elem		*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens, t_token redir_type);
 t_elem		*delete_last_quote(t_elem *token);
 int			is_in_quote(t_elem *tokens);
 
 //-----------------Iterate_tokens_utils--------------//
-t_elem		*inside_quotes(t_cmd_tab *cmd_tab, t_elem *token, int index);
+t_elem		*inside_quotes(t_cmd_tab *cmd_tab, t_elem *token);
 void		skip_spaces(t_elem **tokens);
 t_elem		*join_none_space(t_elem *tokens);
 

@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 04:10:47 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 18:58:48 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 02:15:14 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,6 @@ static void	sig_handler(int	sig)
 {
 	(void)sig;
 	exit (1);
-}
-
-int	set_error(t_cmd_tab **cmd_tab, int index, int status)
-{
-	set_syntax_error(*cmd_tab, index, status);
-	return (1);
 }
 
 void	get_string(char *dilimiter, int	fd_pip[2], int to_expand)

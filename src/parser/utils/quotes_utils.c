@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 16:05:36 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/22 15:30:25 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 02:09:59 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ t_elem	*delete_last_quote(t_elem *token)
 	return (token->prev);
 }
 
-t_elem	*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens,
-			int index, t_token redir_type)
+t_elem	*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens, t_token redir_type)
 {
 	if (!tokens->next)
-		return (error_unclosed_quotes(cmd_tab, index));
+		return (error_unclosed_quotes(cmd_tab));
 	tokens = tokens->next;
 	delet_elem(&tokens->prev);
 	while (tokens)
@@ -54,7 +53,7 @@ t_elem	*delete_quotes(t_cmd_tab *cmd_tab, t_elem *tokens,
 			break ;
 	}
 	if (!tokens->next && tokens->type != redir_type)
-		return (error_unclosed_quotes(cmd_tab, index));
+		return (error_unclosed_quotes(cmd_tab));
 	return (delete_last_quote(tokens));
 }
 

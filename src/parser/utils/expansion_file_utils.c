@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/22 21:59:03 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 02:13:49 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,23 @@ static void	allocate_2d_cmd(t_elem *tokens, t_cmd_tab *cmd_tab)
 
 static int	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
 {
-	int	i;
+	int			i;
+	static int	flag;
 
 	i = 0;
+	flag = 0;
 	cmd_tab->env = NULL;
+	if ((*tokens)->type == PIPE && !flag)
+		return (1);
 	while ((*tokens))
 	{
 		if ((*tokens)->type == PIPE)
 		{
-			if ((*tokens)->next)
+			if ((*tokens)->next && (*tokens)->next->type != PIPE)
+			{
 				(*tokens) = (*tokens)->next;
+				flag++;
+			}
 			else
 				return (1);
 			break ;
@@ -75,7 +82,7 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 	{
 		if ((tokens->type == QUOTE || tokens->type == DQUOTE)
 			&& tokens->state == GENERAL)
-			tokens = inside_quotes(cmd_tab, tokens, i);
+			tokens = inside_quotes(cmd_tab, tokens);
 		else if (tokens && tokens->type == ENV && (tokens->state == IN_DQUOTE
 				|| tokens->state == GENERAL))
 			expand(&tokens);
@@ -84,10 +91,10 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 		{
 			redir_type = tokens->type;
 			skip_spaces(&tokens);
-			if (!check_file(tokens, cmd_tab, i))
+			if (!check_file(tokens, cmd_tab))
 				return ;
 			quote = is_in_quote(tokens);
-			tokens = get_file(cmd_tab, tokens, redir_type, i);
+			tokens = get_file(cmd_tab, tokens, redir_type);
 			if (tokens)
 				file_add_back(&cmd_tab[i].redir,
 					file_new(tokens->content, redir_type, quote));
@@ -118,11 +125,11 @@ void	fill_cmd_and_env(t_elem *tokens, t_cmd_tab *cmd_tab)
 	allocate_2d_cmd(holder, cmd_tab);
 	while (i < cmd_tab->len)
 	{
-		if (fill(&holder, &cmd_tab[i]) == 1
-			&& !cmd_tab->syntax_error->display)
+		if (fill(&holder, &cmd_tab[i]) == 1)
 		{
-			set_syntax_error(cmd_tab, i, 258);
-			ft_putstr_fd("pipe syntax error\n", 2);
+			set_syntax_error(cmd_tab);
+			if (!cmd_tab->syntax_error->display)
+				ft_putstr_fd("syntax error\n", 2);
 			return ;
 		}
 		i++;

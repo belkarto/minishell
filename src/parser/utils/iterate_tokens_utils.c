@@ -6,16 +6,16 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 20:31:27 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/22 15:29:40 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 02:09:43 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-t_elem	*inside_quotes(t_cmd_tab *cmd_tab, t_elem *token, int index)
+t_elem	*inside_quotes(t_cmd_tab *cmd_tab, t_elem *token)
 {
 	is_expand(token);
-	token = delete_quotes(cmd_tab, token, index, token->type);
+	token = delete_quotes(cmd_tab, token, token->type);
 	return (token);
 }
 
