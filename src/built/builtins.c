@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 04:37:58 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/19 05:39:11 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 10:27:17 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	builtins(t_cmd_tab cmd, bool in_child)
 	else if (ft_strcmp(cmd.cmd[0], "pwd") == 0)
 		ft_pwd(cmd, in_child);
 	else if (ft_strcmp(cmd.cmd[0], "exit") == 0)
-		ft_exit(cmd);
+		ft_exit(cmd, in_child);
 	else if (ft_strcmp(cmd.cmd[0], "export") == 0)
 		ft_export(cmd, in_child);
 	else if (ft_strcmp(cmd.cmd[0], "env") == 0)

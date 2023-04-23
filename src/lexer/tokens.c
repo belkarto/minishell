@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 05:00:17 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 22:02:52 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 10:16:18 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ int	env(t_elem **list, int *status, char *line)
 	int	i;
 
 	i = 0;
+	if (line[1] == '?')
+	{
+		elem_add_tail(list, new_elem(ft_substr(line, 0, 2), 2, ENV, *status));
+		return (2);
+	}
 	while (line[++i])
 	{
 		if (ft_isalnum(line[i]) || line[i] == '_' || line[i] == '?')
@@ -92,6 +97,3 @@ int	token(t_elem **list, int *status, char *line)
 		return (word(list, *status, line));
 	return (1);
 }
-/* if (ft_isalnum(*line) || *line == '_' || *line == '-' || *line == ',' || 
- * *line == '.'
-   || *line == '/') */

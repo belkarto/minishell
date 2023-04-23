@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:02:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 14:43:38 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/23 10:27:34 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	del_var(t_env *var);
 void	sort_env(t_env *head);
 void	ft_cd(t_cmd_tab cmd, bool in_child);
 void	ft_pwd(t_cmd_tab cmd, bool in_child);
-void	ft_exit(t_cmd_tab cmd);
+void	ft_exit(t_cmd_tab cmd, bool in_child);
 void	ft_env(t_cmd_tab cmd, bool in_child);
 void	ft_export(t_cmd_tab cmd, bool in_child);
 void	ft_unset(t_cmd_tab cmd, bool in_child);

@@ -6,12 +6,29 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 00:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 20:50:24 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/23 10:39:51 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <unistd.h>
+
+int	check_flag(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strncmp(str, "-n", 2) == 0)
+	{
+		while (str[++i])
+		{
+			if (str[i] != 'n')
+				return (0);
+		}
+		return (1);
+	}
+	return (0);
+}
 
 void	ft_echo(t_cmd_tab cmd, bool in_child)
 {
@@ -22,7 +39,7 @@ void	ft_echo(t_cmd_tab cmd, bool in_child)
 
 	print_line = true;
 	i = 0;
-	if (cmd.cmd[1] && ft_strcmp(cmd.cmd[1], "-n") == 0)
+	if (cmd.cmd[1] && check_flag(cmd.cmd[1]) == 1)
 	{
 		i++;
 		print_line = false;
