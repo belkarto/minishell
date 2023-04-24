@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 07:38:22 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/23 08:44:53 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/24 06:29:19 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ void	executor(t_cmd_tab cmd, t_pipe fd_pipe, t_phase phase)
 	open_files(cmd.redir);
 	if (cmd.cmd == NULL || cmd.cmd[0][0] == 0)
 		exit (0);
+	builtins(cmd, true);
 	if (cmd.env == NULL)
 		put_error(cmd.cmd[0], true);
-	builtins(cmd, true);
 	if (execve(cmd.env, cmd.cmd, g_meta.exec_env) == -1)
 		put_error(NULL, true);
 }

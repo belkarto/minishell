@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 14:49:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 06:53:22 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/24 06:43:36 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ pid_t	run_external(t_cmd_tab cmd)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		cmd.env = generate_cmd_env(cmd.cmd[0]);
 		if (open_files(cmd.redir) == -1)
 			exit(1);
+		cmd.env = generate_cmd_env(cmd.cmd[0]);
 		if (cmd.cmd == NULL || cmd.cmd[0][0] == '\0')
 			exit(0);
 		if (cmd.env == NULL)
