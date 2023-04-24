@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 05:55:35 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/23 03:41:46 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/24 11:55:28 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*get_name(char *env)
 	i = 0;
 	while (env[i] && env[i] != '=')
 		i++;
+	if (env[i] == '\0')
+		return (NULL);
 	return (ft_substr(env, 0, i));
 }
 

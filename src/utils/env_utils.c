@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 03:33:02 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/24 11:30:39 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/24 11:50:39 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	add_new_var(char *name, char *content)
 	env = ft_strjoin_gnl(env, content);
 	free(name);
 	free(content);
-	ft_printf("%s\n", env);
 	env_add_back(&g_meta.env, new_env(env));
+	free(env);
 }
 
 int	join_env(char *name, char *env)
