@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:28:31 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/19 20:30:40 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:08:03 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	handle_sigquit(int sig)
 
 void	end_of_file(void)
 {
-	ft_printf("\r\033[0;1;3;32m MINISHELL $>\033[0;37m exit\n");
+	ft_printf("\r\035[0;1;3;38m MINISHELL $>\033[0;37m exit\n");
 	exit(0);
 }
 

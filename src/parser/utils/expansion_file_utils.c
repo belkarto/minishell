@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 09:54:11 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/24 09:34:43 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,23 @@ static int	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
 				return (1);
 			break ;
 		}
-		if ((*tokens)->content[0] != 0)
-			cmd_tab->cmd[i++] = ft_strdup((*tokens)->content);
+		cmd_tab->cmd[i++] = ft_strdup((*tokens)->content);
 		(*tokens) = (*tokens)->next;
 	}
 	return (0);
 }
 
-t_elem	*iterate_files(t_elem *tokens, t_cmd_tab *cmd_tab)
+t_elem	*iterate_files(t_elem *tokens, t_cmd_tab *cmd_tab, t_cmd_tab *tab)
 {
 	t_token	redir_type;
 	int		quote;
 
 	redir_type = tokens->type;
 	skip_spaces(&tokens);
-	if (!check_file(tokens, cmd_tab))
+	if (!check_file(tokens, tab))
 		return (NULL);
 	quote = is_in_quote(tokens);
-	tokens = get_file(cmd_tab, tokens, redir_type);
+	tokens = get_file(tab, tokens, redir_type);
 	if (tokens)
 		file_add_back(&cmd_tab->redir,
 			file_new(tokens->content, redir_type, quote));
@@ -92,7 +91,6 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 	int		i;
 
 	i = 0;
-	g_meta.heredoc = 0;
 	while (tokens)
 	{
 		if ((tokens->type == QUOTE || tokens->type == DQUOTE)
@@ -103,9 +101,7 @@ void	iterate_tokens(t_elem *tokens, t_cmd_tab *cmd_tab)
 			expand(&tokens, tokens->type);
 		else if (tokens && (tokens->type == LESS || tokens->type == GREAT
 				|| tokens->type == HEREDOC || tokens->type == REDIR_OUT))
-		{
-			tokens = iterate_files(tokens, &cmd_tab[i]);
-		}
+			tokens = iterate_files(tokens, &cmd_tab[i], cmd_tab);
 		if (tokens && tokens->type == PIPE)
 			i++;
 		if (tokens != NULL)
