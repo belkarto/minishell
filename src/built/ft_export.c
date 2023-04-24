@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 10:01:18 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 20:50:06 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/24 11:55:35 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_name(char *name)
 	int	i;
 
 	i = 0;
-	if (ft_strlen(name) == 0 || ft_isdigit(name[0]))
+	if (ft_strlen(name) == 0 || ft_isdigit(name[0]) || name[0] == '+')
 	{
 		g_meta.exit_status = 1;
 		ft_putstr_fd("not a valid identifier\n", 2);

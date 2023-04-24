@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:53:00 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/24 09:36:02 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/24 10:06:26 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ static int	check_number(char *num)
 void	ft_exit(t_cmd_tab cmd, bool in_child)
 {
 	int	num;
-	int	i;
 
-	i = -1;
 	num = 0;
 	if (check_number(cmd.cmd[1]) == 1)
 		error_numiric_argument(cmd.cmd[1]);
