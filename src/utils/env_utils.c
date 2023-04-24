@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 03:33:02 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 11:31:47 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/24 11:30:39 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,18 @@ int	d_strlen(char	**list)
 	return (i);
 }
 
+void	add_new_var(char *name, char *content)
+{
+	char	*env;
+
+	env = ft_strjoin(name, "=");
+	env = ft_strjoin_gnl(env, content);
+	free(name);
+	free(content);
+	ft_printf("%s\n", env);
+	env_add_back(&g_meta.env, new_env(env));
+}
+
 int	join_env(char *name, char *env)
 {
 	t_env	*tmp;
@@ -72,11 +84,11 @@ int	join_env(char *name, char *env)
 	new_name = ft_strtrim(name, "+");
 	free(name);
 	name = new_name;
+	join = ft_substr(env, ft_strlen(name) + 2, ft_strlen(env));
 	while (tmp)
 	{
 		if (ft_strcmp(name, tmp->name) == 0)
 		{
-			join = ft_substr(env, ft_strlen(name) + 2, ft_strlen(env));
 			tmp->content = ft_strjoin_gnl(tmp->content, join);
 			free(join);
 			free(name);
@@ -84,7 +96,8 @@ int	join_env(char *name, char *env)
 		}
 		tmp = tmp->next;
 	}
-	return (0);
+	add_new_var(name, join);
+	return (1);
 }
 
 t_env	*init_env(char **env)

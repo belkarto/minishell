@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:46:29 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/23 06:22:13 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/24 10:08:31 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,10 @@ void	exec_multi_cmd(pid_t *pid, t_cmd_tab *cmd_tab)
 
 pid_t	*exec_cmd_tab(t_cmd_tab *cmd_tab)
 {
-	int		i;
 	pid_t	*pid;
 
 	if (open_heredoc(cmd_tab) == 1)
 		return (NULL);
-	i = -1;
 	pid = allocat_pid_tab(cmd_tab);
 	if (!pid)
 		return (NULL);
