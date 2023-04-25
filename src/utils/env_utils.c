@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 03:33:02 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/24 11:50:39 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:14:50 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,6 @@ int	d_strlen(char	**list)
 	while (list[i])
 		i++;
 	return (i);
-}
-
-void	add_new_var(char *name, char *content)
-{
-	char	*env;
-
-	env = ft_strjoin(name, "=");
-	env = ft_strjoin_gnl(env, content);
-	free(name);
-	free(content);
-	env_add_back(&g_meta.env, new_env(env));
-	free(env);
 }
 
 int	join_env(char *name, char *env)

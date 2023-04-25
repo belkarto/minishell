@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:02:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/23 10:27:34 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:15:05 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		join_env(char *name, char *env);
 t_env	*new_env(char *env);
 char	*get_name(char *env);
 t_env	*builtin_env(void);
+void	add_new_var(char *name, char *content);
 void	update_env(void);
 void	shell_lvl(t_env *list);
 t_env	*get_var(char *name, t_env *list);
