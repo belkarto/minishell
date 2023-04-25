@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 05:55:35 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/24 15:51:09 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/25 13:34:17 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,9 @@ void	update_env(void)
 	tmp = g_meta.env;
 	while(tmp)
 	{
-		if (updated_env[i])
-		{
 			updated_env[i] = ft_strdup(tmp->name);
 			updated_env[i] = ft_strjoin_gnl(updated_env[i], "=");
 			updated_env[i] = ft_strjoin_gnl(updated_env[i], tmp->content);
-		}
 		i++;
 		tmp = tmp->next;
 	}

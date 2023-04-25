@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/25 13:19:57 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/25 13:39:21 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,6 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		signal(SIGINT, SIG_IGN);
 		cmd_tab = command_table(readed);
-		// ft_printf("\n-------Cmd_tab-------\n");
-		// printf_cmd_tab(cmd_tab);
-		// ft_printf("\n--------Redir--------\n");
-		// printf_redir(cmd_tab);
 		if (!cmd_tab->syntax_error->error)
 		{
 			pid = exec_cmd_tab(cmd_tab);
