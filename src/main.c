@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/25 12:02:24 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/25 13:19:57 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_program(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	g_meta.exec_env = env;
+	g_meta.exec_env = dup_env(env);
 	g_meta.env = init_env(env);
 	g_meta.exit_status = 0;
 	tcgetattr(STDIN_FILENO, &term);
@@ -72,8 +72,13 @@ void	ft_wait_pid(pid_t *pid, int len)
 	if (!pid)
 		return ;
 	while (++i < len)
-		waitpid(pid[i], &g_meta.exit_status, 0);
-	g_meta.exit_status = WEXITSTATUS(g_meta.exit_status);
+	{
+		if (pid[i] != -1)
+		{
+			waitpid(pid[i], &g_meta.exit_status, 0);
+			g_meta.exit_status = WEXITSTATUS(g_meta.exit_status);
+		}
+	}
 }
 
 int	main(int argc, char **argv, char **env)
@@ -99,11 +104,11 @@ int	main(int argc, char **argv, char **env)
 		{
 			pid = exec_cmd_tab(cmd_tab);
 			ft_wait_pid(pid, cmd_tab->len);
+			update_env();
 			free(pid);
 		}
 		cmd_tab_free(&cmd_tab, cmd_tab->syntax_error->index);
 		free(readed);
 	}
-	(void)pid;
 	return (0);
 }

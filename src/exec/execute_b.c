@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 14:49:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/24 06:43:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/25 13:15:22 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ int	run_builtin(t_cmd_tab cmd)
 {
 	if (cmd.cmd != NULL && is_builtin(cmd.cmd[0]))
 	{
-		open_files(cmd.redir);
+		if (open_files(cmd.redir) == -1)
+		{
+			g_meta.exit_status = 1;
+			return (1);
+		}
 		builtins(cmd, false);
 		dup2(g_meta.fd_stdin, STDIN_FILENO);
 		dup2(g_meta.fd_stdout, STDOUT_FILENO);
