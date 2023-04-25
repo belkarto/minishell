@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 04:54:28 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/24 17:05:04 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_elem		*get_file(t_cmd_tab *cmd_tab, t_elem *tokens, t_token redir_type);
 t_elem		*check_file(t_elem *file, t_cmd_tab *cmd_tab);
 
 //-------------------Expansion_utils-----------------//
-void		expand(t_elem **tokens, t_token redir_type);
+int			expand(t_elem **tokens, t_token redir_type);
 void		is_expand(t_elem *tokens, t_token redir_type);
 
 //--------------------Token_utils--------------------//
@@ -94,4 +94,6 @@ void		printf_cmd_tab( t_cmd_tab *cmd_tab);
 int			heredoc_content(t_redir *file);
 char		*parse_line(char *line);
 
+
+void		printf_redir(t_cmd_tab *cmd_tab);
 #endif

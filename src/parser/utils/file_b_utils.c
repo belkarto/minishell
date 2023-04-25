@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 15:20:53 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/23 06:12:41 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/24 13:16:09 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_elem	*get_file(t_cmd_tab *cmd_tab, t_elem *tokens, t_token redir_type)
 		return (tokens->prev);
 	if (tokens->type == ENV && (tokens->state == IN_DQUOTE
 			|| tokens->state == GENERAL))
-		expand(&tokens, redir_type);
+		tokens->is_ambiguous = expand(&tokens, redir_type);
 	else if ((tokens->type == QUOTE || tokens->type == DQUOTE)
 		&& tokens->state == GENERAL)
 	{

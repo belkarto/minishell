@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/24 09:34:43 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/24 16:49:50 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static int	fill(t_elem **tokens, t_cmd_tab *cmd_tab)
 	return (0);
 }
 
-t_elem	*iterate_files(t_elem *tokens, t_cmd_tab *cmd_tab, t_cmd_tab *tab)
+static t_elem	*iterate_files(t_elem *tokens, t_cmd_tab *cmd_tab,
+	t_cmd_tab *tab)
 {
 	t_token	redir_type;
 	int		quote;
@@ -80,8 +81,14 @@ t_elem	*iterate_files(t_elem *tokens, t_cmd_tab *cmd_tab, t_cmd_tab *tab)
 	quote = is_in_quote(tokens);
 	tokens = get_file(tab, tokens, redir_type);
 	if (tokens)
-		file_add_back(&cmd_tab->redir,
-			file_new(tokens->content, redir_type, quote));
+	{
+		if (tokens->is_ambiguous)
+			file_add_back(&cmd_tab->redir,
+				file_new(NULL, redir_type, quote));
+		else
+			file_add_back(&cmd_tab->redir,
+				file_new(tokens->content, redir_type, quote));
+	}
 	tokens = delete_file(tokens);
 	return (tokens);
 }

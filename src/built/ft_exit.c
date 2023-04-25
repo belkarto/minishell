@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:53:00 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/24 10:06:26 by brahim           ###   ########.fr       */
+/*   Updated: 2023/04/24 12:24:05 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	error_numiric_argument(char *num)
 {
 	ft_putstr_fd(num, 2);
-	ft_putstr_fd(" : numiric argument required\n", 2);
+	ft_putstr_fd(" : numeric argument required\n", 2);
 	exit (255);
 }
 

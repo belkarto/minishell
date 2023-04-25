@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:07:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/22 15:09:39 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/24 13:44:04 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_elem
 {
 	char			*content;
 	int				len;
+	bool			is_ambiguous;
 	t_token			type;
 	t_state			state;
 	struct s_elem	*next;
