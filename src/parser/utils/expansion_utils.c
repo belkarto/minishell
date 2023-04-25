@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:54:21 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/25 12:44:26 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/25 15:04:58 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ int	expand(t_elem **tokens, t_token redir_type)
 		return (1);
 	}
 	(*tokens)->content = ft_strdup(env->content);
+	if (!(*tokens)->content[0])
+		return (1);
 	if ((*tokens)->state == GENERAL && ft_strrchr((*tokens)->content, ' '))
-		return(re_tokenize(tokens));
+		return (re_tokenize(tokens));
 	(*tokens)->type = WORD;
 	return (0);
 }

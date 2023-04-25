@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 00:08:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/24 17:04:56 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/25 14:51:02 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,41 +82,6 @@ void	printf_cmd_tab(t_cmd_tab *cmd_tab)
 			printf("%s\n\n", cmd_tab[i].cmd[j]);
 		printf("\n");
 		j = 0;
-		i++;
-	}
-}
-
-void	printf_redir(t_cmd_tab *cmd_tab)
-{
-	int	i;
-
-	i = 0;
-	while (i < cmd_tab->len)
-	{
-		while (cmd_tab[i].redir)
-		{
-			ft_printf("file_name: %s\n", cmd_tab[i].redir->file_name);
-			if (cmd_tab[i].redir->redir_type == LESS)
-				ft_printf("redir: '<'");
-			if (cmd_tab[i].redir->redir_type == GREAT)
-				ft_printf("redir: '>'");
-			if (cmd_tab[i].redir->redir_type == HEREDOC)
-				ft_printf("redir: '<<'");
-			if (cmd_tab[i].redir->redir_type == REDIR_OUT)
-				ft_printf("redir: '>>'");
-			if (cmd_tab[i].redir->redir_type == HEREDOC)
-			{
-				if (cmd_tab[i].redir->in_quote == 1)
-					ft_printf("in_quote: 1");
-				if (cmd_tab[i].redir->in_quote == 0)
-					ft_printf("in_quote: 0");
-			}
-			if (!cmd_tab[i].redir->next)
-				ft_printf("\n");
-			cmd_tab[i].redir = cmd_tab[i].redir->next;
-		}
-		if (i < cmd_tab->len)
-			ft_printf("\n");
 		i++;
 	}
 }

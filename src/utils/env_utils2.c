@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 05:55:35 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/25 13:34:17 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/25 14:53:19 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,44 +65,4 @@ void	add_new_var(char *name, char *content)
 	free(content);
 	env_add_back(&g_meta.env, new_env(env));
 	free(env);
-}
-
-static int	env_len(void)
-{
-	t_env	*tmp;
-	int		len;
-
-	len = 0;
-	tmp = g_meta.env;
-	while(tmp)
-	{
-		len++;
-		tmp = tmp->next;
-	}
-	return (len);
-}
-
-void	update_env(void)
-{
-	int		len;
-	char	**updated_env;
-	t_env	*tmp;
-	int		i;
-
-	i = 0;
-	len = env_len();
-	updated_env = ft_calloc(len + 1, sizeof(char *));
-	if (!updated_env)
-		return ;
-	free_2d(g_meta.exec_env);
-	tmp = g_meta.env;
-	while(tmp)
-	{
-			updated_env[i] = ft_strdup(tmp->name);
-			updated_env[i] = ft_strjoin_gnl(updated_env[i], "=");
-			updated_env[i] = ft_strjoin_gnl(updated_env[i], tmp->content);
-		i++;
-		tmp = tmp->next;
-	}
-	g_meta.exec_env = updated_env;
 }

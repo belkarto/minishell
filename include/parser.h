@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/25 12:22:40 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/25 14:56:27 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,8 @@ int			is_in_quote(t_elem *tokens);
 t_elem		*inside_quotes(t_cmd_tab *cmd_tab, t_elem *token);
 void		skip_spaces(t_elem **tokens);
 t_elem		*join_none_space(t_elem *tokens);
-
 void		printf_cmd_tab( t_cmd_tab *cmd_tab);
 int			heredoc_content(t_redir *file);
 char		*parse_line(char *line);
 
-
-void		printf_redir(t_cmd_tab *cmd_tab);
 #endif

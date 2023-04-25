@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:00:50 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/25 12:25:48 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/25 14:50:15 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	open_heredoc(t_cmd_tab *cmd_tab)
 	i = -1;
 	while (++i < cmd_tab->len && g_meta.heredoc > 0)
 	{
-		file = cmd_tab->redir;
+		file = cmd_tab[i].redir;
 		while (file)
 		{
 			if (file->redir_type == HEREDOC)
@@ -42,15 +42,18 @@ int	open_heredoc(t_cmd_tab *cmd_tab)
 	return (0);
 }
 
+int	ambiguous_error(void)
+{
+	ft_putstr_fd("ambiguous redirect\n", 2);
+	return (-1);
+}
+
 int	open_out_file(t_redir files)
 {
 	int		out_file;
 
 	if (files.ambiguous == 1)
-	{
-		ft_putstr_fd("ambiguous redirect\n", 2);
-		return (-1);
-	}
+		return (ambiguous_error());
 	out_file = -1;
 	if (files.redir_type == GREAT)
 		out_file = open(files.file_name, O_WRONLY | O_TRUNC | O_CREAT, 0644);
@@ -75,11 +78,7 @@ int	open_in_file(t_redir files)
 	int	fd_pipe[2];
 
 	if (files.ambiguous == 1)
-	{
-		ft_putstr_fd("ambiguous redirect\n", 2);
-		return (-1);
-	}
-	in_file = -1;
+		return (ambiguous_error());
 	if (files.redir_type == LESS)
 		in_file = open(files.file_name, O_RDONLY);
 	else
