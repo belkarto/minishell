@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:18:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/24 16:49:50 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/25 12:24:25 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ static t_elem	*iterate_files(t_elem *tokens, t_cmd_tab *cmd_tab,
 	tokens = get_file(tab, tokens, redir_type);
 	if (tokens)
 	{
+		file_add_back(&cmd_tab->redir,
+			file_new(tokens->content, redir_type, quote));
 		if (tokens->is_ambiguous)
-			file_add_back(&cmd_tab->redir,
-				file_new(NULL, redir_type, quote));
+			cmd_tab->redir->ambiguous = 1;
 		else
-			file_add_back(&cmd_tab->redir,
-				file_new(tokens->content, redir_type, quote));
+			cmd_tab->redir->ambiguous = 0;
 	}
 	tokens = delete_file(tokens);
 	return (tokens);

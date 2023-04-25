@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:00:50 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/24 13:46:46 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/25 12:25:48 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	open_out_file(t_redir files)
 {
 	int		out_file;
 
-	if (ft_strlen(files.file_name) == 0)
+	if (files.ambiguous == 1)
 	{
 		ft_putstr_fd("ambiguous redirect\n", 2);
 		return (-1);
@@ -74,7 +74,7 @@ int	open_in_file(t_redir files)
 	int	in_file;
 	int	fd_pipe[2];
 
-	if (ft_strlen(files.file_name) == 0)
+	if (files.ambiguous == 1)
 	{
 		ft_putstr_fd("ambiguous redirect\n", 2);
 		return (-1);

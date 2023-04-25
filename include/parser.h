@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:58:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/04/24 17:05:04 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/04/25 12:22:40 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_redir
 	char			*file_name;
 	t_token			redir_type;
 	bool			in_quote;
+	bool			ambiguous;
 	struct s_redir	*next;
 }	t_redir;
 
