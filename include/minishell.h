@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:34:54 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/24 11:37:21 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/26 14:02:25 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_data
 	char	**exec_env;
 	int		fd_stdin;
 	int		fd_stdout;
+	int		fd_history;
 }	t_data;
 
 extern t_data	g_meta;

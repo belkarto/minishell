@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:57:27 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/21 20:49:56 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/26 13:46:12 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -59,10 +59,9 @@ void	ft_cd(t_cmd_tab cmd, bool in_child)
 	char	*dir;
 	char	*pwd;
 
+	g_meta.exit_status = 0;
 	if (cmd.cmd[1] == NULL)
-	{
 		dir = get_home();
-	}
 	else
 		dir = ft_strdup(cmd.cmd[1]);
 	pwd = getcwd(NULL, 0);

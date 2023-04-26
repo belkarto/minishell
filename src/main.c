@@ -6,16 +6,40 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/25 13:39:21 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/26 14:33:59 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <readline/history.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/fcntl.h>
 #include <unistd.h>
 
 t_data	g_meta;
+
+void	get_old_history(void)
+{
+	char	*line;
+	char	*tmp;
+
+	g_meta.fd_history = open("./.minishell_history", O_RDONLY);
+	if (g_meta.fd_history == -1)
+		return ;
+	else
+	{
+		line = get_next_line(g_meta.fd_history);
+		while (line)
+		{
+			tmp = ft_strtrim(line, "\n");
+			add_history(tmp);
+			free(tmp);
+			free(line);
+			line = get_next_line(g_meta.fd_history);
+		}
+	}
+}
 
 void	init_program(int ac, char **av, char **env)
 {
@@ -31,6 +55,7 @@ void	init_program(int ac, char **av, char **env)
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	g_meta.fd_stdin = dup(STDIN_FILENO);
 	g_meta.fd_stdout = dup(STDOUT_FILENO);
+	get_old_history();
 	printf("\n\t	-USE AT YOUR OWN RISK-	\n\n");
 }
 
@@ -54,7 +79,11 @@ static int	ft_add_history(char *str)
 		exit(0);
 	if (str && ft_strlen(str) && ft_str_space(str))
 	{
+		g_meta.fd_history = open("./.minishell_history", O_RDWR | O_CREAT | O_APPEND, 0644);
+		if (g_meta.fd_history != -1)
+			ft_putendl_fd(str, g_meta.fd_history);
 		add_history(str);
+		close(g_meta.fd_history);
 		return (0);
 	}
 	else
@@ -81,6 +110,22 @@ void	ft_wait_pid(pid_t *pid, int len)
 	}
 }
 
+char	*ft_readline(void)
+{
+	char	*line;
+
+	if (g_meta.exit_status == 0)
+	{
+		line = readline("\033[0;1;3;32m [✓] MINISHELL $> \033[0;37m");
+	}
+	else
+	{
+		printf("\033[0;1;3;31m %d ", g_meta.exit_status);
+		line = readline("\033[0;1;3;31m [x] MINISHELL $> \033[0;37m");
+	}
+	return (line);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char		*readed;
@@ -91,7 +136,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		signals();
-		readed = readline("\033[0;1;3;32m MINISHELL $> \033[0;37m");
+		readed = ft_readline();
 		if (ft_add_history(readed) == 1)
 			continue ;
 		signal(SIGINT, SIG_IGN);
