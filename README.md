@@ -1,1 +1,1 @@
-# mini
+# Minishell
