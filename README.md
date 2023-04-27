@@ -47,7 +47,7 @@
     The terminal continued to improve and eventually led to the creation of the Bash shell. Bash is now one of the most widely used shells on Unix-based operating systems and is the default shell on most Linux distributions. <br><br>
     <b>
     So how can we create a small version of if using C programming language ?
-    <a href="https://www.youtube.com/watch?v=-u9F4O730RE">More</a> </span> </font>
+    </span> </font>
 </div>
 </details>
 <br>
