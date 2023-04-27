@@ -1,10 +1,3 @@
-<style>
-.bullet {
-    color: #34495E;
-    font-family: Courier New;
-}
-</style>
-
 # <span style="color: #596666;">**Minishell**</span> <img src="Resources/IMG/bash_icon.png" style="height: 27px; width:32px;"/>
 
 ## <span style="color: Grey;">*Description*</span>
@@ -24,12 +17,12 @@
 
 <i>
 <ul>
-    <li class="bullet"> <a href="#history"> History</li> </a>
-    <li class="bullet"> <a href="#installation"> Installation</li> </a>
-    <li class="bullet"> <a href="#features"> Features</li> </a>
-    <li class="bullet"> <a href="#lexer && parsing"> Lexer && Parsing</li> </a>
-    <li class="bullet"> <a href="#execution"> Execution</li> </a>
-    <li class="bullet"> <a href="#resources"> Resources</li> </a>
+    <li> <a href="#history"> History</li> </a>
+    <li> <a href="#installation"> Installation</li> </a>
+    <li> <a href="#features"> Features</li> </a>
+    <li> <a href="#lexer && parsing"> Lexer && Parsing</li> </a>
+    <li> <a href="#execution"> Execution</li> </a>
+    <li> <a href="#resources"> Resources</li> </a>
 </ul>
 </i>
 
@@ -73,18 +66,12 @@
 <br> 
 
 ## <span style="color: Grey;" id="features">*Features*</span>
-<style>
-input[type="checkbox"] + label {
-    color: #515A5A;
-    font-family: Times New Roman;
-}
-</style>
 
-- [x] <label> Command Parsing </label>
-- [x] <label> Command Search && Execution </label>
-- [x] <label> Input/Output Redirection </label>
-- [x] <label> Pipe Execution </label>
-- [x] <label> Variable Expansion </label>
+- [x] Command Parsing
+- [x] Command Search && Execution
+- [x] Input/Output Redirection
+- [x] Pipe Execution
+- [x] Variable Expansion
 
 
 ## <span style="color: Grey;" id="lexer && parsing">*Lexer && Parsing*</span>
@@ -160,4 +147,3 @@ input[type="checkbox"] + label {
 </details>
 
 ## <span style="color: Grey;" id="execution">*Execution*</span>
->>>>>>> Stashed changes
