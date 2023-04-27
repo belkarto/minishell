@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/26 14:33:59 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:35:43 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/fcntl.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 t_data	g_meta;
@@ -96,8 +97,10 @@ static int	ft_add_history(char *str)
 void	ft_wait_pid(pid_t *pid, int len)
 {
 	int	i;
+	int	exit;
 
 	i = -1;
+	exit = 0;
 	if (!pid)
 		return ;
 	while (++i < len)
@@ -105,7 +108,10 @@ void	ft_wait_pid(pid_t *pid, int len)
 		if (pid[i] != -1)
 		{
 			waitpid(pid[i], &g_meta.exit_status, 0);
-			g_meta.exit_status = WEXITSTATUS(g_meta.exit_status);
+			if (0 !=  WIFSIGNALED(g_meta.exit_status))
+				g_meta.exit_status = 128 + WTERMSIG(g_meta.exit_status);
+			else
+				g_meta.exit_status = WEXITSTATUS(g_meta.exit_status);
 		}
 	}
 }

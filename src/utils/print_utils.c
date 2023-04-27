@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 00:08:36 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/25 14:51:02 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:04:32 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_print_type(int type)
 	else if (type == HEREDOC)
 		printf("HERDOC\t\t");
 	else if (type == REDIR_OUT)
-		printf("REDIR_OUT\t\t");
+		printf("APPAND\t\t");
 	else if (type == GREAT)
 		printf("GREAT\t\t");
 	else if (type == ENV)
@@ -68,20 +68,27 @@ void	printf_cmd_tab(t_cmd_tab *cmd_tab)
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
-	while (i < cmd_tab->len)
+	i = -1;
+	while (++i < cmd_tab->len)
 	{
-		printf("env: %s\ncmd: ", cmd_tab[i].env);
-		while (cmd_tab[i].cmd[j])
+		j = -1;
+		printf("cmd_and_args:\t");
+		while (cmd_tab[i].cmd[++j])
 		{
-			printf("%s|", cmd_tab[i].cmd[j]);
-			j++;
+			printf("%s\t", cmd_tab[i].cmd[j]);
 		}
-		if (!cmd_tab[i].cmd[j])
-			printf("%s\n\n", cmd_tab[i].cmd[j]);
-		printf("\n");
-		j = 0;
-		i++;
+		printf("redirictions  ");
+		while (cmd_tab[i].redir)
+		{
+			printf("file_name : %s", cmd_tab[i].redir->file_name);
+			if (cmd_tab[i].redir->redir_type == HEREDOC)
+				printf("rediriction_type : <<\n");
+			else if (cmd_tab[i].redir->redir_type == REDIR_OUT)
+				printf("rediriction_type : >>\n");
+			else
+				printf("rediriction_type : %c\n", cmd_tab[i].redir->redir_type);
+			cmd_tab[i].redir = cmd_tab[i].redir->next;
+		}
+		printf("\n--------------------------------------------------------------------------------------\n");
 	}
 }
