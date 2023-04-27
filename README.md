@@ -147,3 +147,34 @@
 </details>
 
 ## <span style="color: Grey;" id="execution">*Execution*</span>
+
+<details>
+    <summary style="list-style-type: '>';color: #EFDFF1">
+    <i>
+        Simple command execution steps example:
+    </i>
+    </summary>
+    <center>
+    <br>
+ 
+	                  
+```
+	    						   +------------+	
+							|--| Open all   |----|
+	                                    		|  | heredocs   |    |
+							|  +------------+    |
++-------------------+     +--------------------------+	|		     |     +-------------------------+   +---------------------+  
+|    Take cmd_tab   |-----|  Check for redirections  |--|		     |-----| Change stdin and stdout |---| Execute the command |
++---------+---------+     +------------+-------------+	|		     |     +-------------------------+   +---------------------+
+	    						|  +------------+    |
+	    						|--|open other 	|----|
+	    						   |redirictions|
+							   +------------+
+								
+
+
+```
+	    
+	    
+	
+</details>
