@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 14:33:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/26 19:35:43 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/27 09:56:37 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	init_program(int ac, char **av, char **env)
 	g_meta.fd_stdin = dup(STDIN_FILENO);
 	g_meta.fd_stdout = dup(STDOUT_FILENO);
 	get_old_history();
-	printf("\n\t	-USE AT YOUR OWN RISK-	\n\n");
+	if (env[0] == NULL)
+		printf("\n\t	-USE AT YOUR OWN RISK-	\n\n");
 }
 
 static int	ft_str_space(char *str)

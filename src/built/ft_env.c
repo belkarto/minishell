@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 05:59:10 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/18 05:35:08 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/27 09:58:48 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_env(t_cmd_tab cmd, bool in_child)
 	t_env	*tmp;
 
 	(void)cmd;
+	g_meta.exit_status = 0;
 	tmp = g_meta.env;
 	while (tmp)
 	{
