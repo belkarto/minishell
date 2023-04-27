@@ -1,6 +1,3 @@
-# <span style="color: #596666;">**Minishell**</span> <img src="Resources/IMG/bash_icon.png" style="height: 27px; width:32px;"/>
-
-## <span style="color: Grey;">*Description*</span>
 <p align="center">
 	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/belkarto/minishell?color=lightblue" />
 	<img alt="Number of lines of code" src="https://img.shields.io/tokei/lines/github/belkarto/minishell?color=critical" />
@@ -9,11 +6,17 @@
 	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/belkarto/minishell?color=green" />
 </p>
 
-<center> <font face="Courier New" size="2"> This project is a simple shell written in C that provides a basic command-line interface. <br> <br> </font>
+# <span style="color: #596666;">**Minishell**</span> <img src="Resources/IMG/bash_icon.png" style="height: 27px; width:32px;"/>
+
+## <span style="color: Grey;">*Description*</span>
+
+<div align="center"><align="center" /> 
+	
+<b>This project is a simple shell written in C that provides a basic command-line interface. <br> <br></b>
 
 <img src="Resources/GIF/Make.gif" style="height: 275px; width:450px;background-color: #17202A;">
 
-</center>
+</div>
 
 <i>
 <ul>
@@ -28,10 +31,10 @@
 
 ## <span style="color: Grey;" id="history">*History*</span>
 
-<div style="float: right; margin-left: 30px;">
+<div align="center"><align="center" />
     <img src="Resources/IMG/terminal.png" style="height: 190px; width:250px;background-color: #17202A;">
 </div>
-<div style="border: #626567; background-color: #17202A; padding: 10px;">
+<div align="center"><align="center" />
     <font face="Times New Roman" size="3"> <span style="color: #85929E ;"> In its earliest form, a terminal was a small machine consisting of a monitor and a keyboard that allowed people to communicate with a larger computer system. <br>
     The terminal continued to improve and eventually led to the creation of the Bash shell. Bash is now one of the most widely used shells on Unix-based operating systems and is the default shell on most Linux distributions. <br><br>
     <b>
@@ -49,8 +52,9 @@
  git clone https://github.com/belkarto/minishell.git
  ```
 <p style="font-family: Times New Roman ;color: #807070">2 - Add readline path to Makefile:</p>
-
-<img src="Resources/IMG/readline_path.png" style="height: 120px; width:700px;background-color: #17202A;">
+<div align="center"><align="center" /> 
+	<img src="Resources/IMG/readline_path.png" style="height: 120px; width:700px;background-color: #17202A;">
+</div>
 
 
  <b><i><p style="color: #DBDBFF" >&nbsp;&nbsp;&nbsp;NOTE :</p></b></i>
@@ -76,17 +80,16 @@
 
 ## <span style="color: Grey;" id="lexer && parsing">*Lexer && Parsing*</span>
 
-### <span style="color: #5A7777;">**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lexer**</span>
+### <span style="color: #5A7777;">**--> Lexer**</span>
 
 <div style="border: #626567; background-color: #17202A; padding: 10px;">
-    <font face="Trebuchet MS" size="3"> <span style="color: #85929E ;">
     The lexer takes the command line and parses it into tokens. Therefore, there are two types of tokens: <br>
-    &nbsp;&nbsp;&nbsp;&nbsp;- Word <br>
-    &nbsp;&nbsp;&nbsp;&nbsp;- Special characters (“, ‘, <, >, <<, >>, $, |, spc) </span> </font>
+  	- Word <br>
+    	- Special characters (“, ‘, <, >, <<, >>, $, |, spc) </span>
 </div>
 
 <br>
-&nbsp;<details>
+<details>
 <summary style="list-style-type: '>';color: #EFDFF1">
     <i>
      Click for Example :
@@ -110,7 +113,7 @@
     </center>
 </details>
 
-### <span style="color: #5A7777;">**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parser**</span>
+### <span style="color: #5A7777;">**--> Parser**</span>
 
 <div style="border: #626567; background-color: #17202A; padding: 10px;">
     <font face="Trebuchet MS" size="3"> <span style="color: #85929E ;">
