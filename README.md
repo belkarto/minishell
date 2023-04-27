@@ -8,7 +8,7 @@
 
 # <span style="color: #596666;">**Minishell**</span> <img src="Resources/IMG/bash_icon.png" style="height: 27px; width:32px;"/>
 
-## <span style="color: Grey;">*Description*</span>
+## *Description*
 
 <div align="center"><align="center" /> 
 	
@@ -29,10 +29,18 @@
 </ul>
 </i>
 
-## <span style="color: Grey;" id="history">*History*</span>
+	
+	
 
+  ## <span id="history">*History*</span>
+<details>
+<summary style="list-style-type: '>';color: #EFDFF1">
+	<i>
+		story behind shell
+	</i>
+</summary>
 <div align="center"><align="center" />
-    <img src="Resources/IMG/terminal.png" style="height: 190px; width:250px;background-color: #17202A;">
+    <img src="https://images.newscientist.com/wp-content/uploads/2016/02/emipit65.jpg?width=900">
 </div>
 <div align="center"><align="center" />
     <font face="Times New Roman" size="3"> <span style="color: #85929E ;"> In its earliest form, a terminal was a small machine consisting of a monitor and a keyboard that allowed people to communicate with a larger computer system. <br>
@@ -41,7 +49,7 @@
     So how can we create a small version of if using C programming language ?
     <a href="https://www.youtube.com/watch?v=-u9F4O730RE">More</a> </span> </font>
 </div>
-
+</details>
 <br>
 
 ## <span style="color: Grey;" id="installation">*Installation*</span>
