@@ -29,6 +29,7 @@
 
 typedef struct s_data
 {
+    int     fd_history;
 	int		exit_status;
 	t_env	*env;
 	int		heredoc;

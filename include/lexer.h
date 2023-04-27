@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:07:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/04/25 13:11:41 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:05:27 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
  * enum used to know type of token neather word or special charachter
  * space or pipe....
- */
+*/
 
 typedef enum e_token
 {

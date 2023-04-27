@@ -74,3 +74,4 @@ tags
 *.o
 *.a
 minishell
+.minishell_history
