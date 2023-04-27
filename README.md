@@ -189,3 +189,19 @@
 	    
 	
 </details>
+
+### Command search
+
+Before executing a command we need to look it up first we first check it if its executable by using access() in case of error we search the command  in the directories specified in the system's PATH environment variable. If the command is found, the program moves on to the next step. If it's not found, 
+you'll get a "command not found" error<br>
+
+### Command execute 
+
+After finding the command path, the program executes it, launching a new process to run the command.
+	
+### communication between command "|"
+
+You can use the "|" character to pipe the output of one command into the input of another command. This allows you to chain multiple commands together to perform more complex tasks.
+</br>
+</br>
+These are the basic steps involved in executing a command in Minishell.
